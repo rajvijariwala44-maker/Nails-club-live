@@ -208,14 +208,10 @@ img {
   left: 120%;
 }
 
-/* 11. Zoom-only animation for about image — no rotation */
-@keyframes zoomBreath {
-  0%,100% { transform: scale(1); }
-  50%      { transform: scale(1.04); }
-}
+/* 11. No idle animation — static until hovered */
 .float-3d {
-  animation: zoomBreath 5s ease-in-out infinite;
-  transform-style: flat;
+  animation: none;
+  transform-style: preserve-3d;
 }
 
 /* 12. Depth shadow — makes images look raised off the page */
