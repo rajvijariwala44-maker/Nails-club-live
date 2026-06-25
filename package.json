@@ -1,0 +1,12 @@
+{
+  "name": "aura-nail-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AURA premium nail studio website with online booking, custom orders, and an admin CMS.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

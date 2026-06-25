@@ -1,0 +1,89 @@
+/* ============================================
+   AURA Nail Studio — Global Styles
+   ============================================ */
+
+:root {
+    --cursor-size: 20px;
+    --color-maroon: #6D1B2D;
+    --color-beige: #F5F0EC;
+    --color-dark: #111111;
+}
+
+/* Base */
+body {
+    background-color: #FFFFFF;
+    color: #111111;
+    overflow-x: hidden;
+    cursor: none;
+}
+
+/* ── Custom Cursor ── */
+#custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    border: 1.5px solid var(--color-maroon);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+    mix-blend-mode: difference;
+}
+#custom-cursor.hover {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(109, 27, 45, 0.1);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-beige); }
+::-webkit-scrollbar-thumb { background: var(--color-maroon); border-radius: 10px; }
+
+/* ── Lenis Smooth Scroll ── */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ── Masonry Grid ── */
+.masonry-grid { column-count: 1; column-gap: 1.5rem; }
+@media (min-width: 640px)  { .masonry-grid { column-count: 2; } }
+@media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+.masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
+
+/* ── Page View Routing ── */
+.page-view { display: none; opacity: 0; }
+.page-view.active {
+    display: block;
+    animation: fadeIn 0.5s ease forwards;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Magnetic Buttons ── */
+.magnetic-wrap { display: inline-block; }
+
+/* ── Modal ── */
+#custom-modal { backdrop-filter: blur(5px); transition: opacity 0.3s ease; }
+#custom-modal.opacity-100 { opacity: 1; }
+#modal-content { max-height: 90vh; overflow-y: auto; transition: transform 0.3s ease; }
+
+/* ── Glass Navbar ── */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(109, 27, 45, 0.1);
+}
+
+/* ── Parallax ── */
+.parallax-img { will-change: transform; }
+
+/* ── Admin scrollbar hide ── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

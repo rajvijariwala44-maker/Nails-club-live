@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURA | Premium Nail Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{maroon:{DEFAULT:'#6D1B2D',light:'#8a2b42',dark:'#4f1120'},beige:'#F5F0EC',dark:'#111111'},fontFamily:{sans:['Inter','sans-serif'],serif:['Playfair Display','serif']}}}}
+</script>
+<style>
+:root{--maroon:#6D1B2D;--beige:#F5F0EC}
+*{box-sizing:border-box}
+body{background:#fff;color:#111;overflow-x:hidden;cursor:none}
+#custom-cursor{position:fixed;top:0;left:0;width:20px;height:20px;border:1.5px solid var(--maroon);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background-color .3s;mix-blend-mode:difference}
+#custom-cursor.hovered{width:50px;height:50px;background:rgba(109,27,45,.1)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--beige)}
+::-webkit-scrollbar-thumb{background:var(--maroon);border-radius:10px}
+.glass-nav{background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(109,27,45,.1)}
+.page-view{display:none!important}
+.page-view.active{display:block!important;animation:fadeIn .45s ease forwards}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.masonry-grid{columns:1;column-gap:1.2rem}
+@media(min-width:640px){.masonry-grid{columns:2}}
+@media(min-width:1024px){.masonry-grid{columns:3}}
+.masonry-item{break-inside:avoid;margin-bottom:1.2rem;display:block}
+.magnetic-wrap{display:inline-block}
+#custom-modal{backdrop-filter:blur(6px);transition:opacity .3s}
+#modal-content{max-height:90vh;overflow-y:auto;transition:transform .3s}
+.admin-pane{display:none}
+.admin-pane.active-pane{display:block}
+.scrollbar-hide::-webkit-scrollbar{display:none}
+.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+input:focus,select:focus,textarea:focus{border-color:var(--maroon)!important;outline:none;box-shadow:0 0 0 3px rgba(109,27,45,.1)}
+.service-card{transition:transform .3s,box-shadow .3s}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(109,27,45,.15)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+/* Dark input focus for admin login */
+#view-admin-login input:focus{border-color:rgba(109,27,45,.6)!important;box-shadow:0 0 0 3px rgba(109,27,45,.15)!important;outline:none}
+/* Smooth transition for page views — handled above */
+</style>
+</head>
+<body class="antialiased font-sans">
+
+<div id="custom-cursor"></div>
+
+<!-- ═══════════ MODAL ═══════════ -->
+<div id="custom-modal" class="fixed inset-0 z-[200] flex items-center justify-center hidden" style="background:rgba(0,0,0,.45)">
+  <div id="modal-content" class="relative bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl transform scale-95">
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-maroon text-2xl leading-none">&times;</button>
+    <h3 id="modal-title" class="font-serif text-2xl text-maroon mb-3">Message</h3>
+    <div id="modal-body" class="text-gray-600 mb-6 font-light"></div>
+    <button id="modal-default-btn" onclick="closeModal()" class="w-full bg-maroon text-white py-3 rounded-full hover:bg-maroon-dark transition-colors font-medium">Got it</button>
+  </div>
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="navbar" class="fixed w-full z-50 glass-nav transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="#home" class="font-serif text-2xl font-bold text-maroon tracking-wider flex items-center gap-2">
+      <i class="ph ph-sparkle"></i> AURA
+    </a>
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="#home"         class="text-xs uppercase tracking-widest hover:text-maroon transition-colors font-medium">Home</a>
+      <a href="#services"     class="text-xs uppercase tracking-widest hover:text-maroon transition-colors font-medium">Services</a>
+      <a href="#catalog"      class="text-xs uppercase tracking-widest hover:text-maroon transition-colors font-medium">Catalog</a>
+      <a href="#custom-order" class="text-xs uppercase tracking-widest text-maroon font-semibold flex items-center gap-1"><i class="ph ph-sparkle"></i> Custom Order</a>
+      <a href="#contact"      class="text-xs uppercase tracking-widest hover:text-maroon transition-colors font-medium">Contact</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="#user-login" id="nav-user-btn" class="hidden md:flex items-center gap-2 text-xs font-medium text-dark border border-gray-200 px-4 py-2 rounded-full hover:border-maroon hover:text-maroon transition-all">
+        <i class="ph ph-user-circle text-base"></i> Sign In
+      </a>
+      <a href="#booking" class="hidden md:flex bg-maroon text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-maroon-dark transition-all items-center gap-2 shadow-md hover:shadow-maroon/30">
+        Book Now <i class="ph ph-calendar-check"></i>
+      </a>
+      <button id="mobile-menu-btn" class="md:hidden text-2xl text-maroon"><i class="ph ph-list"></i></button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-beige absolute w-full py-4 px-6 flex flex-col space-y-4 shadow-xl">
+    <a href="#home"         class="mobile-link text-lg hover:text-maroon">Home</a>
+    <a href="#services"     class="mobile-link text-lg hover:text-maroon">Services</a>
+    <a href="#catalog"      class="mobile-link text-lg hover:text-maroon">Catalog</a>
+    <a href="#custom-order" class="mobile-link text-lg text-maroon font-medium">Custom Press-Ons</a>
+    <a href="#booking"      class="mobile-link text-lg text-maroon font-medium">Book Appointment</a>
+    <a href="#contact"      class="mobile-link text-lg hover:text-maroon">Contact</a>
+    <div class="border-t border-gray-100 pt-4 flex gap-3">
+      <a href="#user-login" class="mobile-link flex-1 text-center text-sm font-medium text-maroon border border-maroon rounded-full py-2.5 hover:bg-maroon hover:text-white transition-all">Sign In</a>
+      <a href="#user-register" class="mobile-link flex-1 text-center text-sm font-medium text-white rounded-full py-2.5 transition-all" style="background:#6D1B2D">Join Free</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-[72px]">
+
+<!-- ═══════════════════════════════════════════
+     VIEW: HOME
+═══════════════════════════════════════════ -->
+<div id="view-home" class="page-view active">
+
+  <!-- HERO -->
+  <section class="relative h-[90vh] w-full overflow-hidden flex items-center justify-center" style="background:#F5F0EC">
+    <img id="hero-bg-img"
+      src="bridal.jpg"
+      alt="Luxury nail art close-up"
+      class="absolute inset-0 w-full h-full object-cover"
+      style="opacity:.55">
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(17,17,17,.35),rgba(17,17,17,.05))"></div>
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
+      <span class="text-maroon font-semibold tracking-[.25em] uppercase mb-5 block bg-white/85 px-5 py-1.5 rounded-full text-xs shadow-sm backdrop-blur-sm">✦ Premium Nail Studio</span>
+      <h1 id="hero-main-text" class="font-serif text-6xl md:text-8xl text-white mb-6 leading-tight drop-shadow-lg"></h1>
+      <p id="hero-desc-text" class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl font-light drop-shadow"></p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#booking" class="bg-maroon text-white px-9 py-4 rounded-full text-base font-semibold hover:bg-maroon-dark transition-all shadow-2xl hover:shadow-maroon/40 hover:-translate-y-0.5">Book Appointment</a>
+        <a href="#catalog" class="bg-white/95 text-dark px-9 py-4 rounded-full text-base font-semibold hover:bg-beige transition-all shadow-lg hover:-translate-y-0.5">View Catalog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="py-28 bg-white" id="about">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-20 items-center">
+        <div class="relative">
+          <div class="absolute -inset-5 rounded-2xl -rotate-2 z-0" style="background:#F5F0EC"></div>
+          <img src="bridal1.jpg"
+               alt="Nail art detail" class="relative z-10 w-full h-[480px] object-cover rounded-2xl shadow-2xl">
+          <!-- floating badge -->
+          <div class="absolute -bottom-6 -right-4 z-20 bg-maroon text-white px-6 py-4 rounded-2xl shadow-xl text-center">
+            <p class="font-serif text-3xl font-bold">4.9★</p>
+            <p class="text-xs text-white/80 mt-1">2,000+ Happy Clients</p>
+          </div>
+        </div>
+        <div>
+          <span class="text-maroon uppercase tracking-widest text-xs font-semibold">About AURA</span>
+          <h2 class="font-serif text-4xl md:text-5xl text-dark mt-3 mb-6">Where Art<br>Meets <span class="text-maroon italic">Luxury</span></h2>
+          <p class="text-gray-600 mb-6 font-light leading-relaxed text-lg">Founded with a vision to redefine the modern beauty experience, AURA is more than a salon — it's a sanctuary. We blend meticulous technique with premium, non-toxic products to deliver flawless, lasting results.</p>
+          <p class="text-gray-500 mb-10 font-light leading-relaxed">Every set is a work of art. From minimal nude tones to elaborate 3D sculpted designs, we craft nails that tell your story.</p>
+          <div class="grid grid-cols-4 gap-4 pt-8 border-t border-beige">
+            <div class="text-center"><p class="font-serif text-4xl text-maroon font-bold">5+</p><p class="text-xs text-gray-500 mt-1">Years</p></div>
+            <div class="text-center"><p class="font-serif text-4xl text-maroon font-bold">2k+</p><p class="text-xs text-gray-500 mt-1">Clients</p></div>
+            <div class="text-center"><p class="font-serif text-4xl text-maroon font-bold">500+</p><p class="text-xs text-gray-500 mt-1">Designs</p></div>
+            <div class="text-center"><p class="font-serif text-4xl text-maroon font-bold">4.9</p><p class="text-xs text-gray-500 mt-1">Rating</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="py-28" style="background:#F5F0EC" id="services">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex justify-between items-end mb-14">
+        <div>
+          <span class="text-maroon uppercase tracking-widest text-xs font-semibold">Our Menu</span>
+          <h2 class="font-serif text-4xl md:text-5xl mt-2">Signature Services</h2>
+        </div>
+        <a href="#services-full" class="hidden md:flex items-center gap-2 text-maroon font-medium hover:gap-3 transition-all text-sm">View All <i class="ph ph-arrow-right"></i></a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="home-services-grid"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY STRIP -->
+  <section class="py-6 bg-white overflow-hidden">
+    <div class="flex gap-4 animate-none" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">
+      <img src="floral1.jpg"  class="w-full h-36 object-cover rounded-xl" alt="Floral nails">
+      <img src="bridal.jpg"   class="w-full h-36 object-cover rounded-xl" alt="Bridal nails">
+      <img src="menicure.jpg" class="w-full h-36 object-cover rounded-xl" alt="Gel manicure">
+      <img src="Chrome1.jpeg" class="w-full h-36 object-cover rounded-xl" alt="Chrome nails">
+      <img src="presson nails.jpg" class="w-full h-36 object-cover rounded-xl" alt="Press-on nails">
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="py-28 relative overflow-hidden" style="background:#6D1B2D">
+    <div class="absolute inset-0 opacity-10" style="background:url('bridal.jpg') center/cover no-repeat"></div>
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
+      <div>
+        <span class="uppercase tracking-widest text-xs font-semibold text-white/60 mb-3 block">Global Shipping Available</span>
+        <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Order From<br><span class="italic text-beige">Anywhere</span></h2>
+        <p class="font-light text-white/75 mb-8 text-lg leading-relaxed">Experience AURA luxury without leaving your home. Shop our exclusive collection of handcrafted, reusable press-on nails or request a bespoke custom set.</p>
+        <a href="#custom-order" class="inline-flex items-center gap-2 bg-white text-maroon px-8 py-4 rounded-full font-semibold hover:bg-beige transition-colors shadow-xl">
+          Order Custom Set <i class="ph ph-arrow-right"></i>
+        </a>
+      </div>
+      <div class="relative">
+        <div class="absolute -inset-4 border border-white/20 rounded-2xl rotate-2"></div>
+        <img src="bridal.jpg"
+             alt="Press-on nails" class="relative z-10 w-full h-[420px] object-cover rounded-2xl shadow-2xl">
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 text-center mb-14">
+      <span class="text-maroon uppercase tracking-widest text-xs font-semibold">Kind Words</span>
+      <h2 class="font-serif text-4xl mt-2">What Clients Say</h2>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+      <div class="p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex gap-1 text-maroon mb-4">★★★★★</div>
+        <p class="text-gray-600 font-light leading-relaxed mb-6">"Absolutely stunning work. My wedding nails were exactly what I envisioned. The team at AURA are true artists."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-maroon/10 flex items-center justify-center font-serif text-maroon font-bold">S</div>
+          <div><p class="font-medium text-sm">Sophia R.</p><p class="text-xs text-gray-400">Bridal Client</p></div>
+        </div>
+      </div>
+      <div class="p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex gap-1 text-maroon mb-4">★★★★★</div>
+        <p class="text-gray-600 font-light leading-relaxed mb-6">"The press-ons I ordered online fit perfectly and looked salon-fresh for three whole weeks. Will never go anywhere else!"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-maroon/10 flex items-center justify-center font-serif text-maroon font-bold">P</div>
+          <div><p class="font-medium text-sm">Priya M.</p><p class="text-xs text-gray-400">Online Order</p></div>
+        </div>
+      </div>
+      <div class="p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex gap-1 text-maroon mb-4">★★★★★</div>
+        <p class="text-gray-600 font-light leading-relaxed mb-6">"The gel extensions are flawless. Super thin, natural-feeling, and lasted 5 weeks without a single lift. Obsessed!"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-maroon/10 flex items-center justify-center font-serif text-maroon font-bold">A</div>
+          <div><p class="font-medium text-sm">Aisha K.</p><p class="text-xs text-gray-400">Regular Client</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: CATALOG
+═══════════════════════════════════════════ -->
+<div id="view-catalog" class="page-view hidden">
+  <div class="py-24 text-center text-white relative overflow-hidden" style="background:#6D1B2D">
+    <div class="absolute inset-0 opacity-20" style="background:url('Bridal1.jpeg') center/cover"></div>
+    <div class="relative z-10">
+      <span class="uppercase tracking-widest text-xs font-semibold text-white/60 mb-4 block">Our Work</span>
+      <h1 class="font-serif text-5xl md:text-7xl mb-4">Design Catalog</h1>
+      <p class="text-white/70 font-light max-w-xl mx-auto px-4 text-lg">From bridal elegance to bold chrome statements — every design is handcrafted.</p>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 py-14">
+    <div class="flex flex-wrap gap-3 justify-center mb-14">
+      <button class="filter-btn px-7 py-2.5 rounded-full border-2 border-maroon bg-maroon text-white text-sm font-medium transition-all" data-filter="all">All Designs</button>
+      <button class="filter-btn px-7 py-2.5 rounded-full border-2 border-gray-200 hover:border-maroon hover:text-maroon text-sm font-medium transition-all" data-filter="Bridal">Bridal</button>
+      <button class="filter-btn px-7 py-2.5 rounded-full border-2 border-gray-200 hover:border-maroon hover:text-maroon text-sm font-medium transition-all" data-filter="Minimal">Minimal</button>
+      <button class="filter-btn px-7 py-2.5 rounded-full border-2 border-gray-200 hover:border-maroon hover:text-maroon text-sm font-medium transition-all" data-filter="Chrome">Chrome</button>
+      <button class="filter-btn px-7 py-2.5 rounded-full border-2 border-gray-200 hover:border-maroon hover:text-maroon text-sm font-medium transition-all" data-filter="Floral">Floral</button>
+    </div>
+    <div class="masonry-grid" id="catalog-gallery"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: SERVICES FULL
+═══════════════════════════════════════════ -->
+<div id="view-services-full" class="page-view hidden">
+  <div class="py-24 text-center" style="background:#F5F0EC">
+    <span class="text-maroon uppercase tracking-widest text-xs font-semibold">What We Offer</span>
+    <h1 class="font-serif text-5xl md:text-6xl text-maroon mt-3 mb-4">Our Services</h1>
+    <p class="text-gray-500 font-light max-w-xl mx-auto px-4 text-lg">Premium techniques, non-toxic products, and an obsessive attention to detail.</p>
+  </div>
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-8" id="full-services-list"></div>
+  <div class="py-20 text-center text-white" style="background:#6D1B2D">
+    <h2 class="font-serif text-4xl mb-4">Ready for Your Perfect Set?</h2>
+    <p class="text-white/70 font-light mb-8">Reserve your chair at AURA today.</p>
+    <a href="#booking" class="inline-block bg-white text-maroon px-9 py-4 rounded-full font-semibold hover:bg-beige transition-colors shadow-xl">Book an Appointment</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: CUSTOM ORDER
+═══════════════════════════════════════════ -->
+<div id="view-custom-order" class="page-view hidden">
+  <div class="py-24 text-center" style="background:#F5F0EC">
+    <span class="text-maroon uppercase tracking-widest text-xs font-semibold">Bespoke Nail Sets</span>
+    <h1 class="font-serif text-5xl md:text-6xl text-maroon mt-3 mb-4">Design Your Dream Nails</h1>
+    <p class="text-gray-500 font-light max-w-xl mx-auto px-4 text-lg">Tell us your vision and we'll handcraft a one-of-a-kind set just for you. Ships worldwide.</p>
+  </div>
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <form id="custom-order-form" class="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 space-y-10">
+      <div>
+        <h3 class="font-serif text-2xl text-maroon border-b border-gray-100 pb-3 mb-6">1. Contact Info</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Full Name *</label>
+          <input type="text" id="co-name" placeholder="Your name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">City *</label>
+          <input type="text" id="co-city" placeholder="Your city" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email *</label>
+          <input type="email" id="co-email" placeholder="you@email.com" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Phone *</label>
+          <input type="tel" id="co-phone" placeholder="+1 (555) 000-0000" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-serif text-2xl text-maroon border-b border-gray-100 pb-3 mb-6">2. Nail Specs</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Shape</label>
+          <select id="co-shape" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm">
+            <option>Almond</option><option>Square</option><option>Coffin</option><option>Stiletto</option><option>Round</option>
+          </select></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Length</label>
+          <select id="co-length" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm">
+            <option>Short</option><option>Medium</option><option>Long</option><option>Extra Long</option>
+          </select></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-serif text-2xl text-maroon border-b border-gray-100 pb-3 mb-6">3. Design &amp; Budget</h3>
+        <div class="space-y-6">
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Design Description *</label>
+          <textarea id="co-desc" required rows="4" placeholder="Describe colours, patterns, inspo images, special requests..." class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm resize-none"></textarea></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Budget</label>
+          <select id="co-budget" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm">
+            <option value="₹399 - ₹799">₹399 – ₹799  (Basic)</option>
+            <option value="₹800 - ₹1499">₹800 – ₹1,499  (Standard)</option>
+            <option value="₹1500 - ₹2499">₹1,500 – ₹2,499  (Premium)</option>
+            <option value="₹2500+">₹2,500+  (Luxury / Bridal)</option>
+          </select></div>
+          <!-- Reference image upload -->
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Upload Reference Image (optional)</label>
+          <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center bg-gray-50 cursor-pointer hover:border-maroon transition-colors" onclick="document.getElementById('co-ref-img').click()">
+            <i class="ph ph-image text-4xl text-gray-300 mb-2 block"></i>
+            <p class="text-sm text-gray-400">Click to upload or drag &amp; drop</p>
+            <p class="text-xs text-gray-300 mt-1">JPG, PNG, WEBP — max 5MB</p>
+            <input type="file" id="co-ref-img" accept="image/*" class="hidden" onchange="previewRefImage(event)">
+          </div>
+          <img id="co-ref-preview" src="" alt="" class="hidden mt-3 w-full max-h-48 object-contain rounded-xl border border-gray-100">
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-maroon text-white py-4 rounded-xl text-base font-semibold hover:bg-maroon-dark transition-colors flex items-center justify-center gap-2 shadow-lg">
+        <i class="ph ph-paper-plane-tilt"></i> Submit Custom Order
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: BOOKING
+═══════════════════════════════════════════ -->
+<div id="view-booking" class="page-view hidden">
+  <div class="min-h-screen bg-white flex items-center py-20">
+    <div class="max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-16 items-start">
+      <div class="rounded-3xl p-10 flex flex-col justify-center" style="background:#F5F0EC">
+        <span class="text-maroon uppercase tracking-widest text-xs font-semibold mb-4">Reservation</span>
+        <h2 class="font-serif text-4xl md:text-5xl text-maroon mb-6">Reserve Your Time</h2>
+        <p class="text-gray-600 mb-8 font-light leading-relaxed">Choose your service, date, and time. We'll confirm within 24 hours.</p>
+        <ul class="space-y-4 text-gray-500 text-sm">
+          <li class="flex items-center gap-3"><i class="ph ph-clock text-maroon text-xl"></i>Daily &nbsp;|&nbsp; Open until 10:00 PM</li>
+          <li class="flex items-center gap-3"><i class="ph ph-map-pin text-maroon text-xl"></i>2/472, Opp. Ammar House, Surmawad, Rustampura, Surat – 395002</li>
+          <li class="flex items-center gap-3"><i class="ph ph-phone text-maroon text-xl"></i>+91 99130 91744</li>
+          <li class="flex items-center gap-3"><i class="ph ph-instagram-logo text-maroon text-xl"></i><a href="https://www.instagram.com/theenaiilsclub" target="_blank" rel="noopener" class="hover:text-maroon transition-colors">@theenaiilsclub</a></li>
+        </ul>
+        <img src="bridal.jpg" class="mt-8 w-full h-48 object-cover rounded-2xl shadow-lg" alt="Studio">
+      </div>
+      <div>
+        <h3 class="font-serif text-3xl text-dark mb-8">Book Appointment</h3>
+        <form id="booking-form" class="space-y-5">
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Full Name *</label>
+          <input type="text" id="bf-name" placeholder="Your name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email *</label>
+          <input type="email" id="bf-email" placeholder="you@email.com" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Phone *</label>
+          <input type="tel" id="bf-phone" placeholder="+1 (555) 000-0000" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Service *</label>
+          <select id="bf-service" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></select></div>
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Date *</label>
+            <input type="date" id="bf-date" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm"></div>
+            <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Time *</label>
+            <select id="bf-time" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm">
+              <option value="10:00">10:00 AM</option><option value="11:30">11:30 AM</option>
+              <option value="13:00">1:00 PM</option><option value="14:30">2:30 PM</option>
+              <option value="16:00">4:00 PM</option><option value="17:30">5:30 PM</option>
+            </select></div>
+          </div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Special Requests</label>
+          <textarea id="bf-notes" rows="3" placeholder="Allergies, design ideas, anything we should know..." class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm resize-none"></textarea></div>
+          <button type="submit" class="w-full bg-maroon text-white py-4 rounded-xl text-base font-semibold hover:bg-maroon-dark transition-colors flex items-center justify-center gap-2 shadow-lg">
+            <i class="ph ph-calendar-check"></i> Confirm Booking
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: USER LOGIN
+═══════════════════════════════════════════ -->
+<div id="view-user-login" class="page-view hidden">
+  <div class="min-h-screen flex" style="background:#F5F0EC">
+    <!-- Left panel — image + brand -->
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-end p-14" style="background:#6D1B2D">
+      <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1000&q=85"
+           alt="Luxury nail art" class="absolute inset-0 w-full h-full object-cover opacity-25">
+      <div class="relative z-10">
+        <a href="#home" class="font-serif text-4xl font-bold text-white tracking-wider flex items-center gap-3 mb-8">
+          <i class="ph ph-sparkle"></i> AURA
+        </a>
+        <h2 class="font-serif text-3xl text-white/90 mb-4 leading-tight">Your Beauty,<br>Your Journey.</h2>
+        <p class="text-white/60 font-light leading-relaxed mb-10 max-w-xs">Track your appointments, manage your orders, and discover new looks — all in one place.</p>
+        <div class="flex gap-4">
+          <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/20">
+            <p class="font-serif text-2xl font-bold text-white">500+</p>
+            <p class="text-white/50 text-xs mt-1">Designs</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/20">
+            <p class="font-serif text-2xl font-bold text-white">2k+</p>
+            <p class="text-white/50 text-xs mt-1">Clients</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/20">
+            <p class="font-serif text-2xl font-bold text-white">4.9★</p>
+            <p class="text-white/50 text-xs mt-1">Rating</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right panel — form -->
+    <div class="flex-1 flex items-center justify-center px-6 py-16">
+      <div class="w-full max-w-md">
+        <!-- Mobile brand -->
+        <a href="#home" class="lg:hidden font-serif text-2xl font-bold text-maroon flex items-center gap-2 mb-10 justify-center">
+          <i class="ph ph-sparkle"></i> AURA
+        </a>
+        <div class="mb-8">
+          <h1 class="font-serif text-3xl text-dark mb-2">Welcome Back</h1>
+          <p class="text-gray-500 font-light">Sign in to your AURA account</p>
+        </div>
+        <!-- Social login hints -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+          <button class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-200 bg-white hover:border-maroon hover:shadow-sm transition-all text-sm font-medium text-gray-600">
+            <i class="ph ph-google-logo text-lg"></i> Google
+          </button>
+          <a href="https://www.instagram.com/theenaiilsclub" target="_blank" rel="noopener"
+             class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-200 bg-white hover:border-maroon hover:shadow-sm transition-all text-sm font-medium text-gray-600">
+            <i class="ph ph-instagram-logo text-lg"></i> Instagram
+          </a>
+        </div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="flex-1 h-px bg-gray-200"></div>
+          <span class="text-xs text-gray-400 font-medium">or continue with email</span>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <!-- Demo hint -->
+        <div class="flex items-start gap-2 bg-maroon/5 border border-maroon/15 rounded-xl px-4 py-3 mb-6 text-xs text-maroon">
+          <i class="ph ph-info text-base flex-shrink-0 mt-0.5"></i>
+          <span>Demo: use <strong>user@aura.com</strong> / <strong>user123</strong> to sign in</span>
+        </div>
+        <form id="user-login-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email Address</label>
+            <div class="relative">
+              <i class="ph ph-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <input type="email" id="user-email" placeholder="hello@email.com" required
+                     class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white text-sm font-light">
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Password</label>
+              <a href="#" class="text-xs text-maroon hover:underline">Forgot password?</a>
+            </div>
+            <div class="relative">
+              <i class="ph ph-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <input type="password" id="user-pass" placeholder="••••••••" required
+                     class="w-full pl-11 pr-12 py-3.5 rounded-xl border border-gray-200 bg-white text-sm">
+              <button type="button" onclick="togglePass('user-pass','user-pass-eye')"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-maroon transition-colors">
+                <i id="user-pass-eye" class="ph ph-eye text-lg"></i>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 pt-1">
+            <input type="checkbox" id="user-remember" class="rounded border-gray-300 text-maroon">
+            <label for="user-remember" class="text-sm text-gray-500 font-light">Keep me signed in</label>
+          </div>
+          <button type="submit"
+                  class="w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 shadow-lg hover:shadow-maroon/30 hover:-translate-y-0.5 transition-all"
+                  style="background:#6D1B2D">
+            <i class="ph ph-sign-in"></i> Sign In
+          </button>
+        </form>
+        <p class="text-center text-sm text-gray-500 mt-6">
+          New to AURA?
+          <a href="#user-register" class="text-maroon font-semibold hover:underline ml-1">Create account</a>
+        </p>
+        <div class="flex gap-4 justify-center mt-8">
+          <a href="#home" class="text-xs text-gray-400 hover:text-maroon transition-colors">← Back to website</a>
+          <span class="text-gray-200">|</span>
+          <a href="#admin-login" class="text-xs text-gray-400 hover:text-maroon transition-colors">Admin portal</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: USER REGISTER
+═══════════════════════════════════════════ -->
+<div id="view-user-register" class="page-view hidden">
+  <div class="min-h-screen flex" style="background:#F5F0EC">
+    <!-- Left panel -->
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-end p-14" style="background:#6D1B2D">
+      <img src="https://images.unsplash.com/photo-1590159763121-7c913ad11eb1?auto=format&fit=crop&w=1000&q=85"
+           alt="Nail art" class="absolute inset-0 w-full h-full object-cover opacity-25">
+      <div class="relative z-10">
+        <a href="#home" class="font-serif text-4xl font-bold text-white tracking-wider flex items-center gap-3 mb-8">
+          <i class="ph ph-sparkle"></i> AURA
+        </a>
+        <h2 class="font-serif text-3xl text-white/90 mb-4 leading-tight">Join the<br>AURA Family.</h2>
+        <p class="text-white/60 font-light leading-relaxed mb-10 max-w-xs">Create your account and unlock exclusive offers, early access to new designs, and a personal nail portfolio.</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 text-white/80 text-sm"><i class="ph ph-check-circle text-xl text-white/60"></i>Track all your appointments</div>
+          <div class="flex items-center gap-3 text-white/80 text-sm"><i class="ph ph-check-circle text-xl text-white/60"></i>Save favourite designs</div>
+          <div class="flex items-center gap-3 text-white/80 text-sm"><i class="ph ph-check-circle text-xl text-white/60"></i>Exclusive member offers</div>
+          <div class="flex items-center gap-3 text-white/80 text-sm"><i class="ph ph-check-circle text-xl text-white/60"></i>Custom order history</div>
+        </div>
+      </div>
+    </div>
+    <!-- Right panel -->
+    <div class="flex-1 flex items-center justify-center px-6 py-16 overflow-y-auto">
+      <div class="w-full max-w-md">
+        <a href="#home" class="lg:hidden font-serif text-2xl font-bold text-maroon flex items-center gap-2 mb-10 justify-center">
+          <i class="ph ph-sparkle"></i> AURA
+        </a>
+        <div class="mb-8">
+          <h1 class="font-serif text-3xl text-dark mb-2">Create Account</h1>
+          <p class="text-gray-500 font-light">Join AURA — it's free and always will be</p>
+        </div>
+        <form id="user-register-form" class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">First Name</label>
+              <input type="text" id="reg-fname" placeholder="Emma" required
+                     class="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Last Name</label>
+              <input type="text" id="reg-lname" placeholder="Watson" required
+                     class="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white text-sm">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email Address</label>
+            <div class="relative">
+              <i class="ph ph-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <input type="email" id="reg-email" placeholder="hello@email.com" required
+                     class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white text-sm">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Phone (optional)</label>
+            <div class="relative">
+              <i class="ph ph-phone absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <input type="tel" id="reg-phone" placeholder="+1 (555) 000-0000"
+                     class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white text-sm">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Password</label>
+            <div class="relative">
+              <i class="ph ph-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <input type="password" id="reg-pass" placeholder="Min. 8 characters" required minlength="8"
+                     class="w-full pl-11 pr-12 py-3.5 rounded-xl border border-gray-200 bg-white text-sm">
+              <button type="button" onclick="togglePass('reg-pass','reg-pass-eye')"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-maroon transition-colors">
+                <i id="reg-pass-eye" class="ph ph-eye text-lg"></i>
+              </button>
+            </div>
+            <!-- Password strength bar -->
+            <div class="mt-2 flex gap-1">
+              <div id="ps-1" class="flex-1 h-1 rounded-full bg-gray-200 transition-colors"></div>
+              <div id="ps-2" class="flex-1 h-1 rounded-full bg-gray-200 transition-colors"></div>
+              <div id="ps-3" class="flex-1 h-1 rounded-full bg-gray-200 transition-colors"></div>
+              <div id="ps-4" class="flex-1 h-1 rounded-full bg-gray-200 transition-colors"></div>
+            </div>
+            <p id="ps-label" class="text-xs text-gray-400 mt-1">Password strength</p>
+          </div>
+          <div class="flex items-start gap-3 pt-1">
+            <input type="checkbox" id="reg-terms" required class="mt-0.5 rounded border-gray-300">
+            <label for="reg-terms" class="text-sm text-gray-500 font-light leading-relaxed">
+              I agree to the <a href="#" class="text-maroon hover:underline">Terms of Service</a> and
+              <a href="#" class="text-maroon hover:underline">Privacy Policy</a>
+            </label>
+          </div>
+          <button type="submit"
+                  class="w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 shadow-lg hover:shadow-maroon/30 hover:-translate-y-0.5 transition-all"
+                  style="background:#6D1B2D">
+            <i class="ph ph-user-plus"></i> Create My Account
+          </button>
+        </form>
+        <p class="text-center text-sm text-gray-500 mt-6">
+          Already have an account?
+          <a href="#user-login" class="text-maroon font-semibold hover:underline ml-1">Sign in</a>
+        </p>
+        <a href="#home" class="block text-center text-xs text-gray-400 hover:text-maroon transition-colors mt-6">← Back to website</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: ADMIN LOGIN
+═══════════════════════════════════════════ -->
+<div id="view-user-dashboard" class="page-view hidden">
+  <div class="min-h-screen" style="background:#F5F0EC">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-8">
+        <div>
+          <span class="text-maroon uppercase tracking-widest text-xs font-semibold">Client Portal</span>
+          <h1 id="user-dashboard-title" class="font-serif text-4xl md:text-5xl text-dark mt-2">My AURA</h1>
+          <p id="user-dashboard-subtitle" class="text-gray-500 mt-2 font-light">Manage your bookings, orders, and profile.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="#booking" class="bg-maroon text-white px-5 py-3 rounded-xl text-sm font-semibold flex items-center gap-2 hover:bg-maroon-dark transition-colors"><i class="ph ph-calendar-check"></i> Book Again</a>
+          <a href="#custom-order" class="bg-white text-maroon px-5 py-3 rounded-xl text-sm font-semibold flex items-center gap-2 border border-maroon/15 hover:border-maroon transition-colors"><i class="ph ph-sparkle"></i> Custom Set</a>
+          <button onclick="logoutUser()" class="bg-white text-gray-500 px-5 py-3 rounded-xl text-sm font-semibold border border-gray-200 hover:text-maroon hover:border-maroon transition-colors">Sign Out</button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5 mb-8">
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm"><p class="text-xs uppercase tracking-widest text-gray-400 font-semibold">Upcoming Visits</p><p id="user-appt-count" class="font-serif text-4xl text-maroon mt-3">0</p></div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm"><p class="text-xs uppercase tracking-widest text-gray-400 font-semibold">Custom Orders</p><p id="user-order-count" class="font-serif text-4xl text-maroon mt-3">0</p></div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm"><p class="text-xs uppercase tracking-widest text-gray-400 font-semibold">Member Since</p><p id="user-joined-date" class="font-serif text-4xl text-maroon mt-3">Today</p></div>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_360px] gap-8">
+        <div class="space-y-8">
+          <section class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-gray-100 flex justify-between items-center"><h2 class="font-semibold text-lg">My Appointments</h2><a href="#booking" class="text-maroon text-sm font-medium">New booking</a></div>
+            <div id="user-appointments-list" class="divide-y divide-gray-50"></div>
+          </section>
+          <section class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-gray-100 flex justify-between items-center"><h2 class="font-semibold text-lg">My Custom Orders</h2><a href="#custom-order" class="text-maroon text-sm font-medium">Start order</a></div>
+            <div id="user-orders-list" class="divide-y divide-gray-50"></div>
+          </section>
+        </div>
+
+        <aside class="space-y-5">
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+            <h2 class="font-semibold text-lg mb-4">Profile Details</h2>
+            <div class="space-y-4 text-sm">
+              <div><p class="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">Name</p><p id="user-profile-name" class="text-gray-700">-</p></div>
+              <div><p class="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">Email</p><p id="user-profile-email" class="text-gray-700 break-all">-</p></div>
+              <div><p class="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">Phone</p><p id="user-profile-phone" class="text-gray-700">-</p></div>
+            </div>
+          </div>
+          <div class="rounded-2xl p-6 text-white overflow-hidden relative" style="background:#6D1B2D">
+            <div class="absolute inset-0 opacity-15" style="background:url('https://images.unsplash.com/photo-1600843389656-78e7235a90e3?w=900&q=70') center/cover"></div>
+            <div class="relative"><p class="uppercase tracking-widest text-xs text-white/60 font-semibold mb-3">Member Perk</p><h3 class="font-serif text-2xl mb-3">Free nail art consultation</h3><p class="text-white/75 text-sm font-light mb-5">Share your inspiration before your appointment and our artists will prepare options.</p><a href="#custom-order" class="inline-flex bg-white text-maroon px-4 py-2 rounded-lg text-sm font-semibold">Send design idea</a></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="view-admin-login" class="page-view hidden">
+  <div class="min-h-screen flex" style="background:#111111">
+    <!-- Left panel — dark luxury -->
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-between p-14">
+      <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1000&q=85"
+           alt="Salon" class="absolute inset-0 w-full h-full object-cover opacity-15">
+      <div class="relative z-10">
+        <a href="#home" class="font-serif text-3xl font-bold text-white tracking-wider flex items-center gap-2">
+          <i class="ph ph-sparkle" style="color:#6D1B2D"></i> AURA
+        </a>
+      </div>
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 mb-8" style="background:rgba(109,27,45,.2)">
+          <i class="ph ph-shield-check text-sm" style="color:#6D1B2D"></i>
+          <span class="text-xs text-white/70 font-medium tracking-wider uppercase">Secure Admin Portal</span>
+        </div>
+        <h2 class="font-serif text-4xl text-white mb-4 leading-tight">Studio<br>Management<br><span class="italic" style="color:rgba(109,27,45,.8)">Dashboard</span></h2>
+        <p class="text-white/40 font-light leading-relaxed max-w-xs">Manage appointments, orders, services, media and all site content from one powerful panel.</p>
+        <div class="mt-10 space-y-3">
+          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-calendar-check text-base" style="color:#6D1B2D"></i>View &amp; manage bookings</div>
+          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-sparkle text-base" style="color:#6D1B2D"></i>Process custom orders</div>
+          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-browser text-base" style="color:#6D1B2D"></i>Edit site content live</div>
+          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-images text-base" style="color:#6D1B2D"></i>Manage media library</div>
+        </div>
+      </div>
+    </div>
+    <!-- Right panel — form -->
+    <div class="flex-1 flex items-center justify-center px-6 py-16" style="background:#1a1a1a">
+      <div class="w-full max-w-md">
+        <!-- Mobile brand -->
+        <a href="#home" class="lg:hidden font-serif text-2xl font-bold flex items-center gap-2 mb-10 justify-center" style="color:#6D1B2D">
+          <i class="ph ph-sparkle"></i> AURA
+        </a>
+        <!-- Shield icon -->
+        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8 lg:mx-0" style="background:rgba(109,27,45,.15);border:1px solid rgba(109,27,45,.3)">
+          <i class="ph ph-shield-check text-2xl" style="color:#6D1B2D"></i>
+        </div>
+        <h1 class="font-serif text-3xl mb-2 text-white">Admin Sign In</h1>
+        <p class="font-light mb-8 text-sm" style="color:rgba(255,255,255,.4)">Access the AURA management portal</p>
+        <!-- Demo hint -->
+        <div class="flex items-start gap-2 rounded-xl px-4 py-3 mb-8 text-xs border" style="background:rgba(109,27,45,.1);border-color:rgba(109,27,45,.25);color:rgba(109,27,45,.9)">
+          <i class="ph ph-key text-base flex-shrink-0 mt-0.5"></i>
+          <span>Demo credentials — Username: <strong>admin</strong> &nbsp;/&nbsp; Password: <strong>admin</strong></span>
+        </div>
+        <form id="admin-login-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color:rgba(255,255,255,.4)">Username</label>
+            <div class="relative">
+              <i class="ph ph-user absolute left-4 top-1/2 -translate-y-1/2" style="color:rgba(255,255,255,.25)"></i>
+              <input type="text" id="admin-user" placeholder="admin" required
+                     class="w-full pl-11 pr-4 py-3.5 rounded-xl text-sm text-white placeholder-white/20 border transition-all"
+                     style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color:rgba(255,255,255,.4)">Password</label>
+            <div class="relative">
+              <i class="ph ph-lock absolute left-4 top-1/2 -translate-y-1/2" style="color:rgba(255,255,255,.25)"></i>
+              <input type="password" id="admin-pass" placeholder="••••••" required
+                     class="w-full pl-11 pr-12 py-3.5 rounded-xl text-sm text-white placeholder-white/20 border transition-all"
+                     style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)">
+              <button type="button" onclick="togglePass('admin-pass','admin-pass-eye')"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 transition-colors"
+                      style="color:rgba(255,255,255,.25)">
+                <i id="admin-pass-eye" class="ph ph-eye text-lg"></i>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 pt-1">
+            <input type="checkbox" id="admin-remember" class="rounded">
+            <label for="admin-remember" class="text-sm font-light" style="color:rgba(255,255,255,.4)">Stay signed in</label>
+          </div>
+          <button type="submit"
+                  class="w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 shadow-xl transition-all hover:-translate-y-0.5"
+                  style="background:#6D1B2D">
+            <i class="ph ph-lock-key-open"></i> Access Dashboard
+          </button>
+        </form>
+        <div class="flex gap-4 justify-center mt-8">
+          <a href="#home" class="text-xs hover:text-white transition-colors" style="color:rgba(255,255,255,.25)">← Back to website</a>
+          <span style="color:rgba(255,255,255,.1)">|</span>
+          <a href="#user-login" class="text-xs hover:text-white transition-colors" style="color:rgba(255,255,255,.25)">Client login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: ADMIN DASHBOARD
+═══════════════════════════════════════════ -->
+<div id="view-admin-dashboard" class="page-view hidden" style="background:#f4f4f5;min-height:100vh;padding-bottom:80px">
+  <!-- Topbar -->
+  <div class="sticky top-0 z-40 text-white px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg" style="background:#111111">
+    <div class="font-serif text-xl flex items-center gap-3">
+      <i class="ph ph-shield-check" style="color:#6D1B2D"></i> AURA Portal
+      <span class="text-xs bg-green-500 text-white px-3 py-0.5 rounded-full font-sans tracking-wider">● LIVE</span>
+    </div>
+    <div class="flex gap-3 w-full md:w-auto">
+      <button id="admin-save-btn" onclick="saveGlobalState()"
+        class="flex-1 md:flex-none bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-colors">
+        <i class="ph ph-floppy-disk text-lg"></i> Save Changes
+      </button>
+      <button id="admin-logout-btn" class="text-sm bg-white/10 hover:bg-white/20 px-4 py-2.5 rounded-lg transition-colors">
+        <i class="ph ph-sign-out mr-1"></i> Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 pt-8">
+    <!-- Tabs -->
+    <div class="flex gap-1 mb-8 overflow-x-auto scrollbar-hide bg-white rounded-2xl p-1.5 shadow-sm border border-gray-100">
+      <button class="admin-tab-btn active-tab flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all bg-maroon text-white" data-target="pane-appointments"><i class="ph ph-calendar-check mr-1"></i>Appointments</button>
+      <button class="admin-tab-btn flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-maroon" data-target="pane-orders"><i class="ph ph-sparkle mr-1"></i>Custom Orders</button>
+      <button class="admin-tab-btn flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-maroon" data-target="pane-media"><i class="ph ph-images mr-1"></i>Media</button>
+      <button class="admin-tab-btn flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-maroon" data-target="pane-cms"><i class="ph ph-browser mr-1"></i>CMS Editor</button>
+      <button class="admin-tab-btn flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-maroon" data-target="pane-store"><i class="ph ph-storefront mr-1"></i>Services &amp; Store</button>
+    </div>
+
+    <!-- Appointments -->
+    <div id="pane-appointments" class="admin-pane active-pane bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="p-5 border-b border-gray-100 flex justify-between items-center">
+        <h3 class="font-semibold text-lg">Appointments</h3>
+        <span id="appt-count" class="text-xs bg-maroon/10 text-maroon px-3 py-1 rounded-full font-medium">0 total</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead><tr class="bg-gray-50 text-gray-400 text-xs uppercase tracking-wider">
+            <th class="p-4">Client</th><th class="p-4">Service</th><th class="p-4">Date &amp; Time</th><th class="p-4">Status</th>
+          </tr></thead>
+          <tbody id="admin-appt-table-body" class="divide-y divide-gray-50 text-sm"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Custom Orders -->
+    <div id="pane-orders" class="admin-pane bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="p-5 border-b border-gray-100 flex justify-between items-center">
+        <h3 class="font-semibold text-lg">Custom Orders</h3>
+        <span id="orders-count" class="text-xs bg-maroon/10 text-maroon px-3 py-1 rounded-full font-medium">0 total</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead><tr class="bg-gray-50 text-gray-400 text-xs uppercase tracking-wider">
+            <th class="p-4">Order ID</th><th class="p-4">Customer</th><th class="p-4">Specs</th><th class="p-4">Budget</th><th class="p-4 text-right">Status</th>
+          </tr></thead>
+          <tbody id="admin-custom-orders-body" class="divide-y divide-gray-50 text-sm"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Media Library -->
+    <div id="pane-media" class="admin-pane space-y-5">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div><h3 class="font-semibold text-lg">Media Library</h3><p class="text-xs text-gray-400 mt-1">Upload images — stored locally in your browser.</p></div>
+        <button onclick="document.getElementById('lib-upload').click()" class="bg-maroon text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-maroon-dark flex items-center gap-2 transition-colors">
+          <i class="ph ph-upload-simple"></i> Upload Image
+        </button>
+        <input type="file" id="lib-upload" accept="image/*" class="hidden" onchange="handleLibraryUpload(event)">
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <button onclick="filterMedia('All')" class="media-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-dark text-white transition-all">All</button>
+        <button onclick="filterMedia('Banners')" class="media-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white border border-gray-200 text-gray-600 hover:border-maroon transition-all">Banners</button>
+        <button onclick="filterMedia('Catalog')" class="media-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white border border-gray-200 text-gray-600 hover:border-maroon transition-all">Catalog</button>
+        <button onclick="filterMedia('Services')" class="media-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white border border-gray-200 text-gray-600 hover:border-maroon transition-all">Services</button>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4" id="admin-media-grid"></div>
+    </div>
+
+    <!-- CMS Editor -->
+    <div id="pane-cms" class="admin-pane bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-8">
+      <h3 class="font-serif text-2xl text-maroon flex items-center gap-2"><i class="ph ph-browser"></i> Visual Editor</h3>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <h4 class="font-semibold text-gray-700">Hero Background Image</h4>
+          <div class="relative group w-full h-48 rounded-xl overflow-hidden border border-gray-200 bg-gray-100 cursor-pointer" onclick="document.getElementById('hero-img-upload').click()">
+            <img id="cms-hero-img-preview" src="" class="w-full h-full object-cover">
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" style="background:rgba(0,0,0,.5)">
+              <span class="bg-white text-dark px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i class="ph ph-upload-simple"></i> Replace Image</span>
+            </div>
+          </div>
+          <input type="file" id="hero-img-upload" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)">
+        </div>
+        <div class="space-y-4">
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Main Headline</label>
+          <textarea id="cms-hero-main" rows="3" oninput="liveUpdateHero()" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 resize-none"></textarea></div>
+          <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Subheadline</label>
+          <textarea id="cms-hero-desc" rows="2" oninput="liveUpdateHero()" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 resize-none"></textarea></div>
+          <p class="text-xs text-gray-400">HTML tags allowed: &lt;br&gt; &lt;i&gt; &lt;strong&gt;</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services & Store -->
+    <div id="pane-store" class="admin-pane space-y-6">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <div class="flex justify-between items-center mb-5 pb-4 border-b border-gray-100">
+            <h3 class="font-semibold text-lg">Services Menu</h3>
+            <button onclick="openAddServiceModal()" class="bg-maroon text-white text-xs px-4 py-2 rounded-lg hover:bg-maroon-dark flex items-center gap-1 transition-colors"><i class="ph ph-plus"></i> Add</button>
+          </div>
+          <div class="space-y-3" id="admin-services-list"></div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <div class="flex justify-between items-center mb-5 pb-4 border-b border-gray-100">
+            <h3 class="font-semibold text-lg">Catalog Items</h3>
+            <button onclick="openAddCatalogModal()" class="bg-maroon text-white text-xs px-4 py-2 rounded-lg hover:bg-maroon-dark flex items-center gap-1 transition-colors"><i class="ph ph-plus"></i> Add</button>
+          </div>
+          <div class="space-y-3" id="admin-catalog-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer id="contact" style="background:#111111;color:white" class="pt-20 pb-10">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+    <div class="col-span-1 md:col-span-2">
+      <a href="#home" class="font-serif text-3xl font-bold tracking-wider flex items-center gap-2 mb-4" style="color:white">
+        <i class="ph ph-sparkle" style="color:#6D1B2D"></i> AURA
+      </a>
+      <p style="color:#9ca3af" class="font-light max-w-xs mb-6 leading-relaxed">Elevating the standard of nail artistry. Luxury you can wear.</p>
+      <div class="flex gap-4">
+        <a href="https://www.instagram.com/theenaiilsclub" target="_blank" rel="noopener" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-maroon transition-colors" title="Follow us on Instagram"><i class="ph ph-instagram-logo text-sm"></i></a>
+        <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-maroon transition-colors"><i class="ph ph-tiktok-logo text-sm"></i></a>
+        <a href="https://pin.it/7ibXsm1GV" target="_blank" rel="noopener" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-maroon transition-colors" title="Follow us on Pinterest"><i class="ph ph-pinterest-logo text-sm"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="font-serif text-lg mb-5" style="color:#F5F0EC">Quick Links</h4>
+      <ul class="space-y-3 text-sm" style="color:#9ca3af">
+        <li><a href="#services-full" class="hover:text-white transition-colors">Services</a></li>
+        <li><a href="#catalog"        class="hover:text-white transition-colors">Catalog</a></li>
+        <li><a href="#booking"         class="hover:text-white transition-colors">Book Now</a></li>
+        <li><a href="#custom-order"    class="hover:text-white transition-colors">Custom Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-serif text-lg mb-5" style="color:#F5F0EC">Contact</h4>
+      <ul class="space-y-3 text-sm" style="color:#9ca3af">
+        <li class="flex items-center gap-2"><i class="ph ph-map-pin" style="color:#6D1B2D"></i>2/472, Opp. Ammar House, Surmawad,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rustampura, Surat, Gujarat 395002</li>
+        <li class="flex items-center gap-2"><i class="ph ph-phone" style="color:#6D1B2D"></i>+91 99130 91744</li>
+        <li class="flex items-center gap-2"><i class="ph ph-envelope" style="color:#6D1B2D"></i>hello@aura.studio</li>
+        <li class="flex items-center gap-2"><i class="ph ph-clock" style="color:#6D1B2D"></i>Daily — Open until 10:00 PM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 border-t pt-8 flex justify-between items-center" style="border-color:rgba(255,255,255,.08)">
+    <p style="color:#4b5563" class="text-xs">© 2026 AURA Nail Studio. All rights reserved.</p>
+    <a href="#admin-login" style="color:#4b5563" class="text-xs hover:text-maroon transition-colors opacity-40 hover:opacity-100">Admin</a>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════
+   BACKEND — DATA & STATE
+═══════════════════════════════════════ */
+const DEFAULT_STATE = {
+  hero: {
+    bgImage: 'bridal.jpg',
+    mainText: 'Elevate Your\n<em class="font-light italic" style="color:#6D1B2D">Aesthetics.</em>',
+    descText: 'Experience world-class nail artistry in a serene, luxurious environment. Your perfect set awaits.'
+  },
+  services: [
+    { id:'s1', name:'Nail Extensions',
+      desc:'Premium acrylic or hard gel extensions sculpted to perfection.',
+      price:'₹1,200+',
+      img:'Bridal1.jpeg' },
+    { id:'s2', name:'Soft Gel Extensions',
+      desc:'Lightweight, natural-feeling extensions applied with builder gel.',
+      price:'₹999+',
+      img:'soft gel extension.jpg' },
+    { id:'s3', name:'Gel Polish Manicure',
+      desc:'Long-lasting, high-shine gel polish on natural nails.',
+      price:'₹699+',
+      img:'menicure.jpg' },
+    { id:'s4', name:'Press-On Sets',
+      desc:'Handcrafted reusable press-ons shipped worldwide.',
+      price:'₹599+',
+      img:'presson nails.jpg' },
+    { id:'s5', name:'Nail Art & Designs',
+      desc:'Custom nail art — from minimalist lines to elaborate 3D sculptures.',
+      price:'₹399+',
+      img:'Chrome1.jpeg' }
+  ],
+  catalogItems: [
+    /* ── BRIDAL ── */
+    { id:'c1', cat:'Bridal',  img:'bridal.jpg'    },
+    { id:'c2', cat:'Bridal',  img:'Bridal1.jpeg'  },
+    { id:'c3', cat:'Bridal',  img:'bridal1.jpg'   },
+
+    /* ── MINIMAL ── */
+    { id:'c4', cat:'Minimal', img:'Minial1.jpeg'  },
+    { id:'c5', cat:'Minimal', img:'menicure.jpg'  },
+    { id:'c6', cat:'Minimal', img:'soft gel extension.jpg' },
+
+    /* ── CHROME ── */
+    { id:'c7', cat:'Chrome',  img:'Chrome1.jpeg'  },
+    { id:'c8', cat:'Chrome',  img:'chrome2.jpeg'  },
+    { id:'c9', cat:'Chrome',  img:'chrome4.jpg'   },
+
+    /* ── FLORAL ── */
+    { id:'c10', cat:'Floral', img:'floral1.jpg'   },
+    { id:'c11', cat:'Floral', img:'floral2.jpg'   },
+    { id:'c12', cat:'Floral', img:'floral3.jpg'   },
+    { id:'c13', cat:'Floral', img:'floral4.jpeg'  }
+  ],
+  appointments: [
+    { id:'APT-101', name:'Emma Watson', service:'Gel Polish Manicure', date:'2026-07-01', time:'10:00', status:'Confirmed' },
+    { id:'APT-102', name:'Sara Lee',    service:'Nail Extensions',     date:'2026-07-03', time:'14:30', status:'Pending' }
+  ],
+  customOrders: [
+    { id:'TNC-2026-0001', name:'Priya Sharma', city:'Surat', shape:'Almond', length:'Medium', budget:'₹1500 - ₹2499', status:'New', date:'2026-06-22', desc:'Nude pink with gold foil tips' }
+  ],
+  users: [
+    { id:'u1', name:'Emma Watson', email:'user@aura.com', phone:'+91 99130 91744', password:'user123', joined:'2026-06-01' }
+  ],
+  mediaLibrary: [
+    { id:'m1', url:'bridal.jpg',              category:'Banners',  title:'Hero BG'          },
+    { id:'m2', url:'Bridal1.jpeg',            category:'Catalog',  title:'Bridal Set'        },
+    { id:'m3', url:'menicure.jpg',            category:'Services', title:'Gel Manicure'      },
+    { id:'m4', url:'soft gel extension.jpg',  category:'Services', title:'Soft Gel'          },
+    { id:'m5', url:'presson nails.jpg',       category:'Services', title:'Press-On Sets'     },
+    { id:'m6', url:'Chrome1.jpeg',            category:'Catalog',  title:'Chrome Nails'      },
+    { id:'m7', url:'floral1.jpg',             category:'Catalog',  title:'Floral Nails'      }
+  ]
+};
+
+const LOCAL_DB_KEY = 'aura_v2';
+const STATE_VERSION = '3'; // bump this whenever DEFAULT_STATE structure changes
+let remoteStorageAvailable = false;
+let appState = loadLocalState();
+let adminLoggedIn = false;
+let userLoggedIn = false;
+let currentUser = null;
+let currentMediaFilter = 'All';
+
+function cloneDefaultState() {
+  return JSON.parse(JSON.stringify(DEFAULT_STATE));
+}
+
+function loadLocalState() {
+  try {
+    // Version check — if saved state is from an old version, discard it
+    const savedVersion = localStorage.getItem(LOCAL_DB_KEY + '_ver');
+    if (savedVersion !== STATE_VERSION) {
+      localStorage.removeItem(LOCAL_DB_KEY);
+      localStorage.setItem(LOCAL_DB_KEY + '_ver', STATE_VERSION);
+      return normalizeClientState(cloneDefaultState());
+    }
+    const saved = localStorage.getItem(LOCAL_DB_KEY);
+    return normalizeClientState(saved ? JSON.parse(saved) : cloneDefaultState());
+  } catch(e) {
+    console.warn('[State] Failed to load saved state:', e);
+    return normalizeClientState(cloneDefaultState());
+  }
+}
+
+function normalizeClientState(state) {
+  const fallback = cloneDefaultState();
+  return {
+    ...fallback,
+    ...state,
+    hero:         (state.hero && state.hero.bgImage)     ? state.hero         : fallback.hero,
+    services:     Array.isArray(state.services)          ? state.services     : fallback.services,
+    catalogItems: Array.isArray(state.catalogItems)      ? state.catalogItems : fallback.catalogItems,
+    appointments: Array.isArray(state.appointments)      ? state.appointments : [],
+    customOrders: Array.isArray(state.customOrders)      ? state.customOrders : [],
+    users:        Array.isArray(state.users)             ? state.users        : fallback.users,
+    mediaLibrary: Array.isArray(state.mediaLibrary)      ? state.mediaLibrary : fallback.mediaLibrary
+  };
+}
+
+async function hydrateRemoteState() {
+  try {
+    const res = await fetch('/api/state', { cache:'no-store' });
+    if (!res.ok) throw new Error('State API unavailable');
+    appState = normalizeClientState(await res.json());
+    remoteStorageAvailable = true;
+    persistState();
+  } catch(e) {
+    remoteStorageAvailable = false;
+    appState = loadLocalState();
+  }
+}
+
+function persistState() {
+  try {
+    const serialized = JSON.stringify(appState);
+    // Check size — localStorage typically allows ~5MB
+    const sizeKB = Math.round((serialized.length * 2) / 1024);
+    if (sizeKB > 4800) {
+      console.warn('[Storage] State is large (' + sizeKB + 'KB). Stripping oversized media entries.');
+      // Remove base64 images from mediaLibrary if they're too big to fit
+      const trimmed = { ...appState };
+      trimmed.mediaLibrary = appState.mediaLibrary.filter(m =>
+        !m.url.startsWith('data:') || m.url.length < 50000
+      );
+      localStorage.setItem(LOCAL_DB_KEY, JSON.stringify(trimmed));
+    } else {
+      localStorage.setItem(LOCAL_DB_KEY, serialized);
+    }
+    localStorage.setItem(LOCAL_DB_KEY + '_ver', STATE_VERSION);
+  } catch(e) {
+    // QuotaExceededError — storage is full
+    console.error('[Storage] localStorage full:', e);
+    try {
+      // Last resort: save without uploaded base64 images
+      const slim = { ...appState };
+      slim.mediaLibrary = appState.mediaLibrary.filter(m => !m.url.startsWith('data:'));
+      localStorage.setItem(LOCAL_DB_KEY, JSON.stringify(slim));
+      showToast('⚠ Storage nearly full — some uploaded images were not saved. Try removing unused media.', 'warn');
+    } catch(e2) {
+      showToast('✕ Storage full. Please clear browser data and try again.', 'error');
+    }
+  }
+}
+
+window.saveGlobalState = function() {
+  const btn = document.getElementById('admin-save-btn');
+  if (!btn) { persistState(); return; }
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ph ph-spinner"></i> Saving...';
+  btn.style.background = '#2563eb';
+  persistState();
+  renderLiveSite();
+  setTimeout(() => {
+    btn.innerHTML = '<i class="ph ph-check-circle"></i> Saved!';
+    btn.style.background = '#16a34a';
+    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+  }, 500);
+};
+
+function compressImage(file, cb) {
+  const r = new FileReader();
+  r.readAsDataURL(file);
+  r.onload = e => {
+    const img = new Image();
+    img.src = e.target.result;
+    img.onload = () => {
+      const c = document.createElement('canvas');
+      let w=img.width, h=img.height;
+      if(w>900){h=Math.round(h*900/w);w=900;}
+      c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      cb(c.toDataURL('image/jpeg',0.82));
+    };
+  };
+}
+</script>
+
+<script>
+/* ═══════════════════════════════════════
+   FRONTEND — ROUTING
+═══════════════════════════════════════ */
+const ROUTES = {
+  '#home':'view-home','#catalog':'view-catalog','#services-full':'view-services-full',
+  '#services':'view-home','#custom-order':'view-custom-order','#booking':'view-booking',
+  '#admin-login':'view-admin-login','#admin-dashboard':'view-admin-dashboard',
+  '#user-login':'view-user-login','#user-register':'view-user-register','#user-dashboard':'view-user-dashboard','#contact':'view-home'
+};
+
+function handleRouting() {
+  const hash = window.location.hash || '#home';
+  if (hash==='#admin-dashboard' && !adminLoggedIn) { window.location.hash='#admin-login'; return; }
+  if (hash==='#user-dashboard'  && !userLoggedIn)  { window.location.hash='#user-login';  return; }
+
+  // Hide all views — remove active AND hidden override
+  document.querySelectorAll('.page-view').forEach(v => {
+    v.classList.remove('active');
+    v.style.display = 'none';
+  });
+
+  const id = ROUTES[hash] || 'view-home';
+  const el = document.getElementById(id);
+  if (el) {
+    el.style.display = '';          // let CSS take over
+    el.classList.remove('hidden');  // strip Tailwind hidden
+    el.classList.add('active');
+  }
+
+  if (hash !== '#services' && hash !== '#contact') window.scrollTo({ top:0, behavior:'instant' });
+  document.getElementById('mobile-menu').classList.add('hidden');
+  if (hash === '#catalog')           { renderCatalog('all'); resetFilterBtns(); }
+  if (hash === '#admin-dashboard')   initAdminDashboard();
+  if (hash === '#user-dashboard')    renderUserDashboard();
+  if (hash === '#booking' || hash === '#custom-order') prefillUserForms();
+}
+window.addEventListener('hashchange', handleRouting);
+
+/* ═══════════════════════════════════════
+   FRONTEND — RENDERING
+═══════════════════════════════════════ */
+function renderLiveSite() {
+  // Hero
+  const bg=document.getElementById('hero-bg-img');
+  const ht=document.getElementById('hero-main-text');
+  const hd=document.getElementById('hero-desc-text');
+  if(bg) bg.src=appState.hero.bgImage;
+  if(ht) ht.innerHTML=appState.hero.mainText;
+  if(hd) hd.innerHTML=appState.hero.descText;
+  renderHomeServices();
+  renderFullServices();
+  renderCatalog('all');
+  renderBookingDropdown();
+}
+
+function renderHomeServices() {
+  const g=document.getElementById('home-services-grid');
+  if(!g) return;
+  g.innerHTML=appState.services.slice(0,3).map(s=>`
+    <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer" onclick="window.location.hash='#services-full'">
+      <div class="h-60 overflow-hidden">
+        <img src="${s.img}" alt="${s.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy">
+      </div>
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="font-serif text-xl">${s.name}</h3>
+          <span class="text-maroon font-semibold text-sm bg-maroon/10 px-3 py-1 rounded-full">${s.price}</span>
+        </div>
+        <p class="text-gray-500 text-sm font-light leading-relaxed">${s.desc}</p>
+        <a href="#booking" onclick="event.stopPropagation()" class="mt-4 inline-flex items-center gap-1 text-maroon text-sm font-medium hover:gap-2 transition-all">Book now <i class="ph ph-arrow-right"></i></a>
+      </div>
+    </div>`).join('');
+}
+
+function renderFullServices() {
+  const l=document.getElementById('full-services-list');
+  if(!l) return;
+  l.innerHTML=appState.services.map(s=>`
+    <div class="flex flex-col md:flex-row gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+      <img src="${s.img}" alt="${s.name}" class="w-full md:w-52 h-52 object-cover rounded-xl shrink-0" loading="lazy">
+      <div class="flex-1 flex flex-col justify-center">
+        <div class="flex justify-between items-start mb-3">
+          <h3 class="font-serif text-2xl">${s.name}</h3>
+          <span class="text-maroon font-semibold text-lg">${s.price}</span>
+        </div>
+        <p class="text-gray-600 font-light mb-6 leading-relaxed">${s.desc}</p>
+        <a href="#booking" class="inline-flex items-center gap-2 bg-maroon text-white px-7 py-2.5 rounded-full text-sm font-medium hover:bg-maroon-dark transition-colors w-fit">
+          <i class="ph ph-calendar-check"></i> Book This Service
+        </a>
+      </div>
+    </div>`).join('');
+}
+
+function renderCatalog(cat) {
+  const g=document.getElementById('catalog-gallery');
+  if(!g) return;
+  const items=cat==='all'?appState.catalogItems:appState.catalogItems.filter(i=>i.cat===cat);
+  g.innerHTML=items.map(i=>`
+    <div class="masonry-item relative group rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-shadow">
+      <img src="${i.img}" alt="${i.cat} nails" class="w-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
+      <div class="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity" style="background:linear-gradient(to top,rgba(17,17,17,.75),transparent)">
+        <span class="text-white text-sm font-medium px-3 py-1 rounded-full" style="background:rgba(109,27,45,.85)">${i.cat}</span>
+      </div>
+    </div>`).join('');
+}
+
+function resetFilterBtns() {
+  document.querySelectorAll('.filter-btn').forEach(b=>{
+    b.style.cssText='';
+    b.classList.remove('bg-maroon','text-white','border-maroon');
+    if(b.dataset.filter==='all') { b.style.background='#6D1B2D'; b.style.color='white'; b.style.borderColor='#6D1B2D'; }
+  });
+}
+
+function renderBookingDropdown() {
+  const s=document.getElementById('bf-service');
+  if(!s) return;
+  s.innerHTML='<option value="">Choose a service…</option>'+appState.services.map(sv=>`<option value="${sv.name}">${sv.name} — ${sv.price}</option>`).join('');
+}
+
+function belongsToCurrentUser(item) {
+  if(!currentUser || !item) return false;
+  const email=(item.email||'').toLowerCase();
+  const name=(item.name||'').toLowerCase();
+  return email===currentUser.email.toLowerCase() || name===currentUser.name.toLowerCase();
+}
+
+function renderUserDashboard() {
+  if(!currentUser) return;
+  const user=(appState.users||[]).find(u=>u.email.toLowerCase()===currentUser.email.toLowerCase()) || currentUser;
+  const appointments=(appState.appointments||[]).filter(belongsToCurrentUser);
+  const orders=(appState.customOrders||[]).filter(belongsToCurrentUser);
+
+  const firstName=(user.name||'Guest').split(' ')[0];
+  const title=document.getElementById('user-dashboard-title');
+  const subtitle=document.getElementById('user-dashboard-subtitle');
+  if(title) title.textContent=`Hi, ${firstName}`;
+  if(subtitle) subtitle.textContent='Your appointments, custom sets, and AURA profile are all here.';
+
+  const apptCount=document.getElementById('user-appt-count');
+  const orderCount=document.getElementById('user-order-count');
+  const joined=document.getElementById('user-joined-date');
+  if(apptCount) apptCount.textContent=appointments.length;
+  if(orderCount) orderCount.textContent=orders.length;
+  if(joined) joined.textContent=user.joined ? new Date(user.joined).toLocaleDateString(undefined,{month:'short',year:'numeric'}) : 'Today';
+
+  const profileName=document.getElementById('user-profile-name');
+  const profileEmail=document.getElementById('user-profile-email');
+  const profilePhone=document.getElementById('user-profile-phone');
+  if(profileName) profileName.textContent=user.name || '-';
+  if(profileEmail) profileEmail.textContent=user.email || '-';
+  if(profilePhone) profilePhone.textContent=user.phone || 'Not added';
+
+  const apptList=document.getElementById('user-appointments-list');
+  if(apptList) {
+    apptList.innerHTML=appointments.length
+      ? appointments.map(a=>`
+        <div class="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <p class="font-semibold text-gray-800">${a.service}</p>
+            <p class="text-sm text-gray-400 mt-1">${a.date} at ${a.time || 'TBC'} - ${a.id}</p>
+          </div>
+          <span class="w-fit px-3 py-1 rounded-full text-xs font-medium ${a.status==='Confirmed'?'bg-green-100 text-green-700':a.status==='Pending'?'bg-yellow-100 text-yellow-700':'bg-gray-100 text-gray-500'}">${a.status}</span>
+        </div>`).join('')
+      : '<div class="p-8 text-center text-gray-400 text-sm">No appointments yet. Book your next visit anytime.</div>';
+  }
+
+  const orderList=document.getElementById('user-orders-list');
+  if(orderList) {
+    orderList.innerHTML=orders.length
+      ? orders.map(o=>`
+        <div class="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <p class="font-semibold text-gray-800">${o.shape} ${o.length} Set</p>
+            <p class="text-sm text-gray-400 mt-1">${o.id} - ${o.budget || 'Budget TBC'}</p>
+            <p class="text-sm text-gray-500 mt-2">${o.desc || ''}</p>
+          </div>
+          <span class="w-fit px-3 py-1 rounded-full text-xs font-medium bg-maroon/10 text-maroon">${o.status}</span>
+        </div>`).join('')
+      : '<div class="p-8 text-center text-gray-400 text-sm">No custom orders yet. Start with an idea or inspiration image.</div>';
+  }
+}
+
+function prefillUserForms() {
+  if(!userLoggedIn || !currentUser) return;
+  const pairs=[
+    ['bf-name', currentUser.name],
+    ['bf-email', currentUser.email],
+    ['bf-phone', currentUser.phone||''],
+    ['co-name', currentUser.name],
+    ['co-email', currentUser.email],
+    ['co-phone', currentUser.phone||'']
+  ];
+  pairs.forEach(([id,value])=>{
+    const el=document.getElementById(id);
+    if(el && !el.value) el.value=value;
+  });
+}
+
+/* ═══════════════════════════════════════
+   FRONTEND — ADMIN RENDERING
+═══════════════════════════════════════ */
+function initAdminDashboard() {
+  // Sync CMS fields
+  const ip=document.getElementById('cms-hero-img-preview');
+  const hm=document.getElementById('cms-hero-main');
+  const hd=document.getElementById('cms-hero-desc');
+  if(ip) ip.src=appState.hero.bgImage;
+  if(hm) hm.value=appState.hero.mainText;
+  if(hd) hd.value=appState.hero.descText;
+  renderAdminAppointments();
+  renderAdminOrders();
+  renderAdminServices();
+  renderAdminCatalog();
+  renderMediaLibrary();
+}
+
+function renderAdminAppointments() {
+  const tb=document.getElementById('admin-appt-table-body');
+  const ct=document.getElementById('appt-count');
+  if(ct) ct.textContent=appState.appointments.length+' total';
+  if(!tb) return;
+  tb.innerHTML=appState.appointments.length
+    ?appState.appointments.map(a=>`
+      <tr class="hover:bg-gray-50 border-b border-gray-50">
+        <td class="p-4"><div class="font-medium">${a.name}</div><div class="text-xs text-gray-400">${a.email || a.id}</div><div class="text-xs text-gray-400">${a.phone || ''}</div></td>
+        <td class="p-4 text-sm">${a.service}</td>
+        <td class="p-4 text-sm">${a.date} <span class="text-gray-400">${a.time}</span></td>
+        <td class="p-4"><span class="px-3 py-1 rounded-full text-xs font-medium ${a.status==='Confirmed'?'bg-green-100 text-green-700':a.status==='Pending'?'bg-yellow-100 text-yellow-700':'bg-gray-100 text-gray-500'}">${a.status}</span></td>
+      </tr>`).join('')
+    :'<tr><td colspan="4" class="p-10 text-center text-gray-400 italic text-sm">No appointments yet.</td></tr>';
+}
+
+function renderAdminOrders() {
+  const tb=document.getElementById('admin-custom-orders-body');
+  const ct=document.getElementById('orders-count');
+  if(ct) ct.textContent=appState.customOrders.length+' total';
+  if(!tb) return;
+  tb.innerHTML=appState.customOrders.length
+    ?appState.customOrders.map((o,i)=>`
+      <tr class="hover:bg-gray-50 border-b border-gray-50">
+        <td class="p-4 font-bold text-maroon text-xs">${o.id}</td>
+        <td class="p-4 text-sm">${o.name}<br><span class="text-gray-400 text-xs">${o.email || o.city}</span><br><span class="text-gray-400 text-xs">${o.phone || ''}</span></td>
+        <td class="p-4 text-xs text-gray-600">${o.shape} · ${o.length}</td>
+        <td class="p-4 text-sm">${o.budget}</td>
+        <td class="p-4 text-right">
+          <select class="text-xs border border-gray-200 rounded-lg p-1.5 bg-white" onchange="updateOrderStatus(${i},this.value)">
+            <option value="New" ${o.status==='New'?'selected':''}>New</option>
+            <option value="In Production" ${o.status==='In Production'?'selected':''}>Production</option>
+            <option value="Shipped" ${o.status==='Shipped'?'selected':''}>Shipped</option>
+          </select>
+        </td>
+      </tr>`).join('')
+    :'<tr><td colspan="5" class="p-10 text-center text-gray-400 italic text-sm">No orders yet.</td></tr>';
+}
+
+function renderAdminServices() {
+  const l=document.getElementById('admin-services-list');
+  if(!l) return;
+  l.innerHTML = appState.services.length ? appState.services.map((s,i)=>`
+    <div class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm transition-all">
+      <img src="${s.img}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0 border border-gray-200" loading="lazy"
+           onerror="this.src='https://placehold.co/48x48/F5F0EC/6D1B2D?text=✦'">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold truncate">${s.name} <span class="text-maroon">${s.price}</span></p>
+        <p class="text-xs text-gray-400 truncate">${s.desc}</p>
+      </div>
+      <div class="flex items-center gap-1 flex-shrink-0">
+        <button onclick="openEditServiceModal(${i})"
+                class="text-blue-400 hover:text-blue-600 p-1.5 rounded-lg hover:bg-blue-50 transition-all"
+                title="Edit service">
+          <i class="ph ph-pencil-simple text-base"></i>
+        </button>
+        <button onclick="deleteService(${i})"
+                class="text-red-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition-all"
+                title="Delete service">
+          <i class="ph ph-trash text-base"></i>
+        </button>
+      </div>
+    </div>`).join('')
+  : '<p class="text-sm text-gray-400 text-center py-6 italic">No services yet. Click Add to create one.</p>';
+}
+
+function renderAdminCatalog() {
+  const l=document.getElementById('admin-catalog-list');
+  if(!l) return;
+  l.innerHTML = appState.catalogItems.length ? appState.catalogItems.map((c,i)=>`
+    <div class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm transition-all">
+      <img src="${c.img}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0 border border-gray-200" loading="lazy"
+           onerror="this.src='https://placehold.co/48x48/F5F0EC/6D1B2D?text=✦'">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold">${c.cat}</p>
+        <p class="text-xs text-gray-400">ID: ${c.id}</p>
+      </div>
+      <div class="flex items-center gap-1 flex-shrink-0">
+        <button onclick="openEditCatalogModal(${i})"
+                class="text-blue-400 hover:text-blue-600 p-1.5 rounded-lg hover:bg-blue-50 transition-all"
+                title="Edit item">
+          <i class="ph ph-pencil-simple text-base"></i>
+        </button>
+        <button onclick="deleteCatalogItem(${i})"
+                class="text-red-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition-all"
+                title="Delete item">
+          <i class="ph ph-trash text-base"></i>
+        </button>
+      </div>
+    </div>`).join('')
+  : '<p class="text-sm text-gray-400 text-center py-6 italic">No catalog items yet. Click Add to upload one.</p>';
+}
+
+function renderMediaLibrary() {
+  const g=document.getElementById('admin-media-grid');
+  if(!g) return;
+  const items=currentMediaFilter==='All'?appState.mediaLibrary:appState.mediaLibrary.filter(m=>m.category===currentMediaFilter);
+  g.innerHTML=items.length
+    ?items.map((m,i)=>`
+      <div class="relative group rounded-xl overflow-hidden aspect-square border border-gray-100 bg-gray-100">
+        <img src="${m.url}" class="w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" style="background:rgba(0,0,0,.6)">
+          <button onclick="deleteMedia(${i})" class="bg-red-500 hover:bg-red-600 text-white w-9 h-9 rounded-full flex items-center justify-center text-sm transition-colors"><i class="ph ph-trash"></i></button>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 px-2 py-1 text-[10px] truncate" style="background:rgba(255,255,255,.92)">${m.title}</div>
+      </div>`).join('')
+    :'<p class="col-span-full text-center text-gray-400 text-sm py-10 italic">No images uploaded yet.</p>';
+}
+</script>
+
+<script>
+/* ═══════════════════════════════════════
+   BACKEND — API HANDLERS
+═══════════════════════════════════════ */
+
+// AUTH
+function handleAdminLogin(e) {
+  e.preventDefault();
+  const u=document.getElementById('admin-user').value.trim();
+  const p=document.getElementById('admin-pass').value;
+  if(u==='admin'&&p==='admin') { adminLoggedIn=true; e.target.reset(); window.location.hash='#admin-dashboard'; }
+  else showModal('Access Denied','Incorrect username or password. Please try again.');
+}
+
+function handleUserLogin(e) {
+  e.preventDefault();
+  const email=document.getElementById('user-email').value.trim();
+  const pass=document.getElementById('user-pass').value;
+  // Demo check — in a real app this hits an API
+  if(email==='user@aura.com'&&pass==='user123') {
+    userLoggedIn=true;
+    currentUser={ name:'Emma Watson', email };
+    e.target.reset();
+    updateNavForUser();
+    showModal('Welcome Back! 💅',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600 text-lg">Hello, <strong>Emma</strong>! Great to see you.</p><p class="text-sm text-gray-400 mt-2">You're now signed in to AURA.</p></div>`);
+    setTimeout(()=>{ closeModal(); window.location.hash='#home'; },1800);
+  } else {
+    // Shake the form
+    const form=e.target;
+    form.style.animation='shake .4s ease';
+    setTimeout(()=>form.style.animation='',400);
+    showModal('Sign In Failed','The email or password you entered is incorrect. Please try again.');
+  }
+}
+
+function handleUserRegister(e) {
+  e.preventDefault();
+  const fname=document.getElementById('reg-fname').value.trim();
+  const lname=document.getElementById('reg-lname').value.trim();
+  const email=document.getElementById('reg-email').value.trim();
+  if(!fname||!lname||!email){ showModal('Missing Info','Please fill in all required fields.'); return; }
+  userLoggedIn=true;
+  currentUser={ name:`${fname} ${lname}`, email };
+  e.target.reset();
+  updateNavForUser();
+  showModal('Account Created! 🎉',`<div class="text-center"><i class="ph ph-confetti text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600 text-lg">Welcome to AURA, <strong>${fname}</strong>!</p><p class="text-sm text-gray-400 mt-2">Your account is ready. Time to discover your perfect set.</p></div>`);
+  setTimeout(()=>{ closeModal(); window.location.hash='#home'; },2000);
+}
+
+function updateNavForUser() {
+  const loginBtn=document.getElementById('nav-user-btn');
+  if(!loginBtn) return;
+  if(userLoggedIn && currentUser) {
+    loginBtn.innerHTML=`<i class="ph ph-user-circle text-lg"></i> ${currentUser.name.split(' ')[0]}`;
+    loginBtn.href='#home';
+  }
+}
+
+// Password toggle visibility
+window.togglePass=function(inputId,iconId){
+  const inp=document.getElementById(inputId);
+  const ico=document.getElementById(iconId);
+  if(inp.type==='password'){ inp.type='text'; ico.className='ph ph-eye-slash text-lg'; }
+  else { inp.type='password'; ico.className='ph ph-eye text-lg'; }
+};
+
+// Password strength meter
+window.checkPassStrength=function(val){
+  const bars=[1,2,3,4].map(i=>document.getElementById('ps-'+i));
+  const lbl=document.getElementById('ps-label');
+  const colors=['#ef4444','#f97316','#eab308','#22c55e'];
+  const labels=['Too short','Weak','Good','Strong'];
+  let score=0;
+  if(val.length>=8) score++;
+  if(/[A-Z]/.test(val)) score++;
+  if(/[0-9]/.test(val)) score++;
+  if(/[^A-Za-z0-9]/.test(val)) score++;
+  bars.forEach((b,i)=>{ b.style.background=i<score?colors[score-1]:'#e5e7eb'; });
+  if(lbl) lbl.textContent=val.length?labels[Math.max(0,score-1)]:'Password strength';
+  lbl.style.color=val.length&&score>0?colors[score-1]:'#9ca3af';
+};
+
+// BOOKING
+function handleBookingSubmit(e) {
+  e.preventDefault();
+  const name=document.getElementById('bf-name').value.trim();
+  const service=document.getElementById('bf-service').value;
+  const date=document.getElementById('bf-date').value;
+  const time=document.getElementById('bf-time').value;
+  if(!name||!service||!date) { showModal('Missing Info','Please fill in all required fields.'); return; }
+  const appt={ id:'APT-'+Math.floor(Math.random()*9000+1000), name, service, date, time, status:'Pending' };
+  appState.appointments.unshift(appt);
+  saveGlobalState();
+  e.target.reset();
+  showModal('Booking Confirmed! 🎉',`<div class="text-center"><i class="ph ph-calendar-check text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600">Your appointment for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is pending confirmation.</p><p class="text-xs text-gray-400 mt-3">We'll reach out within 24 hours.</p></div>`);
+  setTimeout(()=>{ window.location.hash='#home'; },100);
+}
+
+// CUSTOM ORDER
+function handleOrderSubmit(e) {
+  e.preventDefault();
+  const name=document.getElementById('co-name').value.trim();
+  const city=document.getElementById('co-city').value.trim();
+  const desc=document.getElementById('co-desc').value.trim();
+  if(!name||!city||!desc){ showModal('Missing Info','Please fill name, city and design description.'); return; }
+  const order={
+    id:'TNC-2026-'+Math.floor(Math.random()*9000+1000),
+    name, city, desc,
+    shape:document.getElementById('co-shape').value,
+    length:document.getElementById('co-length').value,
+    budget:document.getElementById('co-budget').value,
+    status:'New', date:new Date().toISOString().split('T')[0]
+  };
+  appState.customOrders.unshift(order);
+  saveGlobalState();
+  e.target.reset();
+  document.getElementById('co-ref-preview').classList.add('hidden');
+  showModal('Order Received! ✨',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600">Your custom order <strong>${order.id}</strong> has been saved.</p><p class="text-xs text-gray-400 mt-3">We'll contact you to confirm your design details.</p></div>`);
+  setTimeout(()=>{ window.location.hash='#home'; },100);
+}
+
+// ORDER STATUS
+window.updateOrderStatus=function(i,v){ appState.customOrders[i].status=v; persistState(); };
+
+// DELETE HANDLERS
+window.deleteService=function(i){ if(!confirm('Remove this service?'))return; appState.services.splice(i,1); renderLiveSite(); renderAdminServices(); persistState(); };
+window.deleteCatalogItem=function(i){ if(!confirm('Remove this item?'))return; appState.catalogItems.splice(i,1); renderCatalog('all'); renderAdminCatalog(); persistState(); };
+window.deleteMedia=function(i){
+  const list=currentMediaFilter==='All'?appState.mediaLibrary:appState.mediaLibrary.filter(m=>m.category===currentMediaFilter);
+  const item=list[i]; if(!item||!confirm('Delete this image?'))return;
+  const ri=appState.mediaLibrary.findIndex(m=>m.id===item.id);
+  if(ri!==-1) appState.mediaLibrary.splice(ri,1);
+  renderMediaLibrary(); persistState();
+};
+
+// MEDIA FILTER
+window.filterMedia=function(cat){
+  currentMediaFilter=cat;
+  document.querySelectorAll('.media-filter-btn').forEach(b=>{ b.style.background=''; b.style.color=''; b.classList.remove('text-white'); });
+  event.target.style.background='#111'; event.target.style.color='#fff';
+  renderMediaLibrary();
+};
+
+// IMAGE UPLOADS
+window.handleHeroImageUpload=function(e){
+  const f=e.target.files[0]; if(!f)return;
+  compressImage(f,b64=>{ appState.hero.bgImage=b64; appState.mediaLibrary.push({id:'m'+Date.now(),url:b64,category:'Banners',title:'Hero BG'}); renderLiveSite(); saveGlobalState(); });
+};
+window.handleLibraryUpload=function(e){
+  const f=e.target.files[0]; if(!f)return;
+  compressImage(f,b64=>{ appState.mediaLibrary.push({id:'m'+Date.now(),url:b64,category:'General',title:f.name}); renderMediaLibrary(); persistState(); });
+};
+window.previewRefImage=function(e){
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader(); r.onload=ev=>{ const img=document.getElementById('co-ref-preview'); img.src=ev.target.result; img.classList.remove('hidden'); }; r.readAsDataURL(f);
+};
+window.liveUpdateHero=function(){
+  appState.hero.mainText=document.getElementById('cms-hero-main').value;
+  appState.hero.descText=document.getElementById('cms-hero-desc').value;
+  const ht=document.getElementById('hero-main-text'); const hd=document.getElementById('hero-desc-text');
+  if(ht) ht.innerHTML=appState.hero.mainText;
+  if(hd) hd.innerHTML=appState.hero.descText;
+};
+
+// ADD SERVICE MODAL
+window.openAddServiceModal=function(){
+  showModal('Add New Service',`
+    <div class="space-y-4">
+      <input type="text" id="ns-name" placeholder="Service Name *" class="w-full p-3 border border-gray-200 rounded-xl text-sm bg-gray-50">
+      <input type="text" id="ns-price" placeholder="Price e.g. ₹999+" class="w-full p-3 border border-gray-200 rounded-xl text-sm bg-gray-50">
+      <textarea id="ns-desc" placeholder="Description" rows="3" class="w-full p-3 border border-gray-200 rounded-xl text-sm bg-gray-50 resize-none"></textarea>
+      <button onclick="saveNewService()" class="w-full bg-maroon text-white p-3 rounded-xl font-semibold hover:bg-maroon-dark transition-colors">Add Service</button>
+    </div>`,true);
+};
+window.saveNewService=function(){
+  const n=document.getElementById('ns-name').value.trim();
+  const p=document.getElementById('ns-price').value.trim();
+  if(!n||!p){alert('Name and price required');return;}
+  appState.services.push({id:'s'+Date.now(),name:n,price:p,desc:document.getElementById('ns-desc').value.trim(),img:'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80'});
+  closeModal(); renderLiveSite(); renderAdminServices(); persistState();
+};
+
+// ADD CATALOG MODAL
+window.openAddCatalogModal=function(){
+  showModal('Add Catalog Item',`
+    <div class="space-y-4">
+      <select id="nc-cat" class="w-full p-3 border border-gray-200 rounded-xl text-sm bg-gray-50">
+        <option>Minimal</option><option>Bridal</option><option>Chrome</option><option>Floral</option>
+      </select>
+      <div class="border-2 border-dashed border-gray-200 p-5 text-center rounded-xl bg-gray-50 cursor-pointer" onclick="document.getElementById('nc-img').click()">
+        <i class="ph ph-image text-3xl text-gray-300 block mb-2"></i>
+        <p class="text-sm text-gray-400">Click to upload image</p>
+        <input type="file" id="nc-img" accept="image/*" class="hidden">
+      </div>
+      <button onclick="saveNewCatalog()" class="w-full bg-maroon text-white p-3 rounded-xl font-semibold hover:bg-maroon-dark transition-colors">Add to Catalog</button>
+    </div>`,true);
+};
+window.saveNewCatalog=function(){
+  const fi=document.getElementById('nc-img');
+  if(!fi.files[0]){alert('Please select an image');return;}
+  const cat=document.getElementById('nc-cat').value;
+  compressImage(fi.files[0],b64=>{
+    appState.catalogItems.unshift({id:'c'+Date.now(),cat,img:b64});
+    appState.mediaLibrary.push({id:'m'+Date.now(),url:b64,category:'Catalog',title:'Catalog Upload'});
+    closeModal(); renderCatalog('all'); renderAdminCatalog(); persistState();
+  });
+};
+
+// ── EDIT SERVICE MODAL ─────────────────────────────────────────
+window.openEditServiceModal = function(i) {
+  const s = appState.services[i];
+  if (!s) return;
+  showModal('Edit Service', `
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Service Name *</label>
+        <input type="text" id="es-name" value="${s.name}"
+               class="w-full p-3 border border-gray-200 rounded-xl text-sm bg-gray-50">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Price *</label>
+        <input type="text" id="es-price" value="${s.price}"
+               class="w-full p-3 border border-gray-200 rounded-xl text-sm bg-gray-50">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Description</label>
+        <textarea id="es-desc" rows="3"
+                  class="w-full p-3 border border-gray-200 rounded-xl text-sm bg-gray-50 resize-none">${s.desc}</textarea>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Replace Image (optional)</label>
+        <div class="flex items-center gap-3">
+          <img id="es-img-preview" src="${s.img}" class="w-16 h-16 rounded-xl object-cover border border-gray-200"
+               onerror="this.src='https://placehold.co/64x64/F5F0EC/6D1B2D?text=✦'">
+          <button type="button" onclick="document.getElementById('es-img-file').click()"
+                  class="flex-1 px-3 py-2.5 border-2 border-dashed border-gray-200 rounded-xl text-xs text-gray-500 hover:border-maroon hover:text-maroon transition-all flex items-center justify-center gap-2">
+            <i class="ph ph-upload-simple"></i> Upload new image
+          </button>
+          <input type="file" id="es-img-file" accept="image/*" class="hidden"
+                 onchange="previewEditServiceImg(event)">
+        </div>
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button onclick="closeModal()"
+                class="flex-1 py-3 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+          Cancel
+        </button>
+        <button onclick="saveEditService(${i})"
+                class="flex-1 py-3 rounded-xl text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                style="background:#6D1B2D">
+          <i class="ph ph-check mr-1"></i> Save Changes
+        </button>
+      </div>
+    </div>`, true);
+};
+
+window.previewEditServiceImg = function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  compressImage(file, b64 => {
+    document.getElementById('es-img-preview').src = b64;
+    document.getElementById('es-img-preview').dataset.newImg = b64;
+  });
+};
+
+window.saveEditService = function(i) {
+  const s = appState.services[i];
+  if (!s) return;
+  const name  = document.getElementById('es-name').value.trim();
+  const price = document.getElementById('es-price').value.trim();
+  const desc  = document.getElementById('es-desc').value.trim();
+  const newImg = document.getElementById('es-img-preview').dataset.newImg;
+  if (!name || !price) { alert('Name and price are required.'); return; }
+  s.name  = name;
+  s.price = price;
+  s.desc  = desc;
+  if (newImg) s.img = newImg;
+  closeModal();
+  renderLiveSite();
+  renderAdminServices();
+  persistState();
+  // Show brief success toast
+  showToast('Service updated successfully');
+};
+
+// ── EDIT CATALOG ITEM MODAL ───────────────────────────────────
+window.openEditCatalogModal = function(i) {
+  const c = appState.catalogItems[i];
+  if (!c) return;
+  showModal('Edit Catalog Item', `
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Category</label>
+        <select id="ec-cat" class="w-full p-3 border border-gray-200 rounded-xl text-sm bg-gray-50">
+          <option value="Minimal"  ${c.cat==='Minimal' ?'selected':''}>Minimal</option>
+          <option value="Bridal"   ${c.cat==='Bridal'  ?'selected':''}>Bridal</option>
+          <option value="Chrome"   ${c.cat==='Chrome'  ?'selected':''}>Chrome</option>
+          <option value="Floral"   ${c.cat==='Floral'  ?'selected':''}>Floral</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Replace Image (optional)</label>
+        <div class="flex items-center gap-3">
+          <img id="ec-img-preview" src="${c.img}" class="w-16 h-16 rounded-xl object-cover border border-gray-200"
+               onerror="this.src='https://placehold.co/64x64/F5F0EC/6D1B2D?text=✦'">
+          <button type="button" onclick="document.getElementById('ec-img-file').click()"
+                  class="flex-1 px-3 py-2.5 border-2 border-dashed border-gray-200 rounded-xl text-xs text-gray-500 hover:border-maroon hover:text-maroon transition-all flex items-center justify-center gap-2">
+            <i class="ph ph-upload-simple"></i> Upload new image
+          </button>
+          <input type="file" id="ec-img-file" accept="image/*" class="hidden"
+                 onchange="previewEditCatalogImg(event)">
+        </div>
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button onclick="closeModal()"
+                class="flex-1 py-3 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+          Cancel
+        </button>
+        <button onclick="saveEditCatalog(${i})"
+                class="flex-1 py-3 rounded-xl text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                style="background:#6D1B2D">
+          <i class="ph ph-check mr-1"></i> Save Changes
+        </button>
+      </div>
+    </div>`, true);
+};
+
+window.previewEditCatalogImg = function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  compressImage(file, b64 => {
+    document.getElementById('ec-img-preview').src = b64;
+    document.getElementById('ec-img-preview').dataset.newImg = b64;
+  });
+};
+
+window.saveEditCatalog = function(i) {
+  const c = appState.catalogItems[i];
+  if (!c) return;
+  c.cat = document.getElementById('ec-cat').value;
+  const newImg = document.getElementById('ec-img-preview').dataset.newImg;
+  if (newImg) c.img = newImg;
+  closeModal();
+  renderCatalog('all');
+  renderAdminCatalog();
+  persistState();
+  showToast('Catalog item updated');
+};
+
+// ── TOAST NOTIFICATION ────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  let t = document.getElementById('admin-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'admin-toast';
+    t.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;box-shadow:0 8px 30px rgba(0,0,0,.25);transform:translateY(80px);transition:transform .3s ease,opacity .3s ease;opacity:0;max-width:320px;line-height:1.4';
+    document.body.appendChild(t);
+  }
+  const styles = {
+    success: { bg:'#111',    color:'#fff', icon:'ph-check-circle',   iconColor:'#6D1B2D' },
+    warn:    { bg:'#92400e', color:'#fff', icon:'ph-warning',         iconColor:'#fbbf24' },
+    error:   { bg:'#7f1d1d', color:'#fff', icon:'ph-x-circle',        iconColor:'#fca5a5' }
+  };
+  const s = styles[type] || styles.success;
+  t.style.background = s.bg;
+  t.style.color = s.color;
+  t.innerHTML = `<i class="ph ${s.icon}" style="color:${s.iconColor};font-size:16px;flex-shrink:0"></i> ${msg}`;
+  requestAnimationFrame(() => { t.style.transform='translateY(0)'; t.style.opacity='1'; });
+  setTimeout(() => { t.style.transform='translateY(80px)'; t.style.opacity='0'; }, type === 'success' ? 2800 : 5000);
+}
+</script>
+
+<script>
+/* ═══════════════════════════════════════
+   FRONTEND — UI UTILITIES
+═══════════════════════════════════════ */
+
+// MODAL
+function showModal(title,body,hideBtn=false){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-body').innerHTML=body;
+  document.getElementById('modal-default-btn').style.display=hideBtn?'none':'block';
+  const m=document.getElementById('custom-modal');
+  const c=document.getElementById('modal-content');
+  m.classList.remove('hidden');
+  m.style.opacity='0'; c.style.transform='scale(.95)';
+  requestAnimationFrame(()=>{ m.style.transition='opacity .25s'; c.style.transition='transform .25s'; m.style.opacity='1'; c.style.transform='scale(1)'; });
+}
+function closeModal(){
+  const m=document.getElementById('custom-modal');
+  const c=document.getElementById('modal-content');
+  m.style.opacity='0'; c.style.transform='scale(.95)';
+  setTimeout(()=>m.classList.add('hidden'),250);
+}
+
+// CURSOR
+function initCursor(){
+  const cur=document.getElementById('custom-cursor');
+  if(!cur)return;
+  document.addEventListener('mousemove',e=>{ cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px'; });
+  document.addEventListener('mouseleave',()=>cur.style.opacity='0');
+  document.addEventListener('mouseenter',()=>cur.style.opacity='1');
+  document.querySelectorAll('a,button,.cursor-hover').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cur.classList.add('hovered'));
+    el.addEventListener('mouseleave',()=>cur.classList.remove('hovered'));
+  });
+}
+
+// ADMIN TABS
+function initAdminTabs(){
+  document.querySelectorAll('.admin-tab-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      document.querySelectorAll('.admin-tab-btn').forEach(b=>{ b.classList.remove('active-tab'); b.style.background=''; b.style.color=''; });
+      document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active-pane'));
+      e.target.classList.add('active-tab'); e.target.style.background='#6D1B2D'; e.target.style.color='white';
+      const pane=document.getElementById(e.target.dataset.target);
+      if(pane) pane.classList.add('active-pane');
+    });
+  });
+}
+
+// CATALOG FILTER BUTTONS
+function initCatalogFilters(){
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      document.querySelectorAll('.filter-btn').forEach(b=>{ b.style.cssText=''; });
+      e.target.style.background='#6D1B2D'; e.target.style.color='white'; e.target.style.borderColor='#6D1B2D';
+      renderCatalog(e.target.dataset.filter);
+    });
+  });
+}
+
+// NAVBAR
+function initNavbar(){
+  window.addEventListener('scroll',()=>{
+    const nav=document.getElementById('navbar');
+    nav.style.boxShadow=window.scrollY>40?'0 4px 30px rgba(0,0,0,.1)':'none';
+  });
+  document.getElementById('mobile-menu-btn').addEventListener('click',()=>{
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+  document.querySelectorAll('.mobile-link').forEach(function(l){ l.addEventListener('click', function(){ document.getElementById('mobile-menu').classList.add('hidden'); }); });
+  var logoutBtn = document.getElementById('admin-logout-btn');
+  if (logoutBtn) logoutBtn.addEventListener('click', function(){ adminLoggedIn=false; window.location.hash='#home'; });
+}
+
+// GSAP ANIMATIONS
+function initAnimations(){
+  if(typeof gsap==='undefined')return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.gsap-hero',{y:60,opacity:0,duration:1.2,stagger:.18,ease:'power3.out',delay:.1});
+  document.querySelectorAll('.gsap-fade-up').forEach(el=>{
+    gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'},y:45,opacity:0,duration:.9,ease:'power2.out'});
+  });
+}
+
+function handleUserLogin(e) {
+  e.preventDefault();
+  const email=document.getElementById('user-email').value.trim().toLowerCase();
+  const pass=document.getElementById('user-pass').value;
+  const user=(appState.users||[]).find(u=>u.email.toLowerCase()===email && u.password===pass);
+  if(!user) {
+    showModal('Sign In Failed','The email or password you entered is incorrect. Please try again.');
+    return;
+  }
+  userLoggedIn=true;
+  currentUser={ name:user.name, email:user.email, phone:user.phone||'', joined:user.joined };
+  e.target.reset();
+  updateNavForUser();
+  showModal('Welcome Back!',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600 text-lg">Hello, <strong>${user.name.split(' ')[0]}</strong>! Great to see you.</p></div>`);
+  setTimeout(()=>{ closeModal(); window.location.hash='#user-dashboard'; },1200);
+}
+
+function handleUserRegister(e) {
+  e.preventDefault();
+  const fname=document.getElementById('reg-fname').value.trim();
+  const lname=document.getElementById('reg-lname').value.trim();
+  const email=document.getElementById('reg-email').value.trim().toLowerCase();
+  const phone=document.getElementById('reg-phone').value.trim();
+  const pass=document.getElementById('reg-pass').value;
+  if(!fname||!lname||!email||!pass){ showModal('Missing Info','Please fill in all required fields.'); return; }
+  appState.users=appState.users||[];
+  if(appState.users.some(u=>u.email.toLowerCase()===email)){ showModal('Account Exists','An account with this email already exists. Please sign in instead.'); return; }
+  const newUser={ id:'u'+Date.now(), name:`${fname} ${lname}`, email, phone, password:pass, joined:new Date().toISOString().split('T')[0] };
+  appState.users.push(newUser);
+  userLoggedIn=true;
+  currentUser=newUser;
+  persistState();
+  e.target.reset();
+  updateNavForUser();
+  showModal('Account Created!',`<div class="text-center"><i class="ph ph-confetti text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600 text-lg">Welcome to AURA, <strong>${fname}</strong>!</p></div>`);
+  setTimeout(()=>{ closeModal(); window.location.hash='#user-dashboard'; },1200);
+}
+
+function updateNavForUser() {
+  const loginBtn=document.getElementById('nav-user-btn');
+  if(!loginBtn) return;
+  if(userLoggedIn && currentUser) {
+    loginBtn.innerHTML=`<i class="ph ph-user-circle text-lg"></i> ${currentUser.name.split(' ')[0]}`;
+    loginBtn.href='#user-dashboard';
+  } else {
+    loginBtn.innerHTML='<i class="ph ph-user-circle text-base"></i> Sign In';
+    loginBtn.href='#user-login';
+  }
+}
+
+window.logoutUser=function(){
+  userLoggedIn=false;
+  currentUser=null;
+  updateNavForUser();
+  window.location.hash='#home';
+};
+
+function handleBookingSubmit(e) {
+  e.preventDefault();
+  const name=document.getElementById('bf-name').value.trim();
+  const email=document.getElementById('bf-email').value.trim().toLowerCase();
+  const phone=document.getElementById('bf-phone').value.trim();
+  const service=document.getElementById('bf-service').value;
+  const date=document.getElementById('bf-date').value;
+  const time=document.getElementById('bf-time').value;
+  const notes=document.getElementById('bf-notes')?.value.trim() || '';
+  if(!name||!email||!phone||!service||!date||!time) { showModal('Missing Info','Please fill in all required fields.'); return; }
+  const appt={ id:'APT-'+Math.floor(Math.random()*9000+1000), name, email, phone, service, date, time, notes, status:'Pending' };
+  appState.appointments.unshift(appt);
+  persistState();
+  e.target.reset();
+  showModal('Booking Confirmed!',`<div class="text-center"><i class="ph ph-calendar-check text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600">Your appointment for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is pending confirmation.</p><p class="text-xs text-gray-400 mt-3">We'll reach out within 24 hours.</p></div>`);
+  setTimeout(()=>{ window.location.hash=userLoggedIn?'#user-dashboard':'#home'; },100);
+}
+
+function handleOrderSubmit(e) {
+  e.preventDefault();
+  const name=document.getElementById('co-name').value.trim();
+  const city=document.getElementById('co-city').value.trim();
+  const email=document.getElementById('co-email').value.trim().toLowerCase();
+  const phone=document.getElementById('co-phone').value.trim();
+  const desc=document.getElementById('co-desc').value.trim();
+  if(!name||!city||!email||!phone||!desc){ showModal('Missing Info','Please fill name, city, email, phone and design description.'); return; }
+  const order={
+    id:'TNC-2026-'+Math.floor(Math.random()*9000+1000),
+    name, city, email, phone, desc,
+    shape:document.getElementById('co-shape').value,
+    length:document.getElementById('co-length').value,
+    budget:document.getElementById('co-budget').value,
+    status:'New', date:new Date().toISOString().split('T')[0]
+  };
+  appState.customOrders.unshift(order);
+  persistState();
+  e.target.reset();
+  document.getElementById('co-ref-preview').classList.add('hidden');
+  showModal('Order Received!',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600">Your custom order <strong>${order.id}</strong> has been saved.</p><p class="text-xs text-gray-400 mt-3">We'll contact you to confirm your design details.</p></div>`);
+  setTimeout(()=>{ window.location.hash=userLoggedIn?'#user-dashboard':'#home'; },100);
+}
+
+/* ═══════════════════════════════════════
+   BOOT — Compatible with all browsers
+═══════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Skip remote hydration (no server) — load from localStorage directly
+  appState = loadLocalState();
+
+  // Wire forms safely (no optional chaining)
+  function wire(id, evt, fn) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener(evt, fn);
+  }
+
+  wire('booking-form',        'submit', handleBookingSubmit);
+  wire('custom-order-form',   'submit', handleOrderSubmit);
+  wire('admin-login-form',    'submit', handleAdminLogin);
+  wire('user-login-form',     'submit', handleUserLogin);
+  wire('user-register-form',  'submit', handleUserRegister);
+  wire('reg-pass',            'input',  function(e) { checkPassStrength(e.target.value); });
+
+  initNavbar();
+  initCursor();
+  initAdminTabs();
+  initCatalogFilters();
+  initAnimations();
+
+  renderLiveSite();
+  handleRouting();
+  window.addEventListener('hashchange', handleRouting);
+});
+</script>
+</body>
+</html>

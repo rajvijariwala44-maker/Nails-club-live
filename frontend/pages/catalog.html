@@ -1,0 +1,25 @@
+<!-- ══════════════════ PAGE: CATALOG ══════════════════ -->
+
+<div class="bg-maroon text-white py-20 text-center">
+    <h1 class="font-serif text-5xl md:text-6xl mb-4">Design Catalog</h1>
+    <p class="text-white/70 font-light max-w-xl mx-auto px-4">
+        Browse our handcrafted designs — from bridal elegance to bold chrome statements.
+    </p>
+</div>
+
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Filter Buttons -->
+    <div class="flex flex-wrap gap-4 justify-center mb-12" id="catalog-filters">
+        <button class="filter-btn active px-6 py-2 rounded-full border border-maroon bg-maroon text-white transition-colors text-sm cursor-hover"
+                data-filter="all">All</button>
+        <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 hover:border-maroon hover:text-maroon transition-colors text-sm cursor-hover"
+                data-filter="Bridal">Bridal</button>
+        <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 hover:border-maroon hover:text-maroon transition-colors text-sm cursor-hover"
+                data-filter="Minimal">Minimal</button>
+        <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 hover:border-maroon hover:text-maroon transition-colors text-sm cursor-hover"
+                data-filter="Chrome">Chrome</button>
+    </div>
+
+    <!-- Populated by frontend/js/render.js → filterCatalog() -->
+    <div class="masonry-grid" id="catalog-gallery"></div>
+</div>

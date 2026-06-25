@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Premium Nail Studio</title>
+    
+    <!-- Fonts: Playfair Display (Luxury Serif) & Inter (Modern Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: {
+                            DEFAULT: '#6D1B2D',
+                            light: '#8a2b42',
+                            dark: '#4f1120'
+                        },
+                        beige: '#F5F0EC',
+                        dark: '#111111',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    transitionTimingFunction: {
+                        'expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Utilities */
+        :root {
+            --cursor-size: 20px;
+        }
+
+        body {
+            background-color: #FFFFFF;
+            color: #111111;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            border: 1.5px solid #6D1B2D;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
+        }
+        #custom-cursor.hover {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(109, 27, 45, 0.1);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F5F0EC; }
+        ::-webkit-scrollbar-thumb { background: #6D1B2D; border-radius: 10px; }
+
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
+        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
+
+        .page-view { display: none; opacity: 0; }
+        .page-view.active { display: block; animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .magnetic-wrap { display: inline-block; }
+        #custom-modal { backdrop-filter: blur(5px); transition: opacity 0.3s ease; }
+        #custom-modal.opacity-100 { opacity: 1; }
+        #modal-content { max-height: 90vh; overflow-y: auto; transition: transform 0.3s ease; }
+        
+        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(109, 27, 45, 0.1); }
+        .parallax-img { will-change: transform; }
+    </style>
+</head>
+<body class="antialiased font-sans text-dark bg-white selection:bg-maroon selection:text-white">
+
+    <div id="custom-cursor"></div>
+
+    <!-- Global Modal -->
+    <div id="custom-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-dark/40" onclick="closeModal()"></div>
+        <div class="relative bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
+            <h3 id="modal-title" class="font-serif text-2xl text-maroon mb-2">Message</h3>
+            <div id="modal-body" class="text-gray-600 mb-6 font-light w-full">Your text here.</div>
+            <button id="modal-default-btn" onclick="closeModal()" class="w-full bg-maroon text-white py-3 rounded-full hover:bg-maroon-dark transition-colors font-medium">Got it</button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="font-serif text-2xl font-bold text-maroon tracking-wider flex items-center gap-2 cursor-hover">
+                <i class="ph ph-sparkle text-xl"></i> AURA
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-sm uppercase tracking-widest hover:text-maroon transition-colors cursor-hover">Home</a>
+                <a href="#services" class="text-sm uppercase tracking-widest hover:text-maroon transition-colors cursor-hover">Services</a>
+                <a href="#catalog" class="text-sm uppercase tracking-widest hover:text-maroon transition-colors cursor-hover">Catalog</a>
+                <a href="#custom-order" class="text-sm uppercase tracking-widest text-maroon font-semibold hover:text-maroon-dark transition-colors cursor-hover flex items-center gap-1"><i class="ph-fill ph-sparkle"></i> Custom Order</a>
+                <a href="#contact" class="text-sm uppercase tracking-widest hover:text-maroon transition-colors cursor-hover">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="magnetic-wrap hidden md:block">
+                    <a href="#booking" class="bg-maroon text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-maroon-dark transition-all hover:shadow-lg hover:shadow-maroon/20 cursor-hover flex items-center gap-2">
+                        Book Now <i class="ph ph-calendar-check"></i>
+                    </a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-maroon cursor-hover">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-beige absolute w-full py-4 px-6 flex flex-col space-y-4 shadow-xl">
+            <a href="#home" class="mobile-link text-lg text-dark hover:text-maroon">Home</a>
+            <a href="#services" class="mobile-link text-lg text-dark hover:text-maroon">Services</a>
+            <a href="#catalog" class="mobile-link text-lg text-dark hover:text-maroon">Catalog</a>
+            <a href="#custom-order" class="mobile-link text-lg text-maroon font-medium">Custom Press-Ons</a>
+            <a href="#booking" class="mobile-link text-lg text-maroon font-medium">Book Appointment</a>
+        </div>
+    </nav>
+
+    <main id="app-container" class="pt-20 md:pt-24 min-h-screen">
+        <!-- VIEW: HOME -->
+        <div id="view-home" class="page-view active">
+            <section class="relative h-[85vh] w-full overflow-hidden flex items-center justify-center bg-beige">
+                <img id="hero-bg-img" src="" alt="Luxury Nails" class="absolute inset-0 w-full h-full object-cover opacity-60 parallax-img" data-speed="0.5">
+                <div class="absolute inset-0 bg-gradient-to-b from-dark/30 to-dark/10"></div>
+                <div class="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
+                    <span class="gsap-hero text-maroon font-medium tracking-[0.2em] uppercase mb-4 block bg-white/80 px-4 py-1 rounded-full text-sm backdrop-blur-sm shadow-sm">Premium Nail Studio</span>
+                    <h1 id="hero-main-text" class="gsap-hero font-serif text-5xl md:text-7xl lg:text-8xl text-dark mb-6 leading-tight"></h1>
+                    <p id="hero-desc-text" class="gsap-hero text-lg md:text-xl text-dark/80 mb-10 max-w-2xl font-light"></p>
+                    <div class="gsap-hero flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+                        <a href="#booking" class="magnetic-wrap bg-maroon text-white px-8 py-4 rounded-full text-lg hover:bg-maroon-dark transition-all shadow-xl hover:shadow-maroon/30 cursor-hover">Book Appointment</a>
+                        <a href="#catalog" class="magnetic-wrap bg-white text-dark px-8 py-4 rounded-full text-lg hover:bg-beige transition-all shadow-md cursor-hover">View Catalog</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features / About -->
+            <section class="py-24 bg-white" id="about">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-16 items-center">
+                        <div class="gsap-fade-up relative">
+                            <div class="absolute -inset-4 bg-beige rounded-2xl transform -rotate-3 z-0"></div>
+                            <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Salon Interior" class="relative z-10 w-full h-[500px] object-cover rounded-xl shadow-2xl">
+                        </div>
+                        <div class="gsap-fade-up">
+                            <h2 class="font-serif text-4xl md:text-5xl text-maroon mb-6">Where Art Meets Luxury</h2>
+                            <p class="text-gray-600 mb-6 font-light leading-relaxed">Founded with a vision to redefine the modern beauty experience, AURA is more than a salon—it's a sanctuary. We blend meticulous technique with premium, non-toxic products to deliver flawless, lasting results.</p>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-beige">
+                                <div><h4 class="text-3xl font-serif text-maroon">5+</h4><p class="text-sm text-gray-500 mt-1">Years Exp.</p></div>
+                                <div><h4 class="text-3xl font-serif text-maroon">2k+</h4><p class="text-sm text-gray-500 mt-1">Happy Clients</p></div>
+                                <div><h4 class="text-3xl font-serif text-maroon">500+</h4><p class="text-sm text-gray-500 mt-1">Designs</p></div>
+                                <div><h4 class="text-3xl font-serif text-maroon">4.9</h4><p class="text-sm text-gray-500 mt-1">Rating</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Overview -->
+            <section class="py-24 bg-beige" id="services">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="flex justify-between items-end mb-12 gsap-fade-up">
+                        <div>
+                            <span class="text-maroon uppercase tracking-widest text-sm font-semibold">Our Menu</span>
+                            <h2 class="font-serif text-4xl md:text-5xl mt-2">Signature Services</h2>
+                        </div>
+                        <a href="#services-full" class="hidden md:inline-flex items-center gap-2 text-maroon hover:text-maroon-dark font-medium transition-colors group cursor-hover">
+                            View All <i class="ph ph-arrow-right transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="home-services-grid"></div>
+                </div>
+            </section>
+            
+            <!-- Online Orders CTA -->
+            <section class="py-24 bg-maroon text-white relative overflow-hidden" id="online-orders">
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
+                    <div class="gsap-fade-up">
+                        <span class="uppercase tracking-widest text-xs font-semibold text-beige mb-2 block">Global Shipping Available</span>
+                        <h2 class="font-serif text-4xl md:text-5xl mb-6">Order From Anywhere</h2>
+                        <p class="font-light text-white/80 mb-8 text-lg leading-relaxed">Experience AURA luxury without leaving your home. Shop our exclusive collection of handcrafted, reusable press-on nails or request a bespoke custom set.</p>
+                        <a href="#custom-order" class="bg-white text-maroon px-8 py-4 rounded-full font-medium hover:bg-beige transition-colors shadow-lg cursor-hover inline-block">Order Custom Set</a>
+                    </div>
+                    <div class="relative gsap-fade-up">
+                        <div class="absolute -inset-4 border border-white/20 rounded-2xl transform rotate-3"></div>
+                        <img src="bridal.jpg" alt="Press On Nails" class="relative z-10 w-full h-[450px] object-cover rounded-xl shadow-2xl">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW: CATALOG -->
+        <div id="view-catalog" class="page-view hidden">
+            <div class="bg-maroon text-white py-20 text-center">
+                <h1 class="font-serif text-5xl md:text-6xl mb-4">Design Catalog</h1>
+            </div>
+            <div class="max-w-7xl mx-auto px-6 py-12">
+                <div class="flex flex-wrap gap-4 justify-center mb-12" id="catalog-filters">
+                    <button class="filter-btn active px-6 py-2 rounded-full border border-maroon bg-maroon text-white transition-colors text-sm" data-filter="all">All</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 hover:border-maroon hover:text-maroon transition-colors text-sm" data-filter="Bridal">Bridal</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 hover:border-maroon hover:text-maroon transition-colors text-sm" data-filter="Minimal">Minimal</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 hover:border-maroon hover:text-maroon transition-colors text-sm" data-filter="Chrome">Chrome</button>
+                </div>
+                <div class="masonry-grid" id="catalog-gallery"></div>
+            </div>
+        </div>
+
+        <!-- VIEW: SERVICES FULL -->
+        <div id="view-services-full" class="page-view hidden">
+            <div class="bg-beige py-20 text-center border-b border-gray-200">
+                <h1 class="font-serif text-5xl md:text-6xl text-maroon mb-4">Our Services</h1>
+            </div>
+            <div class="max-w-5xl mx-auto px-6 py-16 space-y-8" id="full-services-list"></div>
+        </div>
+
+        <!-- VIEW: CUSTOM ORDER -->
+        <div id="view-custom-order" class="page-view hidden">
+            <div class="bg-beige pt-24 pb-16 text-center border-b border-gray-200">
+                <h1 class="font-serif text-4xl md:text-6xl text-maroon mb-4">Design Your Dream Nails</h1>
+            </div>
+            <div class="max-w-4xl mx-auto px-6 py-16">
+                <form id="custom-order-form" class="space-y-12 bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
+                    <div>
+                        <h3 class="font-serif text-2xl text-maroon border-b border-gray-100 pb-3 mb-6">1. Contact Information</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <input type="text" id="co-name" placeholder="Full Name *" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-maroon outline-none bg-gray-50">
+                            <input type="text" id="co-city" placeholder="City *" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-maroon outline-none bg-gray-50">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl text-maroon border-b border-gray-100 pb-3 mb-6">2. Nail Specifications</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <select id="co-shape" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+                                <option value="Almond">Almond</option><option value="Square">Square</option><option value="Coffin">Coffin</option>
+                            </select>
+                            <select id="co-length" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+                                <option value="Short">Short</option><option value="Medium">Medium</option><option value="Long">Long</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl text-maroon border-b border-gray-100 pb-3 mb-6">3. Design & Budget</h3>
+                        <div class="space-y-6">
+                            <textarea id="co-desc" required rows="3" placeholder="Design Description *" class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50"></textarea>
+                            <select id="co-budget" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+                                <option value="₹500 - ₹1000">₹500 - ₹1000</option><option value="₹1000 - ₹2000">₹1000 - ₹2000</option><option value="₹2000+">₹2000+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-maroon text-white py-4 rounded-xl text-lg font-medium hover:bg-maroon-dark transition-colors">Submit Custom Order</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- VIEW: BOOKING -->
+        <div id="view-booking" class="page-view hidden">
+            <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-16">
+                <div class="bg-beige p-10 rounded-3xl flex flex-col justify-center">
+                    <h2 class="font-serif text-4xl text-maroon mb-6">Reserve Your Time</h2>
+                    <p class="text-gray-600 mb-8 font-light">Select your desired service, date, and time.</p>
+                </div>
+                <form id="booking-form" class="space-y-6 bg-white">
+                    <input type="text" id="bf-name" placeholder="Full Name" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+                    <select id="bf-service" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50"></select>
+                    <input type="date" id="bf-date" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+                    <select id="bf-time" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+                        <option value="10:00">10:00 AM</option><option value="14:30">02:30 PM</option><option value="16:00">04:00 PM</option>
+                    </select>
+                    <button type="submit" class="w-full bg-dark text-white py-4 rounded-lg font-medium hover:bg-maroon transition-colors">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- VIEW: ADMIN LOGIN -->
+        <div id="view-admin-login" class="page-view hidden">
+            <div class="min-h-[70vh] flex items-center justify-center bg-gray-50 px-4">
+                <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full border border-gray-100 text-center">
+                    <h2 class="font-serif text-3xl text-maroon mb-6">Secure Access</h2>
+                    <p class="text-xs text-maroon mb-6 bg-beige p-2 rounded">Demo Credentials:<br>User: admin | Pass: admin</p>
+                    <form id="admin-login-form" class="space-y-5">
+                        <input type="text" id="admin-user" placeholder="Username" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+                        <input type="password" id="admin-pass" placeholder="Password" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+                        <button type="submit" class="w-full bg-maroon text-white py-3 rounded-lg font-medium hover:bg-maroon-dark">Authenticate</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW: ADMIN DASHBOARD -->
+        <div id="view-admin-dashboard" class="page-view hidden bg-gray-50 min-h-screen pb-20">
+            <!-- Topbar with REAL SAVE Button -->
+            <div class="bg-dark text-white px-6 py-4 flex flex-col md:flex-row justify-between items-center mb-8 gap-4 shadow-md sticky top-0 z-40">
+                <div class="font-serif text-xl flex items-center gap-2">
+                    <i class="ph ph-shield-check text-maroon"></i> AURA Portal <span class="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full font-sans ml-2 tracking-wider">LIVE SYNC</span>
+                </div>
+                <div class="flex gap-3 w-full md:w-auto">
+                    <button id="admin-save-btn" class="flex-1 md:flex-none bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg transition-colors text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-green-900/50" onclick="saveGlobalState()">
+                        <i class="ph ph-floppy-disk text-lg"></i> Save Website Changes
+                    </button>
+                    <button id="admin-logout-btn" class="text-sm bg-white/10 hover:bg-white/20 px-4 py-2.5 rounded transition-colors">Logout</button>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Admin Tabs -->
+                <div class="flex gap-4 mb-6 border-b border-gray-200 overflow-x-auto pb-2 scrollbar-hide">
+                    <button class="admin-tab active whitespace-nowrap pb-3 px-4 border-b-2 border-maroon text-maroon font-medium" data-target="admin-appointments">Appointments</button>
+                    <button class="admin-tab whitespace-nowrap pb-3 px-4 border-b-2 border-transparent text-gray-500" data-target="admin-custom-orders">Custom Orders</button>
+                    <button class="admin-tab whitespace-nowrap pb-3 px-4 border-b-2 border-transparent text-gray-500" data-target="admin-media">Media Library</button>
+                    <button class="admin-tab whitespace-nowrap pb-3 px-4 border-b-2 border-transparent text-gray-500" data-target="admin-cms">CMS / Visual Editor</button>
+                    <button class="admin-tab whitespace-nowrap pb-3 px-4 border-b-2 border-transparent text-gray-500" data-target="admin-store">Services & Store</button>
+                </div>
+
+                <!-- Appointments Pane -->
+                <div id="admin-appointments" class="admin-pane bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-500 text-sm">
+                                    <th class="p-4 font-medium">Client</th>
+                                    <th class="p-4 font-medium">Service</th>
+                                    <th class="p-4 font-medium">Date & Time</th>
+                                    <th class="p-4 font-medium">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-appt-table-body" class="divide-y divide-gray-100 text-sm"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Custom Orders Pane -->
+                <div id="admin-custom-orders" class="admin-pane hidden bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                                    <th class="p-4 font-medium">Order ID</th>
+                                    <th class="p-4 font-medium">Customer Details</th>
+                                    <th class="p-4 font-medium">Nail Specs</th>
+                                    <th class="p-4 font-medium">Budget</th>
+                                    <th class="p-4 font-medium text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-custom-orders-body" class="divide-y divide-gray-100 text-sm"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Media Library Pane -->
+                <div id="admin-media" class="admin-pane hidden">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div>
+                            <h3 class="font-medium text-lg text-dark">Central Media Library</h3>
+                            <p class="text-xs text-gray-500">Upload Base64 images directly to local storage.</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="bg-maroon text-white px-4 py-2 rounded text-sm hover:bg-maroon-dark transition-colors flex items-center gap-2" onclick="document.getElementById('library-upload').click()">
+                                <i class="ph ph-upload-simple"></i> Upload Image
+                                <input type="file" id="library-upload" accept="image/*" class="hidden" onchange="handleLibraryUpload(event)">
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-2 mb-4" id="media-filters">
+                        <button class="px-3 py-1 bg-dark text-white rounded-full text-xs" onclick="filterMedia('All')">All</button>
+                        <button class="px-3 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs hover:border-maroon" onclick="filterMedia('Banners')">Banners</button>
+                        <button class="px-3 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs hover:border-maroon" onclick="filterMedia('Catalog')">Catalog</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="admin-media-grid"></div>
+                </div>
+
+                <!-- CMS & Page Builder Pane -->
+                <div id="admin-cms" class="admin-pane hidden space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-serif text-2xl text-maroon mb-6 flex items-center gap-2"><i class="ph ph-browser"></i> Direct Visual Editor</h3>
+                        <div class="space-y-6 max-w-4xl">
+                            <div class="border border-gray-200 rounded-lg p-5">
+                                <h4 class="font-medium text-lg mb-4">Hero Section Editor</h4>
+                                <div class="space-y-4">
+                                    <div class="bg-white p-4 border border-gray-200 rounded-lg shadow-sm">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Background Image</label>
+                                        <div class="relative group w-full h-40 rounded-lg overflow-hidden border border-gray-200 bg-gray-100">
+                                            <img id="cms-hero-img-preview" src="" class="w-full h-full object-cover">
+                                            <div class="absolute inset-0 bg-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
+                                                <button class="bg-white text-dark px-3 py-1.5 text-sm rounded shadow flex items-center gap-1 hover:bg-maroon hover:text-white transition-colors" onclick="document.getElementById('hero-img-upload').click()">
+                                                    <i class="ph ph-upload-simple"></i> Replace Image
+                                                </button>
+                                                <input type="file" id="hero-img-upload" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Main Headline</label>
+                                        <textarea id="cms-hero-main" rows="2" class="w-full px-3 py-2 border border-gray-200 rounded outline-none focus:border-maroon transition-colors text-sm" oninput="updateLiveHeroText()"></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Subheadline Description</label>
+                                        <textarea id="cms-hero-desc" rows="2" class="w-full px-3 py-2 border border-gray-200 rounded outline-none focus:border-maroon transition-colors text-sm" oninput="updateLiveHeroText()"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Store & Services Pane -->
+                <div id="admin-store" class="admin-pane hidden space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                                <h3 class="font-medium text-lg">Services Menu</h3>
+                                <button class="bg-maroon text-white text-sm px-3 py-1.5 rounded hover:bg-maroon-dark transition-colors flex items-center gap-1" onclick="openAddServiceModal()"><i class="ph ph-plus"></i> Add New</button>
+                            </div>
+                            <div class="space-y-3" id="admin-services-list"></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                                <h3 class="font-medium text-lg">Catalog Items</h3>
+                                <button class="bg-maroon text-white text-sm px-3 py-1.5 rounded hover:bg-maroon-dark transition-colors flex items-center gap-1" onclick="openAddCatalogModal()"><i class="ph ph-plus"></i> Add Item</button>
+                            </div>
+                            <div class="space-y-3" id="admin-catalog-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-20 pb-10" id="contact">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1 md:col-span-2">
+                <a href="#home" class="font-serif text-3xl font-bold text-white tracking-wider flex items-center gap-2 mb-6"><i class="ph ph-sparkle text-maroon"></i> AURA</a>
+                <p class="text-gray-400 font-light max-w-sm mb-6">Elevating the standard of nail artistry.</p>
+            </div>
+            <div>
+                <h4 class="font-serif text-lg mb-6 text-beige">Contact</h4>
+                <ul class="space-y-3 text-gray-400 text-sm">
+                    <li><i class="ph ph-map-pin text-maroon"></i> 123 Luxury Ave, CA</li>
+                    <li><i class="ph ph-phone text-maroon"></i> +91 (555) 123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 border-t border-white/10 pt-8 flex justify-between">
+            <p class="text-gray-500 text-xs">© 2026 AURA Nail Studio.</p>
+            <a href="#admin-login" class="text-gray-500 text-xs hover:text-maroon transition-colors ml-4 opacity-30 hover:opacity-100">Admin Login</a>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        // --- GLOBAL APP STATE (Real persistence via localStorage) ---
+        const defaultState = {
+            hero: {
+                bgImage: 'https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+                mainText: 'Elevate Your <br> <i class="font-light italic text-maroon">Aesthetics.</i>',
+                descText: 'Experience world-class nail artistry in a serene, luxurious environment. Your perfect set awaits.'
+            },
+            services: [
+                { id: 's1', name: 'Nail Extensions', desc: 'Premium acrylic or hard gel extensions sculpted to perfection.', price: '₹1,200+', img: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500' },
+                { id: 's2', name: 'Soft Gel Extensions', desc: 'Lightweight, natural-feeling extensions applied with gel.', price: '₹999+', img: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500' },
+                { id: 's3', name: 'Gel Polish Manicure', desc: 'Long-lasting, high-shine gel polish on natural nails.', price: '₹699+', img: 'https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?w=500' }
+            ],
+            catalogItems: [
+                { id: 'c1', cat: 'Bridal', img: 'https://images.unsplash.com/photo-1590159763121-7c913ad11eb1?w=600' },
+                { id: 'c2', cat: 'Minimal', img: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600' },
+                { id: 'c3', cat: 'Chrome', img: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600' }
+            ],
+            appointments: [
+                { id: 'APT-101', name: 'Emma Watson', service: 'Gel Polish Manicure', date: '2026-06-25', time: '10:00', status: 'Pending' }
+            ],
+            customOrders: [
+                { id: 'TNC-2026-0001', name: 'Priya Sharma', city: 'Mumbai', shape: 'Almond', length: 'Medium', budget: '₹1000 - ₹2000', status: 'New', date: '2026-06-22' }
+            ],
+            mediaLibrary: [
+                { id: 'm1', url: 'https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?w=300', category: 'Banners', title: 'Hero BG' },
+                { id: 'm2', url: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=300', category: 'Services', title: 'Service Sample' }
+            ]
+        };
+
+        let appState = JSON.parse(localStorage.getItem('aura_state')) || defaultState;
+        let adminLoggedIn = false;
+        let currentMediaFilter = 'All';
+
+        // --- GLOBAL SAVE & SYNC FUNCTIONALITY ---
+        window.saveGlobalState = function() {
+            const btn = document.getElementById('admin-save-btn');
+            const originalHTML = '<i class="ph ph-floppy-disk text-lg"></i> Save Website Changes';
+            
+            // Visual feedback
+            btn.innerHTML = '<i class="ph ph-spinner animate-spin text-lg"></i> Saving...';
+            btn.classList.replace('bg-green-600', 'bg-blue-600');
+
+            // Persist to localStorage
+            localStorage.setItem('aura_state', JSON.stringify(appState));
+            
+            // Re-render live site automatically
+            renderLiveSite();
+
+            // Success feedback
+            setTimeout(() => {
+                btn.innerHTML = '<i class="ph ph-check-circle text-lg"></i> Saved Successfully';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.replace('bg-blue-600', 'bg-green-600');
+                }, 2000);
+            }, 600);
+        };
+
+        // --- CORE INITIALIZATION ---
+        document.addEventListener("DOMContentLoaded", () => {
+            initSmoothScroll();
+            initGSAP();
+            handleRouting();
+            window.addEventListener("hashchange", handleRouting);
+            
+            renderLiveSite();
+            
+            if(window.location.hash === '#admin-dashboard') {
+                if(!adminLoggedIn) window.location.hash = '#admin-login';
+                else initAdminDashboard();
+            }
+
+            // Forms
+            document.getElementById('booking-form').addEventListener('submit', handleBookingSubmit);
+            document.getElementById('custom-order-form').addEventListener('submit', handleOrderSubmit);
+            document.getElementById('admin-login-form').addEventListener('submit', handleAdminLogin);
+            
+            // Admin Tabs Setup
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.admin-tab').forEach(t => {
+                        t.classList.remove('border-maroon', 'text-maroon', 'active');
+                        t.classList.add('border-transparent', 'text-gray-500');
+                    });
+                    e.target.classList.add('border-maroon', 'text-maroon', 'active');
+                    e.target.classList.remove('border-transparent', 'text-gray-500');
+                    document.querySelectorAll('.admin-pane').forEach(p => p.classList.add('hidden'));
+                    document.getElementById(e.target.dataset.target).classList.remove('hidden');
+                });
+            });
+
+            document.getElementById('admin-logout-btn').addEventListener('click', () => {
+                adminLoggedIn = false;
+                window.location.hash = '#admin-login';
+            });
+            
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+            document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden')));
+        });
+
+        // --- LIVE SITE RENDERING ---
+        function renderLiveSite() {
+            // Hero
+            document.getElementById('hero-bg-img').src = appState.hero.bgImage;
+            document.getElementById('hero-main-text').innerHTML = appState.hero.mainText;
+            document.getElementById('hero-desc-text').innerHTML = appState.hero.descText;
+
+            // Services Grid (Home)
+            document.getElementById('home-services-grid').innerHTML = appState.services.slice(0,3).map(s => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow group">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="${s.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2"><h3 class="font-serif text-xl">${s.name}</h3><span class="text-maroon font-medium">${s.price}</span></div>
+                        <p class="text-gray-500 text-sm font-light">${s.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Full Services List
+            document.getElementById('full-services-list').innerHTML = appState.services.map(s => `
+                <div class="flex flex-col md:flex-row gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <img src="${s.img}" class="w-full md:w-48 h-48 object-cover rounded-xl shrink-0">
+                    <div class="flex-1 flex flex-col justify-center">
+                        <div class="flex justify-between items-center mb-2"><h3 class="font-serif text-2xl">${s.name}</h3><span class="text-xl text-maroon font-medium">${s.price}</span></div>
+                        <p class="text-gray-600 font-light mb-6">${s.desc}</p>
+                        <div><a href="#booking" class="bg-maroon text-white px-6 py-2 rounded-full text-sm">Book Service</a></div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Catalog Grid
+            document.getElementById('catalog-gallery').innerHTML = appState.catalogItems.map(i => `
+                <div class="masonry-item relative group rounded-xl overflow-hidden">
+                    <img src="${i.img}" class="w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-end p-4 transition-opacity">
+                        <span class="text-white text-sm font-medium bg-maroon/80 px-3 py-1 rounded-full">${i.cat}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Booking Dropdown Sync
+            document.getElementById('bf-service').innerHTML = '<option value="">Choose a service...</option>' + appState.services.map(s => `<option value="${s.name}">${s.name} - ${s.price}</option>`).join('');
+
+            // If in Admin, sync admin views too
+            if (adminLoggedIn) initAdminDashboard();
+        }
+
+        // --- ADMIN DASHBOARD SYNC ---
+        function initAdminDashboard() {
+            // Load CMS editor fields from state
+            document.getElementById('cms-hero-img-preview').src = appState.hero.bgImage;
+            document.getElementById('cms-hero-main').value = appState.hero.mainText;
+            document.getElementById('cms-hero-desc').value = appState.hero.descText;
+
+            // Load Appointments
+            document.getElementById('admin-appt-table-body').innerHTML = appState.appointments.map(a => `
+                <tr class="hover:bg-gray-50 border-b border-gray-100">
+                    <td class="p-4"><div class="font-medium">${a.name}</div><div class="text-xs text-gray-400">${a.id}</div></td>
+                    <td class="p-4">${a.service}</td>
+                    <td class="p-4">${a.date} <span class="text-xs text-gray-500">${a.time}</span></td>
+                    <td class="p-4"><span class="px-2 py-1 rounded text-xs bg-gray-200">${a.status}</span></td>
+                </tr>
+            `).join('');
+
+            // Load Custom Orders
+            document.getElementById('admin-custom-orders-body').innerHTML = appState.customOrders.map((o, idx) => `
+                <tr class="hover:bg-gray-50 border-b border-gray-100">
+                    <td class="p-4 font-bold text-maroon">${o.id}</td>
+                    <td class="p-4">${o.name}<br><span class="text-xs text-gray-500">${o.city}</span></td>
+                    <td class="p-4 text-sm">${o.shape} • ${o.length}</td>
+                    <td class="p-4">${o.budget}</td>
+                    <td class="p-4 text-right">
+                        <select class="text-xs border rounded p-1" onchange="updateOrderStatus(${idx}, this.value)">
+                            <option value="New" ${o.status==='New'?'selected':''}>New</option>
+                            <option value="In Production" ${o.status==='In Production'?'selected':''}>Production</option>
+                            <option value="Shipped" ${o.status==='Shipped'?'selected':''}>Shipped</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Load Services Manager
+            document.getElementById('admin-services-list').innerHTML = appState.services.map((s, idx) => `
+                <div class="flex items-center gap-4 p-3 border border-gray-100 rounded-lg bg-gray-50">
+                    <img src="${s.img}" class="w-12 h-12 object-cover rounded shadow-sm">
+                    <div class="flex-1">
+                        <h5 class="text-sm font-medium text-dark">${s.name} <span class="text-maroon ml-2">${s.price}</span></h5>
+                        <p class="text-xs text-gray-500 truncate">${s.desc}</p>
+                    </div>
+                    <button class="text-red-500 hover:text-red-700 p-2" onclick="deleteService(${idx})"><i class="ph ph-trash"></i></button>
+                </div>
+            `).join('');
+
+            // Load Catalog Manager
+            document.getElementById('admin-catalog-list').innerHTML = appState.catalogItems.map((c, idx) => `
+                <div class="flex items-center gap-4 p-3 border border-gray-100 rounded-lg bg-gray-50">
+                    <img src="${c.img}" class="w-12 h-12 object-cover rounded shadow-sm">
+                    <div class="flex-1"><h5 class="text-sm font-medium text-dark">Category: ${c.cat}</h5></div>
+                    <button class="text-red-500 hover:text-red-700 p-2" onclick="deleteCatalogItem(${idx})"><i class="ph ph-trash"></i></button>
+                </div>
+            `).join('');
+
+            renderMediaLibrary();
+        }
+
+        // --- IMAGE UPLOAD & BASE64 COMPRESSION ---
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = e => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800; // Limit size for localStorage limits
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/jpeg', 0.8));
+                };
+            };
+        }
+
+        window.handleHeroImageUpload = function(e) {
+            const file = e.target.files[0];
+            if(file) {
+                compressImage(file, base64Img => {
+                    appState.hero.bgImage = base64Img;
+                    // Add to media library automatically
+                    appState.mediaLibrary.push({ id: 'm'+Date.now(), url: base64Img, category: 'Banners', title: 'Uploaded Hero BG' });
+                    renderLiveSite();
+                    saveGlobalState();
+                });
+            }
+        };
+
+        window.handleLibraryUpload = function(e) {
+            const file = e.target.files[0];
+            if(file) {
+                compressImage(file, base64Img => {
+                    appState.mediaLibrary.push({ id: 'm'+Date.now(), url: base64Img, category: 'General', title: file.name });
+                    renderMediaLibrary();
+                    saveGlobalState();
+                });
+            }
+        };
+
+        // --- LIVE CMS TEXT EDITING ---
+        window.updateLiveHeroText = function() {
+            appState.hero.mainText = document.getElementById('cms-hero-main').value;
+            appState.hero.descText = document.getElementById('cms-hero-desc').value;
+            // Update preview immediately, save button required for persistence
+            document.getElementById('hero-main-text').innerHTML = appState.hero.mainText;
+            document.getElementById('hero-desc-text').innerHTML = appState.hero.descText;
+        };
+
+        // --- MEDIA LIBRARY MANAGER ---
+        window.filterMedia = function(cat) {
+            currentMediaFilter = cat;
+            renderMediaLibrary();
+        };
+
+        function renderMediaLibrary() {
+            const grid = document.getElementById('admin-media-grid');
+            const items = currentMediaFilter === 'All' ? appState.mediaLibrary : appState.mediaLibrary.filter(m => m.category === currentMediaFilter);
+            
+            grid.innerHTML = items.map((m, idx) => `
+                <div class="relative group rounded bg-gray-100 overflow-hidden aspect-square border border-gray-200">
+                    <img src="${m.url}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-dark/70 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 transition-opacity backdrop-blur-sm">
+                        <button class="bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700" onclick="deleteMedia(${idx})"><i class="ph ph-trash"></i></button>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/90 px-2 py-1 text-[10px] truncate">${m.title}</div>
+                </div>
+            `).join('');
+        }
+
+        window.deleteMedia = function(idx) {
+            if(confirm("Delete this image?")) {
+                const originalIndex = appState.mediaLibrary.findIndex(m => m.id === (currentMediaFilter === 'All' ? appState.mediaLibrary[idx].id : appState.mediaLibrary.filter(x=>x.category===currentMediaFilter)[idx].id));
+                appState.mediaLibrary.splice(originalIndex, 1);
+                renderMediaLibrary();
+                saveGlobalState();
+            }
+        };
+
+        // --- SERVICE & CATALOG CRUD ---
+        window.deleteService = function(idx) {
+            if(confirm("Remove this service?")) {
+                appState.services.splice(idx, 1);
+                renderLiveSite();
+                saveGlobalState();
+            }
+        };
+
+        window.deleteCatalogItem = function(idx) {
+            if(confirm("Remove this catalog item?")) {
+                appState.catalogItems.splice(idx, 1);
+                renderLiveSite();
+                saveGlobalState();
+            }
+        };
+
+        window.openAddServiceModal = function() {
+            const html = `
+                <div class="space-y-4">
+                    <input type="text" id="new-svc-name" placeholder="Service Name" class="w-full p-2 border rounded outline-none">
+                    <input type="text" id="new-svc-price" placeholder="Price (e.g. ₹999+)" class="w-full p-2 border rounded outline-none">
+                    <textarea id="new-svc-desc" placeholder="Description" class="w-full p-2 border rounded outline-none"></textarea>
+                    <button onclick="saveNewService()" class="w-full bg-maroon text-white p-3 rounded font-medium hover:bg-maroon-dark">Add Service</button>
+                </div>
+            `;
+            showModal('Add New Service', html, true);
+        };
+
+        window.saveNewService = function() {
+            const name = document.getElementById('new-svc-name').value;
+            const price = document.getElementById('new-svc-price').value;
+            const desc = document.getElementById('new-svc-desc').value;
+            if(name && price) {
+                appState.services.push({
+                    id: 's' + Date.now(),
+                    name, price, desc,
+                    img: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500' // Placeholder
+                });
+                closeModal();
+                renderLiveSite();
+                saveGlobalState();
+            }
+        };
+
+        window.openAddCatalogModal = function() {
+            const html = `
+                <div class="space-y-4">
+                    <select id="new-cat-type" class="w-full p-2 border rounded outline-none">
+                        <option value="Minimal">Minimal</option><option value="Bridal">Bridal</option><option value="Chrome">Chrome</option>
+                    </select>
+                    <div class="border-2 border-dashed border-gray-300 p-4 text-center rounded">
+                        <input type="file" id="new-cat-img" accept="image/*" class="w-full">
+                    </div>
+                    <button onclick="saveNewCatalog()" class="w-full bg-maroon text-white p-3 rounded font-medium hover:bg-maroon-dark">Add to Catalog</button>
+                </div>
+            `;
+            showModal('Add Catalog Item', html, true);
+        };
+
+        window.saveNewCatalog = function() {
+            const cat = document.getElementById('new-cat-type').value;
+            const fileInput = document.getElementById('new-cat-img');
+            if(fileInput.files[0]) {
+                compressImage(fileInput.files[0], base64 => {
+                    appState.catalogItems.unshift({ id: 'c'+Date.now(), cat: cat, img: base64 });
+                    appState.mediaLibrary.push({ id: 'm'+Date.now(), url: base64, category: 'Catalog', title: 'Catalog Upload' });
+                    closeModal();
+                    renderLiveSite();
+                    saveGlobalState();
+                });
+            } else {
+                alert("Please select an image");
+            }
+        };
+
+        window.updateOrderStatus = function(idx, val) {
+            appState.customOrders[idx].status = val;
+            saveGlobalState();
+        };
+
+        // --- FORM SUBMISSIONS ---
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+            const newAppt = {
+                id: 'APT-' + Math.floor(Math.random() * 1000),
+                name: document.getElementById('bf-name').value,
+                service: document.getElementById('bf-service').value,
+                date: document.getElementById('bf-date').value,
+                time: document.getElementById('bf-time').value,
+                status: 'Pending'
+            };
+            appState.appointments.unshift(newAppt);
+            saveGlobalState();
+            e.target.reset();
+            showModal('Success', 'Booking Request Sent!');
+            window.location.hash = '#home';
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            const order = {
+                id: 'TNC-2026-' + Math.floor(Math.random() * 9000),
+                name: document.getElementById('co-name').value,
+                city: document.getElementById('co-city').value,
+                shape: document.getElementById('co-shape').value,
+                length: document.getElementById('co-length').value,
+                budget: document.getElementById('co-budget').value,
+                status: 'New',
+                date: new Date().toISOString().split('T')[0]
+            };
+            appState.customOrders.unshift(order);
+            saveGlobalState();
+            e.target.reset();
+            showModal('Order Received', 'Your custom request has been saved securely.');
+            window.location.hash = '#home';
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+            if(user === 'admin' && pass === 'admin') {
+                adminLoggedIn = true;
+                window.location.hash = '#admin-dashboard';
+            } else {
+                alert('Invalid credentials');
+            }
+        }
+
+        // --- MODAL SYSTEM ---
+        function showModal(title, body, isHtml = false) {
+            const modal = document.getElementById('custom-modal');
+            const content = document.getElementById('modal-content');
+            document.getElementById('modal-title').textContent = title;
+            
+            if(isHtml) {
+                document.getElementById('modal-body').innerHTML = body;
+                document.getElementById('modal-default-btn').style.display = 'none';
+            } else {
+                document.getElementById('modal-body').textContent = body;
+                document.getElementById('modal-default-btn').style.display = 'block';
+            }
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                content.classList.replace('scale-95', 'scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('opacity-100');
+            content.classList.replace('scale-100', 'scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // --- ROUTING SYSTEM ---
+        function handleRouting() {
+            const hash = window.location.hash || '#home';
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(v => {
+                v.classList.remove('active');
+                v.classList.add('hidden');
+            });
+            
+            const targetId = 'view-' + hash.replace('#', '');
+            const target = document.getElementById(targetId);
+            if(target) {
+                target.classList.remove('hidden');
+                setTimeout(() => target.classList.add('active'), 10);
+                
+                if(hash === '#admin-dashboard') {
+                    if(!adminLoggedIn) {
+                        window.location.hash = '#admin-login';
+                        return;
+                    }
+                    initAdminDashboard();
+                }
+            }
+            
+            // Close mobile menu on navigation
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Catalog filter reset
+            if(hash === '#catalog') {
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-maroon', 'text-white');
+                    btn.classList.add('border-gray-300');
+                    if(btn.dataset.filter === 'all') {
+                        btn.classList.add('active', 'bg-maroon', 'text-white');
+                    }
+                });
+                filterCatalog('all');
+            }
+        }
+
+        // --- CATALOG FILTERING ---
+        function filterCatalog(cat) {
+            const gallery = document.getElementById('catalog-gallery');
+            const items = cat === 'all' ? appState.catalogItems : appState.catalogItems.filter(i => i.cat === cat);
+            
+            gallery.innerHTML = items.map(i => `
+                <div class="masonry-item relative group rounded-xl overflow-hidden">
+                    <img src="${i.img}" class="w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-end p-4 transition-opacity">
+                        <span class="text-white text-sm font-medium bg-maroon/80 px-3 py-1 rounded-full">${i.cat}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Catalog filter buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-maroon', 'text-white');
+                        b.classList.add('border-gray-300');
+                    });
+                    e.target.classList.add('active', 'bg-maroon', 'text-white');
+                    e.target.classList.remove('border-gray-300');
+                    filterCatalog(e.target.dataset.filter);
+                });
+            });
+        });
+
+        // --- SMOOTH SCROLL SETUP ---
+        function initSmoothScroll() {
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+
+        // --- GSAP ANIMATIONS ---
+        function initGSAP() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero animations
+            gsap.utils.toArray('.gsap-hero').forEach((el, i) => {
+                gsap.from(el, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    delay: i * 0.2,
+                    ease: 'power3.out'
+                });
+            });
+
+            // Scroll-triggered fade-ups
+            gsap.utils.toArray('.gsap-fade-up').forEach(el => {
+                gsap.from(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 60,
+                    duration: 1,
+                    ease: 'power3.out'
+                });
+            });
+
+            // Parallax effect
+            const parallaxImg = document.getElementById('hero-bg-img');
+            if(parallaxImg) {
+                gsap.to(parallaxImg, {
+                    scrollTrigger: {
+                        trigger: parallaxImg,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true
+                    },
+                    y: '30%',
+                    ease: 'none'
+                });
+            }
+        }
+
+        // --- CUSTOM CURSOR ---
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+        document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+
+        document.querySelectorAll('.cursor-hover, a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // --- MAGNETIC BUTTONS ---
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.magnetic-wrap').forEach(wrap => {
+                wrap.addEventListener('mousemove', (e) => {
+                    const rect = wrap.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    wrap.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                });
+                wrap.addEventListener('mouseleave', () => {
+                    wrap.style.transform = 'translate(0, 0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

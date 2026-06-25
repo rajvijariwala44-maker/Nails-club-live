@@ -1,0 +1,118 @@
+{
+  "hero": {
+    "bgImage": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=2000&q=90",
+    "mainText": "Elevate Your\n<em class=\"font-light italic\" style=\"color:#6D1B2D\">Aesthetics.</em>",
+    "descText": "Experience world-class nail artistry in a serene, luxurious environment. Your perfect set awaits."
+  },
+  "services": [
+    {
+      "id": "s1",
+      "name": "Nail Extensions",
+      "desc": "Premium acrylic or hard gel extensions sculpted to perfection.",
+      "price": "$85+",
+      "img": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80"
+    },
+    {
+      "id": "s2",
+      "name": "Soft Gel Extensions",
+      "desc": "Lightweight, natural-feeling extensions applied with builder gel.",
+      "price": "$75+",
+      "img": "https://images.unsplash.com/photo-1590159763121-7c913ad11eb1?w=600&q=80"
+    },
+    {
+      "id": "s3",
+      "name": "Gel Polish Manicure",
+      "desc": "Long-lasting, high-shine gel polish on natural nails.",
+      "price": "$55+",
+      "img": "https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?w=600&q=80"
+    },
+    {
+      "id": "s4",
+      "name": "Press-On Sets",
+      "desc": "Handcrafted reusable press-ons shipped worldwide.",
+      "price": "$45+",
+      "img": "https://images.unsplash.com/photo-1600843389656-78e7235a90e3?w=600&q=80"
+    },
+    {
+      "id": "s5",
+      "name": "Nail Art & Designs",
+      "desc": "Custom nail art from minimalist lines to elaborate 3D sculptures.",
+      "price": "$30+",
+      "img": "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600&q=80"
+    }
+  ],
+  "catalogItems": [
+    {
+      "id": "c1",
+      "cat": "Bridal",
+      "img": "https://images.unsplash.com/photo-1590159763121-7c913ad11eb1?w=600&q=80"
+    },
+    {
+      "id": "c2",
+      "cat": "Minimal",
+      "img": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80"
+    },
+    {
+      "id": "c3",
+      "cat": "Chrome",
+      "img": "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600&q=80"
+    },
+    {
+      "id": "c4",
+      "cat": "Floral",
+      "img": "https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?w=600&q=80"
+    },
+    {
+      "id": "c5",
+      "cat": "Bridal",
+      "img": "https://images.unsplash.com/photo-1600843389656-78e7235a90e3?w=600&q=80"
+    },
+    {
+      "id": "c6",
+      "cat": "Chrome",
+      "img": "https://images.unsplash.com/photo-1590159763121-7c913ad11eb1?w=700&q=80"
+    },
+    {
+      "id": "c7",
+      "cat": "Minimal",
+      "img": "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=700&q=80"
+    },
+    {
+      "id": "c8",
+      "cat": "Floral",
+      "img": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=700&q=80"
+    }
+  ],
+  "appointments": [],
+  "customOrders": [],
+  "users": [
+    {
+      "id": "u1",
+      "name": "Emma Watson",
+      "email": "user@aura.com",
+      "phone": "+1 (555) 010-2026",
+      "password": "user123",
+      "joined": "2026-06-01"
+    }
+  ],
+  "mediaLibrary": [
+    {
+      "id": "m1",
+      "url": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=300&q=70",
+      "category": "Banners",
+      "title": "Hero BG"
+    },
+    {
+      "id": "m2",
+      "url": "https://images.unsplash.com/photo-1590159763121-7c913ad11eb1?w=300&q=70",
+      "category": "Catalog",
+      "title": "Bridal Set"
+    },
+    {
+      "id": "m3",
+      "url": "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=300&q=70",
+      "category": "Services",
+      "title": "Gel Manicure"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+<!-- ══════════════════ PAGE: ADMIN LOGIN ══════════════════ -->
+
+<div class="min-h-[80vh] flex items-center justify-center bg-gray-50 px-4 py-16">
+    <div class="bg-white p-10 rounded-2xl shadow-xl max-w-md w-full border border-gray-100 text-center">
+
+        <div class="w-16 h-16 bg-maroon/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="ph ph-shield-check text-3xl text-maroon"></i>
+        </div>
+
+        <h2 class="font-serif text-3xl text-maroon mb-2">Secure Access</h2>
+        <p class="text-gray-400 text-sm mb-8">AURA Admin Portal</p>
+
+        <div class="text-xs text-maroon bg-beige p-3 rounded-lg mb-8 text-left">
+            <span class="font-semibold block mb-1">Demo Credentials</span>
+            Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>admin</strong>
+        </div>
+
+        <!-- Handled by backend/api/auth.js → handleAdminLogin() -->
+        <form id="admin-login-form" class="space-y-5 text-left">
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-2">Username</label>
+                <input type="text" id="admin-user" placeholder="Enter username" required
+                       class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50
+                              focus:border-maroon outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-2">Password</label>
+                <input type="password" id="admin-pass" placeholder="Enter password" required
+                       class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50
+                              focus:border-maroon outline-none transition-colors">
+            </div>
+            <button type="submit"
+                    class="w-full bg-maroon text-white py-3 rounded-lg font-medium
+                           hover:bg-maroon-dark transition-colors cursor-hover flex items-center justify-center gap-2">
+                <i class="ph ph-sign-in"></i> Authenticate
+            </button>
+        </form>
+
+        <a href="#home" class="block mt-6 text-xs text-gray-400 hover:text-maroon transition-colors">
+            ← Back to website
+        </a>
+    </div>
+</div>
