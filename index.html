@@ -1189,78 +1189,200 @@ img {
    BACKEND — DATA & STATE
 ═══════════════════════════════════════ */
 const DEFAULT_STATE = {
+
+  /* ── Hero ──────────────────────────────── */
   hero: {
-    bgImage: 'bridal.jpg',
-    mainText: 'Elevate Your\n<em class="font-light italic" style="color:#CC0000">Aesthetics.</em>',
-    descText: 'Experience world-class nail artistry in a serene, luxurious environment. Your perfect set awaits.'
+    bgImage  : 'bridal.jpg',
+    mainText : 'Where Every Nail<br><em class="font-light italic" style="color:#CC0000">Tells a Story.</em>',
+    descText : 'Premium handcrafted nail art in Surat. From bridal elegance to bold chrome — your perfect set awaits at The Nails Club.'
   },
+
+  /* ── Banner ─────────────────────────────── */
+  banner: {
+    img  : 'presson nails.jpg',
+    title: 'Order From Anywhere',
+    desc : 'Experience The Nails Club luxury without leaving your home. Shop our exclusive collection of handcrafted, reusable press-on nails or request a fully bespoke custom set — shipped across India.'
+  },
+
+  /* ── Gallery Strip (5 images) ───────────── */
+  galleryStrip: [
+    'floral1.jpg',
+    'bridal.jpg',
+    'Chrome1.jpeg',
+    'menicure.jpg',
+    'presson nails.jpg'
+  ],
+
+  /* ── Services ───────────────────────────── */
   services: [
-    { id:'s1', name:'Nail Extensions',
-      desc:'Premium acrylic or hard gel extensions sculpted to perfection.',
-      price:'₹1,200+',
-      img:'Bridal1.jpeg' },
-    { id:'s2', name:'Soft Gel Extensions',
-      desc:'Lightweight, natural-feeling extensions applied with builder gel.',
-      price:'₹999+',
-      img:'soft gel extension.jpg' },
-    { id:'s3', name:'Gel Polish Manicure',
-      desc:'Long-lasting, high-shine gel polish on natural nails.',
-      price:'₹699+',
-      img:'menicure.jpg' },
-    { id:'s4', name:'Press-On Sets',
-      desc:'Handcrafted reusable press-ons shipped worldwide.',
-      price:'₹599+',
-      img:'presson nails.jpg' },
-    { id:'s5', name:'Nail Art & Designs',
-      desc:'Custom nail art — from minimalist lines to elaborate 3D sculptures.',
-      price:'₹399+',
-      img:'Chrome1.jpeg' }
+    {
+      id   : 's1',
+      name : 'Nail Extensions',
+      desc : 'Premium acrylic or hard gel extensions sculpted to your perfect shape. Long-lasting, chip-free, and ultra-sleek.',
+      price: '₹1,200+',
+      img  : 'Bridal1.jpeg'
+    },
+    {
+      id   : 's2',
+      name : 'Soft Gel Extensions',
+      desc : 'Lightweight builder-gel extensions that feel like your natural nail. Flexible, natural-looking, and incredibly durable.',
+      price: '₹999+',
+      img  : 'soft gel extension.jpg'
+    },
+    {
+      id   : 's3',
+      name : 'Gel Polish Manicure',
+      desc : 'High-shine, chip-resistant gel polish applied on your natural nails. Up to 3 weeks of flawless colour.',
+      price: '₹699+',
+      img  : 'menicure.jpg'
+    },
+    {
+      id   : 's4',
+      name : 'Press-On Sets',
+      desc : 'Handcrafted, fully customised press-on nails made to your exact size. Reusable and shipped anywhere in India.',
+      price: '₹599+',
+      img  : 'presson nails.jpg'
+    },
+    {
+      id   : 's5',
+      name : 'Nail Art & Designs',
+      desc : 'Bespoke nail art — from delicate florals and chrome mirrors to 3D gems and intricate hand-painted designs.',
+      price: '₹399+',
+      img  : 'Chrome1.jpeg'
+    },
+    {
+      id   : 's6',
+      name : 'Bridal Nail Package',
+      desc : 'Complete bridal nail experience — extensions, art, gel topcoat, and a perfectly curated look for your big day.',
+      price: '₹2,499+',
+      img  : 'bridal.jpg'
+    }
   ],
+
+  /* ── Catalog ────────────────────────────── */
   catalogItems: [
-    /* ── BRIDAL ── */
-    { id:'c1', cat:'Bridal',  img:'bridal.jpg'    },
-    { id:'c2', cat:'Bridal',  img:'Bridal1.jpeg'  },
-    { id:'c3', cat:'Bridal',  img:'bridal1.jpg'   },
-
-    /* ── MINIMAL ── */
-    { id:'c4', cat:'Minimal', img:'Minial1.jpeg'  },
-    { id:'c5', cat:'Minimal', img:'menicure.jpg'  },
-    { id:'c6', cat:'Minimal', img:'soft gel extension.jpg' },
-
-    /* ── CHROME ── */
-    { id:'c7', cat:'Chrome',  img:'Chrome1.jpeg'  },
-    { id:'c8', cat:'Chrome',  img:'chrome2.jpeg'  },
-    { id:'c9', cat:'Chrome',  img:'chrome4.jpg'   },
-
-    /* ── FLORAL ── */
-    { id:'c10', cat:'Floral', img:'floral1.jpg'   },
-    { id:'c11', cat:'Floral', img:'floral2.jpg'   },
-    { id:'c12', cat:'Floral', img:'floral3.jpg'   },
-    { id:'c13', cat:'Floral', img:'floral4.jpeg'  }
+    /* BRIDAL */
+    { id:'c1',  cat:'Bridal',  img:'bridal.jpg'             },
+    { id:'c2',  cat:'Bridal',  img:'Bridal1.jpeg'           },
+    { id:'c3',  cat:'Bridal',  img:'bridal1.jpg'            },
+    /* MINIMAL */
+    { id:'c4',  cat:'Minimal', img:'Minial1.jpeg'           },
+    { id:'c5',  cat:'Minimal', img:'menicure.jpg'           },
+    { id:'c6',  cat:'Minimal', img:'soft gel extension.jpg' },
+    /* CHROME */
+    { id:'c7',  cat:'Chrome',  img:'Chrome1.jpeg'           },
+    { id:'c8',  cat:'Chrome',  img:'chrome2.jpeg'           },
+    { id:'c9',  cat:'Chrome',  img:'chrome4.jpg'            },
+    { id:'c10', cat:'Chrome',  img:'chrome5.jpg'            },
+    /* FLORAL */
+    { id:'c11', cat:'Floral',  img:'floral1.jpg'            },
+    { id:'c12', cat:'Floral',  img:'floral2.jpg'            },
+    { id:'c13', cat:'Floral',  img:'floral3.jpg'            },
+    { id:'c14', cat:'Floral',  img:'floral4.jpeg'           }
   ],
+
+  /* ── Demo Appointments ──────────────────── */
   appointments: [
-    { id:'APT-101', name:'Emma Watson', service:'Gel Polish Manicure', date:'2026-07-01', time:'10:00', status:'Confirmed' },
-    { id:'APT-102', name:'Sara Lee',    service:'Nail Extensions',     date:'2026-07-03', time:'14:30', status:'Pending' }
+    {
+      id     : 'APT-101',
+      name   : 'Priya Sharma',
+      email  : 'priya@email.com',
+      phone  : '+91 98765 43210',
+      service: 'Bridal Nail Package',
+      date   : '2026-07-10',
+      time   : '11:00',
+      notes  : 'Bridal look — white base with gold foil and pearls.',
+      status : 'Confirmed'
+    },
+    {
+      id     : 'APT-102',
+      name   : 'Riya Patel',
+      email  : 'riya@email.com',
+      phone  : '+91 91234 56789',
+      service: 'Nail Extensions',
+      date   : '2026-07-12',
+      time   : '14:30',
+      notes  : 'Coffin shape, extra long.',
+      status : 'Pending'
+    },
+    {
+      id     : 'APT-103',
+      name   : 'Sana Khan',
+      email  : 'sana@email.com',
+      phone  : '+91 90000 11111',
+      service: 'Gel Polish Manicure',
+      date   : '2026-07-15',
+      time   : '16:00',
+      notes  : 'Nude pink with nude glitter topcoat.',
+      status : 'Pending'
+    }
   ],
+
+  /* ── Demo Custom Orders ─────────────────── */
   customOrders: [
-    { id:'TNC-2026-0001', name:'Priya Sharma', city:'Surat', shape:'Almond', length:'Medium', budget:'₹1500 - ₹2499', status:'New', date:'2026-06-22', desc:'Nude pink with gold foil tips' }
+    {
+      id    : 'TNC-2026-1001',
+      name  : 'Meera Joshi',
+      email : 'meera@email.com',
+      phone : '+91 99887 76655',
+      city  : 'Surat',
+      shape : 'Almond',
+      length: 'Medium',
+      budget: '₹1500 - ₹2499',
+      desc  : 'Soft pink base with white floral art and gold accents on ring fingers.',
+      status: 'In Production',
+      date  : '2026-07-01'
+    },
+    {
+      id    : 'TNC-2026-1002',
+      name  : 'Anjali Verma',
+      email : 'anjali@email.com',
+      phone : '+91 88776 65544',
+      city  : 'Ahmedabad',
+      shape : 'Coffin',
+      length: 'Long',
+      budget: '₹800 - ₹1499',
+      desc  : 'Chrome silver mirror finish on all nails with black tip.',
+      status: 'New',
+      date  : '2026-07-05'
+    }
   ],
+
+  /* ── Users ──────────────────────────────── */
   users: [
-    { id:'u1', name:'Emma Watson', email:'user@thenailsclub.in', phone:'+91 99130 91744', password:'user123', joined:'2026-06-01' }
+    {
+      id      : 'u1',
+      name    : 'Priya Sharma',
+      email   : 'user@thenailsclub.in',
+      phone   : '+91 99130 91744',
+      password: 'user123',
+      joined  : '2026-06-01'
+    }
   ],
+
+  /* ── Media Library ──────────────────────── */
   mediaLibrary: [
-    { id:'m1', url:'bridal.jpg',              category:'Banners',  title:'Hero BG'          },
-    { id:'m2', url:'Bridal1.jpeg',            category:'Catalog',  title:'Bridal Set'        },
-    { id:'m3', url:'menicure.jpg',            category:'Services', title:'Gel Manicure'      },
-    { id:'m4', url:'soft gel extension.jpg',  category:'Services', title:'Soft Gel'          },
-    { id:'m5', url:'presson nails.jpg',       category:'Services', title:'Press-On Sets'     },
-    { id:'m6', url:'Chrome1.jpeg',            category:'Catalog',  title:'Chrome Nails'      },
-    { id:'m7', url:'floral1.jpg',             category:'Catalog',  title:'Floral Nails'      }
+    { id:'m1',  url:'bridal.jpg',              category:'Banners',  title:'Hero Background'   },
+    { id:'m2',  url:'Bridal1.jpeg',            category:'Catalog',  title:'Bridal Nails 1'    },
+    { id:'m3',  url:'bridal1.jpg',             category:'Catalog',  title:'Bridal Nails 2'    },
+    { id:'m4',  url:'menicure.jpg',            category:'Services', title:'Gel Manicure'       },
+    { id:'m5',  url:'soft gel extension.jpg',  category:'Services', title:'Soft Gel Extensions'},
+    { id:'m6',  url:'presson nails.jpg',       category:'Services', title:'Press-On Sets'      },
+    { id:'m7',  url:'Chrome1.jpeg',            category:'Catalog',  title:'Chrome Nails 1'    },
+    { id:'m8',  url:'chrome2.jpeg',            category:'Catalog',  title:'Chrome Nails 2'    },
+    { id:'m9',  url:'chrome4.jpg',             category:'Catalog',  title:'Chrome Nails 3'    },
+    { id:'m10', url:'chrome5.jpg',             category:'Catalog',  title:'Chrome Nails 4'    },
+    { id:'m11', url:'floral1.jpg',             category:'Catalog',  title:'Floral Nails 1'    },
+    { id:'m12', url:'floral2.jpg',             category:'Catalog',  title:'Floral Nails 2'    },
+    { id:'m13', url:'floral3.jpg',             category:'Catalog',  title:'Floral Nails 3'    },
+    { id:'m14', url:'floral4.jpeg',            category:'Catalog',  title:'Floral Nails 4'    },
+    { id:'m15', url:'Minial1.jpeg',            category:'Catalog',  title:'Minimal Nails'      }
   ]
+
 };
 
 const LOCAL_DB_KEY = 'tnc_v1';
-const STATE_VERSION = '3'; // bump this whenever DEFAULT_STATE structure changes
+const STATE_VERSION = '4'; // bumped — new DEFAULT_STATE with full data
 let remoteStorageAvailable = false;
 let appState = loadLocalState();
 let adminLoggedIn = false;
@@ -1294,13 +1416,15 @@ function normalizeClientState(state) {
   return {
     ...fallback,
     ...state,
-    hero:         (state.hero && state.hero.bgImage)     ? state.hero         : fallback.hero,
-    services:     Array.isArray(state.services)          ? state.services     : fallback.services,
-    catalogItems: Array.isArray(state.catalogItems)      ? state.catalogItems : fallback.catalogItems,
-    appointments: Array.isArray(state.appointments)      ? state.appointments : [],
-    customOrders: Array.isArray(state.customOrders)      ? state.customOrders : [],
-    users:        Array.isArray(state.users)             ? state.users        : fallback.users,
-    mediaLibrary: Array.isArray(state.mediaLibrary)      ? state.mediaLibrary : fallback.mediaLibrary
+    hero:         (state.hero && state.hero.bgImage)          ? state.hero            : fallback.hero,
+    banner:       (state.banner && state.banner.img)          ? state.banner          : fallback.banner,
+    galleryStrip: (Array.isArray(state.galleryStrip) && state.galleryStrip.length===5) ? state.galleryStrip : fallback.galleryStrip,
+    services:     Array.isArray(state.services)               ? state.services        : fallback.services,
+    catalogItems: Array.isArray(state.catalogItems)           ? state.catalogItems    : fallback.catalogItems,
+    appointments: Array.isArray(state.appointments)           ? state.appointments    : [],
+    customOrders: Array.isArray(state.customOrders)           ? state.customOrders    : [],
+    users:        Array.isArray(state.users)                  ? state.users           : fallback.users,
+    mediaLibrary: Array.isArray(state.mediaLibrary)           ? state.mediaLibrary    : fallback.mediaLibrary
   };
 }
 
@@ -1436,6 +1560,8 @@ function renderLiveSite() {
   renderFullServices();
   renderCatalog('all');
   renderBookingDropdown();
+  // Apply saved homepage extras (gallery + banner)
+  if (typeof applyHomepageExtras === 'function') applyHomepageExtras();
 }
 
 function renderHomeServices() {
@@ -1598,6 +1724,197 @@ function initAdminDashboard() {
   renderAdminServices();
   renderAdminCatalog();
   renderMediaLibrary();
+  initHomepageEditor();   // populate Home Page tab
+}
+
+/* ═══════════════════════════════════════════════
+   HOME PAGE EDITOR — populate & save functions
+═══════════════════════════════════════════════ */
+
+// Gallery images stored in appState.galleryStrip (array of 5 srcs)
+// Initialise default if not present
+function ensureGalleryStrip() {
+  if (!Array.isArray(appState.galleryStrip) || appState.galleryStrip.length < 5) {
+    appState.galleryStrip = [
+      'floral1.jpg',
+      'bridal.jpg',
+      'menicure.jpg',
+      'Chrome1.jpeg',
+      'presson nails.jpg'
+    ];
+  }
+}
+
+// Banner stored in appState.banner
+function ensureBanner() {
+  if (!appState.banner) {
+    appState.banner = {
+      img:   'bridal.jpg',
+      title: 'Order From Anywhere',
+      desc:  'Experience The Nails Club luxury without leaving your home. Shop our exclusive collection of handcrafted, reusable press-on nails or request a bespoke custom set.'
+    };
+  }
+}
+
+function initHomepageEditor() {
+  // Wait for pane to be visible before populating
+  requestAnimationFrame(function() {
+    ensureGalleryStrip();
+    ensureBanner();
+
+    // ── Hero ──────────────────────────────────
+    var heroPreview = document.getElementById('hp-hero-preview');
+    var heroMain    = document.getElementById('hp-hero-main');
+    var heroDesc    = document.getElementById('hp-hero-desc');
+    if (heroPreview) { heroPreview.src = appState.hero.bgImage; }
+    if (heroMain)    { heroMain.value  = appState.hero.mainText; }
+    if (heroDesc)    { heroDesc.value  = appState.hero.descText; }
+
+    // ── Banner ────────────────────────────────
+    var bannerPreview = document.getElementById('hp-banner-preview');
+    var bannerTitle   = document.getElementById('hp-banner-title');
+    var bannerDesc    = document.getElementById('hp-banner-desc');
+    if (bannerPreview) { bannerPreview.src = appState.banner.img;   }
+    if (bannerTitle)   { bannerTitle.value = appState.banner.title; }
+    if (bannerDesc)    { bannerDesc.value  = appState.banner.desc;  }
+
+    // ── Gallery Strip ─────────────────────────
+    renderGalleryEditor();
+  });
+}
+
+function renderGalleryEditor() {
+  var grid = document.getElementById('hp-gallery-grid');
+  if (!grid) return;
+  ensureGalleryStrip();
+
+  grid.innerHTML = appState.galleryStrip.map(function(src, idx) {
+    return '<div class="relative group rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio:1"' +
+           ' onclick="hpPickGallery(' + idx + ')">' +
+      '<img src="' + src + '" class="w-full h-full object-cover" loading="lazy"' +
+           ' onerror="this.src=\'https://placehold.co/200x200/F5F0EC/CC0000?text=Slot+' + (idx+1) + '\'">' +
+      '<div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" style="background:rgba(0,0,0,.55)">' +
+        '<i class="ph ph-pencil-simple text-white text-xl"></i>' +
+        '<span class="text-white text-xs font-medium mt-1">Replace</span>' +
+      '</div>' +
+      '<div class="absolute bottom-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-medium">Slot ' + (idx+1) + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// Track which gallery slot is being replaced
+var _hpGallerySlot = 0;
+
+window.hpPickGallery = function(idx) {
+  _hpGallerySlot = idx;
+  document.getElementById('hp-gallery-file').click();
+};
+
+window.hpUploadGallery = function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  compressImage(file, function(b64) {
+    ensureGalleryStrip();
+    appState.galleryStrip[_hpGallerySlot] = b64;
+    persistState();
+    renderGalleryEditor();
+    applyGalleryStrip();
+    showToast('Gallery image ' + (_hpGallerySlot + 1) + ' updated ✓');
+    e.target.value = '';
+  });
+};
+
+// Apply gallery strip to the live home page
+function applyGalleryStrip() {
+  ensureGalleryStrip();
+  var imgs = document.querySelectorAll('.gallery-strip img');
+  imgs.forEach(function(img, idx) {
+    if (appState.galleryStrip[idx]) img.src = appState.galleryStrip[idx];
+  });
+}
+
+// ── Hero handlers ─────────────────────────
+
+window.hpUploadHero = function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  compressImage(file, function(b64) {
+    appState.hero.bgImage = b64;
+    var preview = document.getElementById('hp-hero-preview');
+    if (preview) preview.src = b64;
+    // Live update on home page
+    var heroImg = document.getElementById('hero-bg-img');
+    if (heroImg) heroImg.src = b64;
+    persistState();
+    showToast('Hero image updated ✓');
+    e.target.value = '';
+  });
+};
+
+window.hpLiveHero = function() {
+  appState.hero.mainText = document.getElementById('hp-hero-main').value;
+  appState.hero.descText = document.getElementById('hp-hero-desc').value;
+  var ht = document.getElementById('hero-main-text');
+  var hd = document.getElementById('hero-desc-text');
+  if (ht) ht.innerHTML = appState.hero.mainText;
+  if (hd) hd.innerHTML = appState.hero.descText;
+};
+
+window.hpSaveHero = function() {
+  hpLiveHero();
+  persistState();
+  showToast('Hero section saved ✓');
+};
+
+// ── Banner handlers ───────────────────────
+
+window.hpUploadBanner = function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  ensureBanner();
+  compressImage(file, function(b64) {
+    appState.banner.img = b64;
+    var preview = document.getElementById('hp-banner-preview');
+    if (preview) preview.src = b64;
+    // Live update on home page
+    applyBanner();
+    persistState();
+    showToast('Banner image updated ✓');
+    e.target.value = '';
+  });
+};
+
+window.hpSaveBanner = function() {
+  ensureBanner();
+  var title = document.getElementById('hp-banner-title');
+  var desc  = document.getElementById('hp-banner-desc');
+  if (title) appState.banner.title = title.value.trim() || appState.banner.title;
+  if (desc)  appState.banner.desc  = desc.value.trim()  || appState.banner.desc;
+  applyBanner();
+  persistState();
+  showToast('Banner saved ✓');
+};
+
+function applyBanner() {
+  ensureBanner();
+  // Update banner background image
+  var bannerSection = document.querySelector('[data-banner-bg]');
+  if (bannerSection) bannerSection.style.background = 'url("' + appState.banner.img + '") center/cover no-repeat';
+  // Update banner content
+  var bannerImg = document.getElementById('banner-main-img');
+  if (bannerImg) bannerImg.src = appState.banner.img;
+  var bannerTitle = document.getElementById('banner-main-title');
+  if (bannerTitle) bannerTitle.innerHTML = appState.banner.title;
+  var bannerDesc = document.getElementById('banner-main-desc');
+  if (bannerDesc) bannerDesc.innerHTML = appState.banner.desc;
+}
+
+// Called from renderLiveSite to apply saved banner & gallery on page load
+function applyHomepageExtras() {
+  ensureGalleryStrip();
+  ensureBanner();
+  applyGalleryStrip();
+  applyBanner();
 }
 
 function renderAdminAppointments() {
@@ -2351,13 +2668,34 @@ function initCursor(){
 
 // ADMIN TABS
 function initAdminTabs(){
-  document.querySelectorAll('.admin-tab-btn').forEach(btn=>{
-    btn.addEventListener('click',e=>{
-      document.querySelectorAll('.admin-tab-btn').forEach(b=>{ b.classList.remove('active-tab'); b.style.background=''; b.style.color=''; });
-      document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active-pane'));
-      e.target.classList.add('active-tab'); e.target.style.background='#CC0000'; e.target.style.color='white';
-      const pane=document.getElementById(e.target.dataset.target);
-      if(pane) pane.classList.add('active-pane');
+  document.querySelectorAll('.admin-tab-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      // Deactivate all tabs
+      document.querySelectorAll('.admin-tab-btn').forEach(function(b){
+        b.classList.remove('active-tab');
+        b.style.background = '';
+        b.style.color = '';
+      });
+      // Hide all panes
+      document.querySelectorAll('.admin-pane').forEach(function(p){
+        p.classList.remove('active-pane');
+      });
+      // Activate clicked tab
+      var target = e.currentTarget;
+      target.classList.add('active-tab');
+      target.style.background = '#CC0000';
+      target.style.color = 'white';
+      // Show target pane
+      var paneId = target.dataset.target;
+      var pane = document.getElementById(paneId);
+      if (pane) pane.classList.add('active-pane');
+
+      // Per-tab initialisation
+      if (paneId === 'pane-homepage')     { initHomepageEditor(); }
+      if (paneId === 'pane-appointments') { renderAdminAppointments(); }
+      if (paneId === 'pane-orders')       { renderAdminOrders(); }
+      if (paneId === 'pane-media')        { renderMediaLibrary(); }
+      if (paneId === 'pane-store')        { renderAdminServices(); renderAdminCatalog(); }
     });
   });
 }
