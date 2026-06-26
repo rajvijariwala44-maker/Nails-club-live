@@ -12,10 +12,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
-tailwind.config={theme:{extend:{colors:{maroon:{DEFAULT:'#6D1B2D',light:'#8a2b42',dark:'#4f1120'},beige:'#F5F0EC',dark:'#111111'},fontFamily:{sans:['Inter','sans-serif'],serif:['Playfair Display','serif']}}}}
+tailwind.config={theme:{extend:{colors:{maroon:{DEFAULT:'#CC0000',light:'#e01111',dark:'#a30000'},beige:'#F5F0EC',dark:'#111111'},fontFamily:{sans:['Inter','sans-serif'],serif:['Playfair Display','serif']}}}}
 </script>
 <style>
-:root{--maroon:#6D1B2D;--beige:#F5F0EC}
+:root{--maroon:#CC0000;--beige:#F5F0EC}
 *{box-sizing:border-box}
 body{background:#fff;color:#111;overflow-x:hidden;cursor:none}
 #custom-cursor{position:fixed;top:0;left:0;width:20px;height:20px;border:1.5px solid var(--maroon);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background-color .3s;mix-blend-mode:difference}
@@ -250,9 +250,7 @@ img {
 <!-- ═══════════ NAV ═══════════ -->
 <nav id="navbar" class="fixed w-full z-50 glass-nav transition-all duration-300">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="#home" class="font-serif text-2xl font-bold text-maroon tracking-wider flex items-center gap-2">
-      <i class="ph ph-sparkle"></i> THE NAILS CLUB
-    </a>
+    <a href="#home" class="flex items-center cursor-hover" style="line-height:0"><img src="Logo.png" alt="The Nails Club" class="logo-nav-light" style="height:52px;width:auto;border-radius:8px"></a>
     <div class="hidden md:flex items-center space-x-8">
       <a href="#home"         class="text-xs uppercase tracking-widest hover:text-maroon transition-colors font-medium">Home</a>
       <a href="#services"     class="text-xs uppercase tracking-widest hover:text-maroon transition-colors font-medium">Services</a>
@@ -279,7 +277,7 @@ img {
     <a href="#contact"      class="mobile-link text-lg hover:text-maroon">Contact</a>
     <div class="border-t border-gray-100 pt-4 flex gap-3">
       <a href="#user-login" class="mobile-link flex-1 text-center text-sm font-medium text-maroon border border-maroon rounded-full py-2.5 hover:bg-maroon hover:text-white transition-all">Sign In</a>
-      <a href="#user-register" class="mobile-link flex-1 text-center text-sm font-medium text-white rounded-full py-2.5 transition-all" style="background:#6D1B2D">Join Free</a>
+      <a href="#user-register" class="mobile-link flex-1 text-center text-sm font-medium text-white rounded-full py-2.5 transition-all" style="background:#CC0000">Join Free</a>
     </div>
   </div>
 </nav>
@@ -297,8 +295,7 @@ img {
       src="bridal.jpg"
       alt="Luxury nail art close-up"
       class="absolute inset-0 w-full h-full object-cover"
-      style="opacity:.55">
-    <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(17,17,17,.35),rgba(17,17,17,.05))"></div>
+      style="opacity:1">
     <div class="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
       <span class="text-maroon font-semibold tracking-[.25em] uppercase mb-5 block bg-white/85 px-5 py-1.5 rounded-full text-xs shadow-sm backdrop-blur-sm">✦ Premium Nail Studio</span>
       <h1 id="hero-main-text" class="font-serif text-6xl md:text-8xl text-white mb-6 leading-tight drop-shadow-lg"></h1>
@@ -366,8 +363,8 @@ img {
   </section>
 
   <!-- CTA BANNER -->
-  <section class="py-28 relative overflow-hidden" style="background:#6D1B2D">
-    <div class="absolute inset-0 opacity-10" style="background:url('bridal.jpg') center/cover no-repeat"></div>
+  <section class="py-28 relative overflow-hidden" style="background:rgba(204,0,0,0.55)">
+    <div class="absolute inset-0" style="background:url('bridal.jpg') center/cover no-repeat;opacity:0.65"></div>
     <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
       <div>
         <span class="uppercase tracking-widest text-xs font-semibold text-white/60 mb-3 block">Global Shipping Available</span>
@@ -425,7 +422,7 @@ img {
      VIEW: CATALOG
 ═══════════════════════════════════════════ -->
 <div id="view-catalog" class="page-view hidden">
-  <div class="py-24 text-center text-white relative overflow-hidden" style="background:#6D1B2D">
+  <div class="py-24 text-center text-white relative overflow-hidden" style="background:#CC0000">
     <div class="absolute inset-0 opacity-20" style="background:url('Bridal1.jpeg') center/cover"></div>
     <div class="relative z-10">
       <span class="uppercase tracking-widest text-xs font-semibold text-white/60 mb-4 block">Our Work</span>
@@ -455,7 +452,7 @@ img {
     <p class="text-gray-500 font-light max-w-xl mx-auto px-4 text-lg">Premium techniques, non-toxic products, and an obsessive attention to detail.</p>
   </div>
   <div class="max-w-5xl mx-auto px-6 py-16 space-y-8" id="full-services-list"></div>
-  <div class="py-20 text-center text-white" style="background:#6D1B2D">
+  <div class="py-20 text-center text-white" style="background:#CC0000">
     <h2 class="font-serif text-4xl mb-4">Ready for Your Perfect Set?</h2>
     <p class="text-white/70 font-light mb-8">Reserve your chair at The Nails Club today.</p>
     <a href="#booking" class="inline-block bg-white text-maroon px-9 py-4 rounded-full font-semibold hover:bg-beige transition-colors shadow-xl">Book an Appointment</a>
@@ -586,13 +583,11 @@ img {
 <div id="view-user-login" class="page-view hidden">
   <div class="min-h-screen flex" style="background:#F5F0EC">
     <!-- Left panel — image + brand -->
-    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-end p-14" style="background:#6D1B2D">
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-end p-14" style="background:#CC0000">
       <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1000&q=85"
            alt="Luxury nail art" class="absolute inset-0 w-full h-full object-cover opacity-25">
       <div class="relative z-10">
-        <a href="#home" class="font-serif text-4xl font-bold text-white tracking-wider flex items-center gap-3 mb-8">
-          <i class="ph ph-sparkle"></i> THE NAILS CLUB
-        </a>
+        <a href="#home" style="line-height:0;display:inline-block;margin-bottom:32px"><img src="Logo.png" alt="The Nails Club" style="height:60px;width:auto;filter:invert(1) brightness(2)"></a>
         <h2 class="font-serif text-3xl text-white/90 mb-4 leading-tight">Your Beauty,<br>Your Journey.</h2>
         <p class="text-white/60 font-light leading-relaxed mb-10 max-w-xs">Track your appointments, manage your orders, and discover new looks — all in one place.</p>
         <div class="flex gap-4">
@@ -615,9 +610,7 @@ img {
     <div class="flex-1 flex items-center justify-center px-6 py-16">
       <div class="w-full max-w-md">
         <!-- Mobile brand -->
-        <a href="#home" class="lg:hidden font-serif text-2xl font-bold text-maroon flex items-center gap-2 mb-10 justify-center">
-          <i class="ph ph-sparkle"></i> THE NAILS CLUB
-        </a>
+        <a href="#home" class="lg:hidden flex justify-center mb-10" style="line-height:0"><img src="Logo.png" alt="The Nails Club" style="height:48px;width:auto;mix-blend-mode:multiply"></a>
         <div class="mb-8">
           <h1 class="font-serif text-3xl text-dark mb-2">Welcome Back</h1>
           <p class="text-gray-500 font-light">Sign in to your The Nails Club account</p>
@@ -667,7 +660,7 @@ img {
           </div>
           <button type="submit"
                   class="w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 shadow-lg hover:shadow-maroon/30 hover:-translate-y-0.5 transition-all"
-                  style="background:#6D1B2D">
+                  style="background:#CC0000">
             <i class="ph ph-sign-in"></i> Sign In
           </button>
         </form>
@@ -691,13 +684,11 @@ img {
 <div id="view-user-register" class="page-view hidden">
   <div class="min-h-screen flex" style="background:#F5F0EC">
     <!-- Left panel -->
-    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-end p-14" style="background:#6D1B2D">
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-end p-14" style="background:#CC0000">
       <img src="https://images.unsplash.com/photo-1590159763121-7c913ad11eb1?auto=format&fit=crop&w=1000&q=85"
            alt="Nail art" class="absolute inset-0 w-full h-full object-cover opacity-25">
       <div class="relative z-10">
-        <a href="#home" class="font-serif text-4xl font-bold text-white tracking-wider flex items-center gap-3 mb-8">
-          <i class="ph ph-sparkle"></i> THE NAILS CLUB
-        </a>
+        <a href="#home" style="line-height:0;display:inline-block;margin-bottom:32px"><img src="Logo.png" alt="The Nails Club" style="height:60px;width:auto;filter:invert(1) brightness(2)"></a>
         <h2 class="font-serif text-3xl text-white/90 mb-4 leading-tight">Join the<br>The Nails Club Family.</h2>
         <p class="text-white/60 font-light leading-relaxed mb-10 max-w-xs">Create your account and unlock exclusive offers, early access to new designs, and a personal nail portfolio.</p>
         <div class="space-y-3">
@@ -711,9 +702,7 @@ img {
     <!-- Right panel -->
     <div class="flex-1 flex items-center justify-center px-6 py-16 overflow-y-auto">
       <div class="w-full max-w-md">
-        <a href="#home" class="lg:hidden font-serif text-2xl font-bold text-maroon flex items-center gap-2 mb-10 justify-center">
-          <i class="ph ph-sparkle"></i> THE NAILS CLUB
-        </a>
+        <a href="#home" class="lg:hidden flex justify-center mb-10" style="line-height:0"><img src="Logo.png" alt="The Nails Club" style="height:48px;width:auto;mix-blend-mode:multiply"></a>
         <div class="mb-8">
           <h1 class="font-serif text-3xl text-dark mb-2">Create Account</h1>
           <p class="text-gray-500 font-light">Join The Nails Club — it's free and always will be</p>
@@ -776,7 +765,7 @@ img {
           </div>
           <button type="submit"
                   class="w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 shadow-lg hover:shadow-maroon/30 hover:-translate-y-0.5 transition-all"
-                  style="background:#6D1B2D">
+                  style="background:#CC0000">
             <i class="ph ph-user-plus"></i> Create My Account
           </button>
         </form>
@@ -836,7 +825,7 @@ img {
               <div><p class="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">Phone</p><p id="user-profile-phone" class="text-gray-700">-</p></div>
             </div>
           </div>
-          <div class="rounded-2xl p-6 text-white overflow-hidden relative" style="background:#6D1B2D">
+          <div class="rounded-2xl p-6 text-white overflow-hidden relative" style="background:#CC0000">
             <div class="absolute inset-0 opacity-15" style="background:url('https://images.unsplash.com/photo-1600843389656-78e7235a90e3?w=900&q=70') center/cover"></div>
             <div class="relative"><p class="uppercase tracking-widest text-xs text-white/60 font-semibold mb-3">Member Perk</p><h3 class="font-serif text-2xl mb-3">Free nail art consultation</h3><p class="text-white/75 text-sm font-light mb-5">Share your inspiration before your appointment and our artists will prepare options.</p><a href="#custom-order" class="inline-flex bg-white text-maroon px-4 py-2 rounded-lg text-sm font-semibold">Send design idea</a></div>
           </div>
@@ -853,22 +842,20 @@ img {
       <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1000&q=85"
            alt="Salon" class="absolute inset-0 w-full h-full object-cover opacity-15">
       <div class="relative z-10">
-        <a href="#home" class="font-serif text-3xl font-bold text-white tracking-wider flex items-center gap-2">
-          <i class="ph ph-sparkle" style="color:#6D1B2D"></i> THE NAILS CLUB
-        </a>
+        <a href="#home" style="line-height:0;display:inline-block"><img src="Logo.png" alt="The Nails Club" style="height:52px;width:auto;filter:invert(1) brightness(1.8)"></a>
       </div>
       <div class="relative z-10">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 mb-8" style="background:rgba(109,27,45,.2)">
-          <i class="ph ph-shield-check text-sm" style="color:#6D1B2D"></i>
+          <i class="ph ph-shield-check text-sm" style="color:#CC0000"></i>
           <span class="text-xs text-white/70 font-medium tracking-wider uppercase">Secure Admin Portal</span>
         </div>
         <h2 class="font-serif text-4xl text-white mb-4 leading-tight">Studio<br>Management<br><span class="italic" style="color:rgba(109,27,45,.8)">Dashboard</span></h2>
         <p class="text-white/40 font-light leading-relaxed max-w-xs">Manage appointments, orders, services, media and all site content from one powerful panel.</p>
         <div class="mt-10 space-y-3">
-          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-calendar-check text-base" style="color:#6D1B2D"></i>View &amp; manage bookings</div>
-          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-sparkle text-base" style="color:#6D1B2D"></i>Process custom orders</div>
-          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-browser text-base" style="color:#6D1B2D"></i>Edit site content live</div>
-          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-images text-base" style="color:#6D1B2D"></i>Manage media library</div>
+          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-calendar-check text-base" style="color:#CC0000"></i>View &amp; manage bookings</div>
+          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-sparkle text-base" style="color:#CC0000"></i>Process custom orders</div>
+          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-browser text-base" style="color:#CC0000"></i>Edit site content live</div>
+          <div class="flex items-center gap-3 text-white/50 text-sm"><i class="ph ph-images text-base" style="color:#CC0000"></i>Manage media library</div>
         </div>
       </div>
     </div>
@@ -876,12 +863,10 @@ img {
     <div class="flex-1 flex items-center justify-center px-6 py-16" style="background:#1a1a1a">
       <div class="w-full max-w-md">
         <!-- Mobile brand -->
-        <a href="#home" class="lg:hidden font-serif text-2xl font-bold flex items-center gap-2 mb-10 justify-center" style="color:#6D1B2D">
-          <i class="ph ph-sparkle"></i> THE NAILS CLUB
-        </a>
+        <a href="#home" class="lg:hidden flex justify-center mb-10" style="line-height:0"><img src="Logo.png" alt="The Nails Club" style="height:44px;width:auto;filter:invert(1) brightness(1.8)"></a>
         <!-- Shield icon -->
         <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8 lg:mx-0" style="background:rgba(109,27,45,.15);border:1px solid rgba(109,27,45,.3)">
-          <i class="ph ph-shield-check text-2xl" style="color:#6D1B2D"></i>
+          <i class="ph ph-shield-check text-2xl" style="color:#CC0000"></i>
         </div>
         <h1 class="font-serif text-3xl mb-2 text-white">Admin Sign In</h1>
         <p class="font-light mb-8 text-sm" style="color:rgba(255,255,255,.4)">Access the The Nails Club management portal</p>
@@ -915,7 +900,7 @@ img {
           </div>
           <button type="submit"
                   class="w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 shadow-xl transition-all hover:-translate-y-0.5"
-                  style="background:#6D1B2D">
+                  style="background:#CC0000">
             <i class="ph ph-lock-key-open"></i> Access Dashboard
           </button>
         </form>
@@ -936,7 +921,7 @@ img {
   <!-- Topbar -->
   <div class="sticky top-0 z-40 text-white px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg" style="background:#111111">
     <div class="font-serif text-xl flex items-center gap-3">
-      <i class="ph ph-shield-check" style="color:#6D1B2D"></i> THE NAILS CLUB Portal
+      <img src="Logo.png" alt="The Nails Club" style="height:36px;width:auto;filter:invert(1) brightness(1.8);vertical-align:middle"> <span class="text-white/60 text-sm font-sans font-normal ml-1">Portal</span>
       <span class="text-xs bg-green-500 text-white px-3 py-0.5 rounded-full font-sans tracking-wider">● LIVE</span>
     </div>
     <div class="flex gap-3 w-full md:w-auto">
@@ -958,21 +943,20 @@ img {
       <button class="admin-tab-btn flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-maroon" data-target="pane-media"><i class="ph ph-images mr-1"></i>Media</button>
       <button class="admin-tab-btn flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-maroon" data-target="pane-cms"><i class="ph ph-browser mr-1"></i>CMS Editor</button>
       <button class="admin-tab-btn flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-maroon" data-target="pane-store"><i class="ph ph-storefront mr-1"></i>Services &amp; Store</button>
+      <button class="admin-tab-btn flex-none px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-maroon" data-target="pane-homepage"><i class="ph ph-house mr-1"></i>Home Page</button>
     </div>
 
     <!-- Appointments -->
-    <div id="pane-appointments" class="admin-pane active-pane bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-      <div class="p-5 border-b border-gray-100 flex justify-between items-center">
-        <h3 class="font-semibold text-lg">Appointments</h3>
-        <span id="appt-count" class="text-xs bg-maroon/10 text-maroon px-3 py-1 rounded-full font-medium">0 total</span>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left">
-          <thead><tr class="bg-gray-50 text-gray-400 text-xs uppercase tracking-wider">
-            <th class="p-4">Client</th><th class="p-4">Service</th><th class="p-4">Date &amp; Time</th><th class="p-4">Status</th><th class="p-4 text-right">Actions</th>
-          </tr></thead>
-          <tbody id="admin-appt-table-body" class="divide-y divide-gray-50 text-sm"></tbody>
-        </table>
+    <div id="pane-appointments" class="admin-pane active-pane">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-5 border-b border-gray-100 flex justify-between items-center">
+          <h3 class="font-semibold text-lg">Appointments</h3>
+          <span id="appt-count" class="text-xs bg-maroon/10 text-maroon px-3 py-1 rounded-full font-medium">0 total</span>
+        </div>
+        <!-- Cards grid -->
+        <div id="admin-appt-cards" class="p-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+        <!-- Fallback table body (hidden, kept for compat) -->
+        <table class="hidden"><tbody id="admin-appt-table-body"></tbody></table>
       </div>
     </div>
 
@@ -1058,6 +1042,104 @@ img {
         </div>
       </div>
     </div>
+
+    <!-- ══════════════════════════════════════
+         HOME PAGE EDITOR
+    ══════════════════════════════════════ -->
+    <div id="pane-homepage" class="admin-pane space-y-6">
+
+      <!-- Section 1: Hero -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-5 border-b border-gray-100 flex items-center gap-2">
+          <i class="ph ph-image text-maroon"></i>
+          <h3 class="font-semibold text-lg">Hero Section</h3>
+        </div>
+        <div class="p-6 grid md:grid-cols-2 gap-6">
+          <!-- Hero image -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Background Image</label>
+            <div class="relative group rounded-xl overflow-hidden border border-gray-200 cursor-pointer h-44 bg-gray-100"
+                 onclick="document.getElementById('hp-hero-img').click()">
+              <img id="hp-hero-preview" src="" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" style="background:rgba(0,0,0,.5)">
+                <span class="bg-white text-sm font-medium px-4 py-2 rounded-lg flex items-center gap-2"><i class="ph ph-upload-simple"></i> Change Image</span>
+              </div>
+            </div>
+            <input type="file" id="hp-hero-img" accept="image/*" class="hidden" onchange="hpUploadHero(event)">
+          </div>
+          <!-- Hero text -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Main Headline</label>
+              <textarea id="hp-hero-main" rows="3" oninput="hpLiveHero()"
+                class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 resize-none"></textarea>
+              <p class="text-xs text-gray-400 mt-1">HTML allowed: &lt;br&gt; &lt;em&gt; &lt;strong&gt;</p>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Subheadline</label>
+              <textarea id="hp-hero-desc" rows="2" oninput="hpLiveHero()"
+                class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 resize-none"></textarea>
+            </div>
+            <button onclick="hpSaveHero()" class="w-full py-2.5 rounded-xl text-white text-sm font-semibold" style="background:#CC0000">
+              <i class="ph ph-check mr-1"></i> Save Hero
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Banner (Order From Anywhere) -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-5 border-b border-gray-100 flex items-center gap-2">
+          <i class="ph ph-rectangle text-maroon"></i>
+          <h3 class="font-semibold text-lg">Banner — "Order From Anywhere"</h3>
+        </div>
+        <div class="p-6 grid md:grid-cols-2 gap-6">
+          <!-- Banner image -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Banner Image</label>
+            <div class="relative group rounded-xl overflow-hidden border border-gray-200 cursor-pointer h-44 bg-gray-100"
+                 onclick="document.getElementById('hp-banner-img').click()">
+              <img id="hp-banner-preview" src="" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" style="background:rgba(0,0,0,.5)">
+                <span class="bg-white text-sm font-medium px-4 py-2 rounded-lg flex items-center gap-2"><i class="ph ph-upload-simple"></i> Change Image</span>
+              </div>
+            </div>
+            <input type="file" id="hp-banner-img" accept="image/*" class="hidden" onchange="hpUploadBanner(event)">
+          </div>
+          <!-- Banner text -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Heading</label>
+              <input type="text" id="hp-banner-title" placeholder="Order From Anywhere"
+                class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Description</label>
+              <textarea id="hp-banner-desc" rows="3"
+                class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 resize-none"></textarea>
+            </div>
+            <button onclick="hpSaveBanner()" class="w-full py-2.5 rounded-xl text-white text-sm font-semibold" style="background:#CC0000">
+              <i class="ph ph-check mr-1"></i> Save Banner
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Gallery Strip -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-5 border-b border-gray-100 flex items-center gap-2">
+          <i class="ph ph-images-square text-maroon"></i>
+          <h3 class="font-semibold text-lg">Gallery Strip (5 images)</h3>
+        </div>
+        <div class="p-6">
+          <div class="grid grid-cols-5 gap-3" id="hp-gallery-grid"></div>
+          <p class="text-xs text-gray-400 mt-3">Click any image to replace it.</p>
+          <input type="file" id="hp-gallery-file" accept="image/*" class="hidden" onchange="hpUploadGallery(event)">
+        </div>
+      </div>
+
+    </div><!-- end pane-homepage -->
+
   </div>
 </div>
 
@@ -1069,9 +1151,7 @@ img {
 <footer id="contact" style="background:#111111;color:white" class="pt-20 pb-10">
   <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
     <div class="col-span-1 md:col-span-2">
-      <a href="#home" class="font-serif text-3xl font-bold tracking-wider flex items-center gap-2 mb-4" style="color:white">
-        <i class="ph ph-sparkle" style="color:#6D1B2D"></i> THE NAILS CLUB
-      </a>
+      <a href="#home" style="line-height:0;display:inline-block;margin-bottom:16px"><img src="Logo.png" alt="The Nails Club" style="height:56px;width:auto;filter:invert(1) brightness(2)"></a>
       <p style="color:#9ca3af" class="font-light max-w-xs mb-6 leading-relaxed">Elevating the standard of nail artistry. Luxury you can wear.</p>
       <div class="flex gap-4">
         <a href="https://www.instagram.com/theenaiilsclub" target="_blank" rel="noopener" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-maroon transition-colors" title="Follow us on Instagram"><i class="ph ph-instagram-logo text-sm"></i></a>
@@ -1091,10 +1171,10 @@ img {
     <div>
       <h4 class="font-serif text-lg mb-5" style="color:#F5F0EC">Contact</h4>
       <ul class="space-y-3 text-sm" style="color:#9ca3af">
-        <li class="flex items-center gap-2"><i class="ph ph-map-pin" style="color:#6D1B2D"></i>2/472, Opp. Ammar House, Surmawad,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rustampura, Surat, Gujarat 395002</li>
-        <li class="flex items-center gap-2"><i class="ph ph-phone" style="color:#6D1B2D"></i>+91 99130 91744</li>
-        <li class="flex items-center gap-2"><i class="ph ph-envelope" style="color:#6D1B2D"></i>theenailsclub@gmail.com</li>
-        <li class="flex items-center gap-2"><i class="ph ph-clock" style="color:#6D1B2D"></i>Daily — Open until 10:00 PM</li>
+        <li class="flex items-center gap-2"><i class="ph ph-map-pin" style="color:#CC0000"></i>2/472, Opp. Ammar House, Surmawad,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rustampura, Surat, Gujarat 395002</li>
+        <li class="flex items-center gap-2"><i class="ph ph-phone" style="color:#CC0000"></i>+91 99130 91744</li>
+        <li class="flex items-center gap-2"><i class="ph ph-envelope" style="color:#CC0000"></i>theenailsclub@gmail.com</li>
+        <li class="flex items-center gap-2"><i class="ph ph-clock" style="color:#CC0000"></i>Daily — Open until 10:00 PM</li>
       </ul>
     </div>
   </div>
@@ -1111,7 +1191,7 @@ img {
 const DEFAULT_STATE = {
   hero: {
     bgImage: 'bridal.jpg',
-    mainText: 'Elevate Your\n<em class="font-light italic" style="color:#6D1B2D">Aesthetics.</em>',
+    mainText: 'Elevate Your\n<em class="font-light italic" style="color:#CC0000">Aesthetics.</em>',
     descText: 'Experience world-class nail artistry in a serene, luxurious environment. Your perfect set awaits.'
   },
   services: [
@@ -1413,7 +1493,7 @@ function resetFilterBtns() {
   document.querySelectorAll('.filter-btn').forEach(b=>{
     b.style.cssText='';
     b.classList.remove('bg-maroon','text-white','border-maroon');
-    if(b.dataset.filter==='all') { b.style.background='#6D1B2D'; b.style.color='white'; b.style.borderColor='#6D1B2D'; }
+    if(b.dataset.filter==='all') { b.style.background='#CC0000'; b.style.color='white'; b.style.borderColor='#CC0000'; }
   });
 }
 
@@ -1521,53 +1601,89 @@ function initAdminDashboard() {
 }
 
 function renderAdminAppointments() {
-  const tb = document.getElementById('admin-appt-table-body');
-  const ct = document.getElementById('appt-count');
-  // Only count non-cancelled
+  const cards = document.getElementById('admin-appt-cards');
+  const ct    = document.getElementById('appt-count');
   const active = appState.appointments.filter(function(a){ return a.status !== 'Cancelled'; });
   if (ct) ct.textContent = active.length + ' total';
-  if (!tb) return;
+  if (!cards) return;
 
   if (!appState.appointments.length) {
-    tb.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-gray-400 italic text-sm">No appointments yet.</td></tr>';
+    cards.innerHTML = '<div class="col-span-full p-10 text-center text-gray-400 italic text-sm">No appointments yet.</div>';
     return;
   }
 
-  tb.innerHTML = appState.appointments.map(function(a, i) {
-    var statusColor = a.status === 'Confirmed'  ? 'bg-green-100 text-green-700'  :
-                      a.status === 'Pending'    ? 'bg-yellow-100 text-yellow-700':
-                      a.status === 'Cancelled'  ? 'bg-red-100 text-red-500'      :
-                                                  'bg-gray-100 text-gray-500';
-    var rowOpacity = a.status === 'Cancelled' ? 'opacity-40' : '';
-    return '<tr class="hover:bg-gray-50 border-b border-gray-50 ' + rowOpacity + ' transition-opacity">' +
-      '<td class="p-4">' +
-        '<div class="font-medium text-sm">' + a.name + '</div>' +
-        '<div class="text-xs text-gray-400">' + (a.email || a.id) + '</div>' +
-        '<div class="text-xs text-gray-400">' + (a.phone || '') + '</div>' +
-      '</td>' +
-      '<td class="p-4 text-sm">' + a.service + '</td>' +
-      '<td class="p-4 text-sm">' + a.date + ' <span class="text-gray-400 text-xs">' + a.time + '</span></td>' +
-      '<td class="p-4">' +
-        '<select class="text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white cursor-pointer" onchange="updateApptStatus(' + i + ',this.value)">' +
-          '<option value="Pending"   '  + (a.status==='Pending'   ?'selected':'') + '>Pending</option>'   +
-          '<option value="Confirmed" '  + (a.status==='Confirmed' ?'selected':'') + '>Confirmed</option>' +
-          '<option value="Completed" '  + (a.status==='Completed' ?'selected':'') + '>Completed</option>' +
-          '<option value="Cancelled" '  + (a.status==='Cancelled' ?'selected':'') + '>Cancelled</option>' +
-        '</select>' +
-      '</td>' +
-      '<td class="p-4 text-right">' +
-        '<div class="flex items-center justify-end gap-1">' +
-          '<button onclick="openEditApptModal(' + i + ')" title="Edit appointment" ' +
-            'class="p-1.5 rounded-lg text-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-all">' +
-            '<i class="ph ph-pencil-simple text-base"></i>' +
-          '</button>' +
-          '<button onclick="deleteAppt(' + i + ')" title="Delete appointment" ' +
-            'class="p-1.5 rounded-lg text-red-400 hover:text-red-600 hover:bg-red-50 transition-all">' +
-            '<i class="ph ph-trash text-base"></i>' +
-          '</button>' +
+  // Find price for service
+  function getPrice(serviceName) {
+    var svc = appState.services.find(function(s){ return s.name === serviceName; });
+    return svc ? svc.price : '—';
+  }
+
+  var statusStyles = {
+    'Pending'  : { pill:'background:#fef9c3;color:#854d0e',  dot:'background:#eab308' },
+    'Confirmed': { pill:'background:#dcfce7;color:#166534',  dot:'background:#22c55e' },
+    'Completed': { pill:'background:#dbeafe;color:#1e40af',  dot:'background:#3b82f6' },
+    'Cancelled': { pill:'background:#fee2e2;color:#991b1b',  dot:'background:#ef4444' }
+  };
+
+  cards.innerHTML = appState.appointments.map(function(a, i) {
+    var ss      = statusStyles[a.status] || statusStyles['Pending'];
+    var opacity = a.status === 'Cancelled' ? 'opacity:0.5' : '';
+    var price   = getPrice(a.service);
+
+    // Format date nicely
+    var dateObj = a.date ? new Date(a.date + 'T00:00:00') : null;
+    var dateStr = dateObj ? dateObj.toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short', year:'numeric' }) : a.date;
+
+    return '<div class="rounded-2xl border border-gray-100 bg-gray-50 p-5 flex flex-col gap-4 hover:shadow-md transition-shadow" style="' + opacity + '">' +
+
+      // Header row — name + status pill
+      '<div class="flex items-start justify-between gap-2">' +
+        '<div>' +
+          '<p class="font-semibold text-base">' + a.name + '</p>' +
+          '<p class="text-xs text-gray-400 mt-0.5">' + (a.email || a.id) + '</p>' +
+          (a.phone ? '<p class="text-xs text-gray-400">' + a.phone + '</p>' : '') +
         '</div>' +
-      '</td>' +
-    '</tr>';
+        '<span class="text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0 flex items-center gap-1.5" style="' + ss.pill + '">' +
+          '<span class="w-1.5 h-1.5 rounded-full" style="' + ss.dot + '"></span>' + a.status +
+        '</span>' +
+      '</div>' +
+
+      // Service + price row
+      '<div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 border border-gray-100">' +
+        '<div>' +
+          '<p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-0.5">Service</p>' +
+          '<p class="text-sm font-medium">' + a.service + '</p>' +
+        '</div>' +
+        '<div class="text-right">' +
+          '<p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-0.5">Price</p>' +
+          '<p class="text-base font-bold" style="color:#CC0000">' + price + '</p>' +
+        '</div>' +
+      '</div>' +
+
+      // Date + time row
+      '<div class="flex items-center gap-3 text-sm">' +
+        '<div class="flex items-center gap-1.5 text-gray-600"><i class="ph ph-calendar" style="color:#CC0000"></i>' + dateStr + '</div>' +
+        '<div class="flex items-center gap-1.5 text-gray-600"><i class="ph ph-clock" style="color:#CC0000"></i>' + a.time + '</div>' +
+      '</div>' +
+
+      // Notes
+      (a.notes ? '<p class="text-xs text-gray-500 bg-white rounded-lg px-3 py-2 border border-gray-100 italic">' + a.notes + '</p>' : '') +
+
+      // Status select + actions
+      '<div class="flex items-center gap-2 pt-1 border-t border-gray-100">' +
+        '<select class="flex-1 text-xs border border-gray-200 rounded-lg px-2 py-2 bg-white cursor-pointer" onchange="updateApptStatus(' + i + ',this.value)">' +
+          '<option value="Pending"   ' + (a.status==='Pending'   ?'selected':'') + '>⏳ Pending</option>'   +
+          '<option value="Confirmed" ' + (a.status==='Confirmed' ?'selected':'') + '>✅ Confirmed</option>' +
+          '<option value="Completed" ' + (a.status==='Completed' ?'selected':'') + '>🎉 Completed</option>' +
+          '<option value="Cancelled" ' + (a.status==='Cancelled' ?'selected':'') + '>❌ Cancelled</option>' +
+        '</select>' +
+        '<button onclick="openEditApptModal(' + i + ')" title="Edit" class="p-2 rounded-lg transition-all" style="color:#3b82f6;background:#eff6ff">' +
+          '<i class="ph ph-pencil-simple"></i></button>' +
+        '<button onclick="deleteAppt(' + i + ')" title="Delete" class="p-2 rounded-lg transition-all" style="color:#ef4444;background:#fef2f2">' +
+          '<i class="ph ph-trash"></i></button>' +
+      '</div>' +
+
+    '</div>';
   }).join('');
 }
 
@@ -1736,7 +1852,7 @@ function handleUserLogin(e) {
     currentUser={ name:'Emma Watson', email };
     e.target.reset();
     updateNavForUser();
-    showModal('Welcome Back! 💅',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600 text-lg">Hello, <strong>Emma</strong>! Great to see you.</p><p class="text-sm text-gray-400 mt-2">You're now signed in to The Nails Club.</p></div>`);
+    showModal('Welcome Back! 💅',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#CC0000"></i><p class="text-gray-600 text-lg">Hello, <strong>Emma</strong>! Great to see you.</p><p class="text-sm text-gray-400 mt-2">You're now signed in to The Nails Club.</p></div>`);
     setTimeout(()=>{ closeModal(); window.location.hash='#home'; },1800);
   } else {
     // Shake the form
@@ -1757,7 +1873,7 @@ function handleUserRegister(e) {
   currentUser={ name:`${fname} ${lname}`, email };
   e.target.reset();
   updateNavForUser();
-  showModal('Account Created! 🎉',`<div class="text-center"><i class="ph ph-confetti text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600 text-lg">Welcome to The Nails Club, <strong>${fname}</strong>!</p><p class="text-sm text-gray-400 mt-2">Your account is ready. Time to discover your perfect set.</p></div>`);
+  showModal('Account Created! 🎉',`<div class="text-center"><i class="ph ph-confetti text-5xl block mb-4" style="color:#CC0000"></i><p class="text-gray-600 text-lg">Welcome to The Nails Club, <strong>${fname}</strong>!</p><p class="text-sm text-gray-400 mt-2">Your account is ready. Time to discover your perfect set.</p></div>`);
   setTimeout(()=>{ closeModal(); window.location.hash='#home'; },2000);
 }
 
@@ -1806,7 +1922,7 @@ function handleBookingSubmit(e) {
   appState.appointments.unshift(appt);
   saveGlobalState();
   e.target.reset();
-  showModal('Booking Confirmed! 🎉',`<div class="text-center"><i class="ph ph-calendar-check text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600">Your appointment for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is pending confirmation.</p><p class="text-xs text-gray-400 mt-3">We'll reach out within 24 hours.</p></div>`);
+  showModal('Booking Confirmed! 🎉',`<div class="text-center"><i class="ph ph-calendar-check text-5xl block mb-4" style="color:#CC0000"></i><p class="text-gray-600">Your appointment for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is pending confirmation.</p><p class="text-xs text-gray-400 mt-3">We'll reach out within 24 hours.</p></div>`);
   setTimeout(()=>{ window.location.hash='#home'; },100);
 }
 
@@ -1829,7 +1945,7 @@ function handleOrderSubmit(e) {
   saveGlobalState();
   e.target.reset();
   document.getElementById('co-ref-preview').classList.add('hidden');
-  showModal('Order Received! ✨',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600">Your custom order <strong>${order.id}</strong> has been saved.</p><p class="text-xs text-gray-400 mt-3">We'll contact you to confirm your design details.</p></div>`);
+  showModal('Order Received! ✨',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#CC0000"></i><p class="text-gray-600">Your custom order <strong>${order.id}</strong> has been saved.</p><p class="text-xs text-gray-400 mt-3">We'll contact you to confirm your design details.</p></div>`);
   setTimeout(()=>{ window.location.hash='#home'; },100);
 }
 
@@ -1928,7 +2044,7 @@ window.openEditApptModal = function(i) {
 
       '<div class="flex gap-3 pt-1">' +
         '<button onclick="closeModal()" class="flex-1 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Cancel</button>' +
-        '<button onclick="saveEditAppt(' + i + ')" class="flex-1 py-2.5 rounded-xl text-white text-sm font-semibold hover:opacity-90 transition-opacity" style="background:#6D1B2D"><i class="ph ph-check mr-1"></i>Save Changes</button>' +
+        '<button onclick="saveEditAppt(' + i + ')" class="flex-1 py-2.5 rounded-xl text-white text-sm font-semibold hover:opacity-90 transition-opacity" style="background:#CC0000"><i class="ph ph-check mr-1"></i>Save Changes</button>' +
       '</div>' +
     '</div>', true);
 };
@@ -2074,7 +2190,7 @@ window.openEditServiceModal = function(i) {
         </button>
         <button onclick="saveEditService(${i})"
                 class="flex-1 py-3 rounded-xl text-white text-sm font-semibold hover:opacity-90 transition-opacity"
-                style="background:#6D1B2D">
+                style="background:#CC0000">
           <i class="ph ph-check mr-1"></i> Save Changes
         </button>
       </div>
@@ -2145,7 +2261,7 @@ window.openEditCatalogModal = function(i) {
         </button>
         <button onclick="saveEditCatalog(${i})"
                 class="flex-1 py-3 rounded-xl text-white text-sm font-semibold hover:opacity-90 transition-opacity"
-                style="background:#6D1B2D">
+                style="background:#CC0000">
           <i class="ph ph-check mr-1"></i> Save Changes
         </button>
       </div>
@@ -2184,7 +2300,7 @@ function showToast(msg, type = 'success') {
     document.body.appendChild(t);
   }
   const styles = {
-    success: { bg:'#111',    color:'#fff', icon:'ph-check-circle',   iconColor:'#6D1B2D' },
+    success: { bg:'#111',    color:'#fff', icon:'ph-check-circle',   iconColor:'#CC0000' },
     warn:    { bg:'#92400e', color:'#fff', icon:'ph-warning',         iconColor:'#fbbf24' },
     error:   { bg:'#7f1d1d', color:'#fff', icon:'ph-x-circle',        iconColor:'#fca5a5' }
   };
@@ -2239,7 +2355,7 @@ function initAdminTabs(){
     btn.addEventListener('click',e=>{
       document.querySelectorAll('.admin-tab-btn').forEach(b=>{ b.classList.remove('active-tab'); b.style.background=''; b.style.color=''; });
       document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active-pane'));
-      e.target.classList.add('active-tab'); e.target.style.background='#6D1B2D'; e.target.style.color='white';
+      e.target.classList.add('active-tab'); e.target.style.background='#CC0000'; e.target.style.color='white';
       const pane=document.getElementById(e.target.dataset.target);
       if(pane) pane.classList.add('active-pane');
     });
@@ -2251,7 +2367,7 @@ function initCatalogFilters(){
   document.querySelectorAll('.filter-btn').forEach(btn=>{
     btn.addEventListener('click',e=>{
       document.querySelectorAll('.filter-btn').forEach(b=>{ b.style.cssText=''; });
-      e.target.style.background='#6D1B2D'; e.target.style.color='white'; e.target.style.borderColor='#6D1B2D';
+      e.target.style.background='#CC0000'; e.target.style.color='white'; e.target.style.borderColor='#CC0000';
       renderCatalog(e.target.dataset.filter);
     });
   });
@@ -2294,7 +2410,7 @@ function handleUserLogin(e) {
   currentUser={ name:user.name, email:user.email, phone:user.phone||'', joined:user.joined };
   e.target.reset();
   updateNavForUser();
-  showModal('Welcome Back!',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600 text-lg">Hello, <strong>${user.name.split(' ')[0]}</strong>! Great to see you.</p></div>`);
+  showModal('Welcome Back!',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#CC0000"></i><p class="text-gray-600 text-lg">Hello, <strong>${user.name.split(' ')[0]}</strong>! Great to see you.</p></div>`);
   setTimeout(()=>{ closeModal(); window.location.hash='#user-dashboard'; },1200);
 }
 
@@ -2315,7 +2431,7 @@ function handleUserRegister(e) {
   persistState();
   e.target.reset();
   updateNavForUser();
-  showModal('Account Created!',`<div class="text-center"><i class="ph ph-confetti text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600 text-lg">Welcome to The Nails Club, <strong>${fname}</strong>!</p></div>`);
+  showModal('Account Created!',`<div class="text-center"><i class="ph ph-confetti text-5xl block mb-4" style="color:#CC0000"></i><p class="text-gray-600 text-lg">Welcome to The Nails Club, <strong>${fname}</strong>!</p></div>`);
   setTimeout(()=>{ closeModal(); window.location.hash='#user-dashboard'; },1200);
 }
 
@@ -2352,7 +2468,7 @@ function handleBookingSubmit(e) {
   appState.appointments.unshift(appt);
   persistState();
   e.target.reset();
-  showModal('Booking Confirmed!',`<div class="text-center"><i class="ph ph-calendar-check text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600">Your appointment for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is pending confirmation.</p><p class="text-xs text-gray-400 mt-3">We'll reach out within 24 hours.</p></div>`);
+  showModal('Booking Confirmed!',`<div class="text-center"><i class="ph ph-calendar-check text-5xl block mb-4" style="color:#CC0000"></i><p class="text-gray-600">Your appointment for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is pending confirmation.</p><p class="text-xs text-gray-400 mt-3">We'll reach out within 24 hours.</p></div>`);
   setTimeout(()=>{ window.location.hash=userLoggedIn?'#user-dashboard':'#home'; },100);
 }
 
@@ -2376,7 +2492,7 @@ function handleOrderSubmit(e) {
   persistState();
   e.target.reset();
   document.getElementById('co-ref-preview').classList.add('hidden');
-  showModal('Order Received!',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#6D1B2D"></i><p class="text-gray-600">Your custom order <strong>${order.id}</strong> has been saved.</p><p class="text-xs text-gray-400 mt-3">We'll contact you to confirm your design details.</p></div>`);
+  showModal('Order Received!',`<div class="text-center"><i class="ph ph-sparkle text-5xl block mb-4" style="color:#CC0000"></i><p class="text-gray-600">Your custom order <strong>${order.id}</strong> has been saved.</p><p class="text-xs text-gray-400 mt-3">We'll contact you to confirm your design details.</p></div>`);
   setTimeout(()=>{ window.location.hash=userLoggedIn?'#user-dashboard':'#home'; },100);
 }
 
